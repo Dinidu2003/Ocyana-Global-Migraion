@@ -1,0 +1,3447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skilled Migration - Ocyana Global Migration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .error-input {
+            border: 1px solid #ff0000 !important;
+        }
+        .error-message {
+            color: #ff0000;
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header Styles - Matching main website */
+        .top-bar {
+            background: #0d47a1;
+            color: white;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+        }
+
+        .top-bar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info, .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .contact-info a, .social-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .contact-info a:hover, .social-links a:hover {
+            color: #42a5f5;
+        }
+
+        /* Main Header */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 30px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+         .logo h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0d47a1;
+            margin: 0;
+        }
+
+        .logo span {
+            color: #42a5f5;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #1e88e5;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: #1e88e5;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+            left: 0;
+        }
+
+      .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: linear-gradient(135deg, #0010c2 0%, #0d47a1 100%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .coming-soon-dropdown {
+            background: linear-gradient(135deg, #001ea4 0%, #0000a2 100%);
+            color: rgb(255, 255, 255);
+            padding: 1rem;
+            text-align: center;
+            border-radius: 10px;
+           
+        }
+
+        .coming-soon-dropdown::before {
+            content: '🚀';
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            height: 60vh;
+            background: url('photos/un1.png') center/cover no-repeat, linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            margin-top: 100px;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/skilled-hero.jpg') center/cover;
+            z-index: -1;
+        }
+
+        .page-hero h1 {
+             font-size: 4.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #e8f4fd 50%, #3498db 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    letter-spacing: -2px;
+    line-height: 1.2;
+    position: relative;
+    display: inline-block;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7));
+    padding-bottom: 10px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .page-hero p {
+            font-size: 1.3rem;
+            font-weight: 400;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Country Grid */
+        .country-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .country-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .country-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .country-card img {
+            width: 60px;
+            height: auto;
+            margin: 0 auto 1rem;
+            border-radius: 5px;
+        }
+
+        .country-flag {
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+        }
+
+        .country-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .country-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: #1e88e5;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #1565c0;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1565c0 0%, #0a3a7a 100%);
+        }
+
+        /* Country Details Section */
+        .country-details-section {
+            background: #f5f5f5;
+            padding: 5rem 0;
+        }
+
+        .back-to-countries {
+            margin-bottom: 2rem;
+            background: #666;
+        }
+
+        .back-to-countries:hover {
+            background: #555;
+        }
+
+        .country-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .country-header img {
+            width: 60px;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .country-header h2 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        /* Visa Programs */
+        .program-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .program-card h3 {
+            color: #1e88e5;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .program-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .program-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .conditions h4, .features h4 {
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .conditions ul, .features ul {
+            list-style: none;
+        }
+
+        .conditions li, .features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #666;
+        }
+
+        .conditions li:last-child, .features li:last-child {
+            border-bottom: none;
+        }
+
+        /* Eligibility Section */
+        .eligibility-section {
+            padding: 3rem 0;
+        }
+
+        .eligibility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .eligibility-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .eligibility-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: #1e88e5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .eligibility-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .eligibility-card ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .eligibility-card li {
+            padding: 0.3rem 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Documents Section */
+        .documents-section {
+            padding: 3rem 0;
+            background: white;
+        }
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .document-category {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .document-category h3 {
+            color: #1e88e5;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .document-list {
+            list-style: none;
+        }
+
+        .document-list li {
+            padding: 0.5rem 0;
+            color: #666;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .document-list i {
+            color: #1e88e5;
+            margin-top: 0.2rem;
+        }
+
+        /* Form Styles */
+        /* ============= MODERN CONTACT FORM SECTION STYLES ============= */
+        .contact-form-section {
+            background: linear-gradient(135deg, #f8fafe 0%, #ffffff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(30, 136, 229, 0.03) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-48%, -52%) rotate(180deg); }
+        }
+
+        .form-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .migration-form {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: formFadeIn 0.8s ease-out;
+        }
+
+        .migration-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(30, 136, 229, 0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .migration-form:hover::before {
+            left: 100%;
+        }
+
+        @keyframes formFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+
+        .form-group label::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #1e88e5;
+            transition: width 0.3s ease;
+        }
+
+        .form-group:focus-within label::after {
+            width: 30px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e8f0fe;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #1e88e5;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 
+                0 0 0 4px rgba(30, 136, 229, 0.1),
+                0 8px 25px rgba(30, 136, 229, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .form-group input:hover,
+        .form-group select:hover,
+        .form-group textarea:hover {
+            border-color: #c8e6c9;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(30, 136, 229, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(30, 136, 229, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-group:hover {
+            background: rgba(30, 136, 229, 0.05);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            accent-color: #1e88e5;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 400;
+            cursor: pointer;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .form-submit {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .form-submit .btn {
+            padding: 18px 45px;
+            font-size: 16px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.3);
+            min-width: 250px;
+        }
+
+        .form-submit .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .form-submit .btn:hover::before {
+            left: 100%;
+        }
+
+        .form-submit .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(30, 136, 229, 0.4);
+        }
+
+        .form-submit .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .form-submit .btn i {
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .form-submit .btn:hover i {
+            transform: translateX(3px);
+        }
+
+        /* Error states */
+        .form-group input.error-input,
+        .form-group select.error-input,
+        .form-group textarea.error-input {
+            border-color: #ff5252;
+            background-color: rgba(255, 82, 82, 0.05);
+            animation: shake 0.6s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .error-message {
+            color: #ff5252;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            display: block;
+            opacity: 0;
+            animation: errorFadeIn 0.3s ease-out forwards;
+        }
+
+        @keyframes errorFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Additional Form Animation Classes */
+        .form-group.field-focused {
+            transform: translateY(-2px);
+        }
+
+        .form-group.field-focused label {
+            color: #1e88e5;
+        }
+
+        .form-group.field-filled label {
+            color: #1e88e5;
+            font-weight: 700;
+        }
+
+     
+
+        /* Enhanced File Upload Styles */
+        .file-upload-group {
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            margin-top: 8px;
+        }
+
+        .file-upload-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            border: 2px dashed #c8e6c9;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #f8fffe 0%, #e8f5e8 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-upload-label::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(30, 136, 229, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .file-upload-label:hover::before {
+            left: 100%;
+        }
+
+        .file-upload-label:hover {
+            border-color: #1e88e5;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f0f8ff 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.15);
+        }
+
+        .file-upload-label i {
+            font-size: 32px;
+            color: #1e88e5;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-label:hover i {
+            transform: scale(1.1);
+            color: #0d47a1;
+        }
+
+        .file-upload-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .file-upload-hint {
+            font-size: 13px;
+            color: #666;
+            opacity: 0.8;
+        }
+
+        .file-upload-preview {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            margin-top: 15px;
+            border: 1px solid #4caf50;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+            animation: previewFadeIn 0.3s ease-out;
+        }
+
+        @keyframes previewFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .file-upload-preview .file-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 80%;
+        }
+
+        .remove-file-btn {
+            background: #ff5252;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .remove-file-btn:hover {
+            background: #d32f2f;
+            transform: scale(1.1);
+        }
+
+        .link {
+            color: #1e88e5;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .link:hover {
+            color: #0d47a1;
+            border-bottom-color: #0d47a1;
+        }
+
+        /* Inquiry Section */
+        .inquiry-section {
+            background: white;
+        }
+
+        .inquiry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .inquiry-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .inquiry-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .inquiry-icon {
+            width: 60px;
+            height: 60px;
+            background: #1e88e5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .inquiry-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .inquiry-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .contact-cta {
+            background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .contact-cta h3 {
+            margin-bottom: 1rem;
+        }
+
+        .contact-cta p {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .cta-content {
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        .cta-content h3 {
+            font-size: 2.1rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .cta-content p {
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        .footer {
+            background: #222;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #42a5f5;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #42a5f5;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            width: 35px;
+            height: 35px;
+            background: #42a5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: #1e88e5;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 1rem;
+            text-align: center;
+            color: #888;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: #0d47a1;
+            transform: translateY(-3px);
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            /* --- Improved Mobile Dropdown Styling --- */
+            .dropdown-content {
+                background: linear-gradient(135deg, #0010c2 0%, #0d47a1 100%) !important;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
+                border-radius: 8px !important;
+                transition: all 0.3s ease;
+            }
+            .dropdown-content a {
+                border: none !important;
+                border-bottom: none !important;
+                border-top: none !important;
+                color: #fff !important;
+                background: transparent !important;
+                transition: background 0.25s, color 0.25s, padding-left 0.3s;
+            }
+            .dropdown-content a:hover, .dropdown-content a:focus {
+                background: rgba(255,255,255,0.08) !important;
+                color: #fff !important;
+                padding-left: 18px;
+            }
+            .dropdown.mobile-open .dropdown-content {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                max-height: 500px;
+                transition: max-height 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s cubic-bezier(0.4,0,0.2,1), transform 0.4s cubic-bezier(0.4,0,0.2,1);
+            }
+            .dropdown-content a {
+                opacity: 0;
+                transform: translateY(10px);
+                transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1), transform 0.4s cubic-bezier(0.4,0,0.2,1);
+            }
+            .dropdown.mobile-open .dropdown-content a {
+                opacity: 1;
+                transform: translateY(0);
+                transition-delay: 0.12s;
+            }
+            .main-header {
+                top: 30px;
+            }
+            
+            .page-hero {
+                margin-top: 100px;
+            }
+            
+            /* Top Bar Mobile */
+            .top-bar .container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .contact-info,
+            .social-links {
+                flex-direction: row;
+                gap: 1rem;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .contact-info {
+                order: 1;
+            }
+
+            .social-links {
+                order: 2;
+            }
+
+            .contact-info a, .social-links a {
+                font-size: 0.8rem;
+            }
+
+            .nav-menu {
+                display: flex;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+                z-index: 1000;
+            }
+
+            .nav-menu.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .nav-menu li {
+                margin: 0;
+                text-align: center;
+            }
+
+            .nav-menu a {
+                display: block;
+                padding: 1rem;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .dropdown-content {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: #0d55ff;
+                margin: 0;
+                border-radius: 0;
+                display: none;
+            }
+
+            .dropdown.mobile-open .dropdown-content {
+                display: block;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .mobile-menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .program-details {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .cta-stats {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .cta-content {
+                padding: 2rem 1.5rem;
+                margin-top: 2rem;
+            }
+
+            .cta-content h3 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .cta-content p {
+                font-size: 1.1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .stat-item {
+                padding: 1rem 1.5rem;
+                min-width: auto;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+
+            .stat-label {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-header {
+                top: 30px;
+            }
+            
+            .page-hero {
+                margin-top: 100px;
+            }
+            
+            /* Top Bar Extra Mobile */
+            .top-bar .container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .contact-info,
+            .social-links {
+                flex-direction: row;
+                gap: 0.5rem;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .contact-info {
+                order: 1;
+            }
+
+            .social-links {
+                order: 2;
+            }
+
+            /* CTA Content Mobile Specific */
+            .cta-content {
+                padding: 1.5rem 1rem;
+                margin-top: 1.5rem;
+            }
+
+            .cta-content h3 {
+                font-size: 1.6rem;
+                line-height: 1.3;
+                margin-bottom: 0.8rem;
+            }
+
+            .cta-content p {
+                font-size: 1rem;
+                line-height: 1.5;
+                margin-bottom: 1.5rem;
+            }
+
+            .cta-stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin-top: 1.5rem;
+            }
+
+            .stat-item {
+                padding: 1rem;
+                min-width: auto;
+            }
+
+            .stat-number {
+                font-size: 1.6rem;
+            }
+
+            .stat-label {
+                font-size: 0.9rem;
+            }
+
+            .social-links {
+                order: 2;
+            }
+
+            .contact-info a,
+            .social-links a {
+                font-size: 0.7rem;
+            }
+            
+            .country-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .eligibility-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .documents-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .inquiry-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .migration-form {
+                padding: 30px 25px;
+                border-radius: 15px;
+            }
+
+            .form-submit .btn {
+                width: 100%;
+                padding: 16px;
+                min-width: auto;
+            }
+
+            .migration-form {
+                padding: 25px 20px;
+                margin: 0 10px;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 14px 16px;
+                font-size: 16px;
+            }
+        }
+
+        /* Success Message Styles */
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            animation: successFadeIn 0.3s ease;
+        }
+        
+        .success-message-box {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(33, 150, 243, 0.3);
+            animation: successSlideIn 0.4s ease;
+            position: relative;
+        }
+        
+        .success-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+        
+        .success-title {
+            margin: 0 0 15px 0;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .success-text {
+            margin: 0 0 25px 0;
+            font-size: 16px;
+            line-height: 1.5;
+            opacity: 0.9;
+            color: white;
+        }
+        
+        .success-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .success-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        @keyframes successFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes successSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Links styling */
+        .link {
+            color: #1e88e5;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+     <!-- Header Section -->
+    <header>
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <a href="tel:+94777638715"><i class="fas fa-phone"></i> +94 77 763 8715</a>
+                    <a href="https://mail.google.com/mail/u/0/?fs=1&to=ocyanamigration@gmail.com&su=&body=&tf=cm" target="_blank"><i class="fas fa-envelope"></i> ocyanamigration@gmail.com</a>
+                </div>
+               
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <h1>Ocyana<span>Global</span></h1>
+                </div>
+                <nav>
+                    <ul class="nav-menu" id="navMenu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li class="dropdown">
+                            <a href="#services">Services</a>
+                            <div class="dropdown-content">
+                                <a href="student.html">Student Migration</a>
+                                <a href="parent.html">Parent Migration</a>
+                                <a href="skilled.html" class="active">Skilled Migration</a>
+                                <a href="unskilled.html">Unskilled Migration</a>
+                                <a href="support.html">Language and Support Migration</a>
+                                <a href="doc.html">Visa and Documentation</a>
+                            </div>
+                        </li>
+                        <li><a href="media.html">Media</a></li>
+                        <li class="dropdown">
+                            <a href="#inside-ogm">Inside the OGM </a>
+                            <div class="dropdown-content">
+                                <div class="coming-soon-dropdown">
+                                    <strong>Stay Tuned!</strong><br>
+                                    <small>Coming Soon</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy</a></li>
+                    </ul>
+                    <div class="mobile-menu-toggle" id="mobileToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <div class="page-hero">
+        <div class="container">
+            <h1>Skilled Migration Services</h1>
+            <p>Expert guidance for skilled professionals seeking permanent residency in top destinations worldwide</p>
+        </div>
+    </div>
+
+     <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Choose Your Destination Country</h2>
+                <p>Select a country to explore skilled migration options tailored to your qualifications and experience.</p>
+            </div>
+            
+            <div class="country-grid">
+                <div class="country-card" data-country="australia">
+                    <img src="https://flagcdn.com/w320/au.png" alt="Australia Flag">
+                    <h3>Australia</h3>
+                    <p>Explore skilled migration pathways to Australia including Subclass 189, 190, 491 and 191 visas.</p>
+                    <button class="btn btn-primary explore-btn">Explore Options</button>
+                </div>
+                
+                <div class="country-card" data-country="canada">
+                    <img src="https://flagcdn.com/w320/ca.png" alt="Canada Flag">
+                    <h3>Canada</h3>
+                    <p>Discover Canada's Express Entry system and Provincial Nominee Programs for skilled workers.</p>
+                    <button class="btn btn-primary explore-btn">Explore Options</button>
+                </div>
+                
+                <div class="country-card" data-country="newzealand">
+                    <img src="https://flagcdn.com/w320/nz.png" alt="New Zealand Flag">
+                    <h3>New Zealand</h3>
+                    <p>Learn about New Zealand's Skilled Migrant Category and work to residence pathways.</p><br>
+                    <button class="btn btn-primary explore-btn">Explore Options</button>
+                </div>
+                
+                <div class="country-card" data-country="uk">
+                    <img src="https://flagcdn.com/w320/gb.png" alt="UK Flag">
+                    <h3>United Kingdom</h3>
+                    <p>Understand the UK's Skilled Worker Visa and routes to permanent settlement.</p><br>
+                    <button class="btn btn-primary explore-btn">Explore Options</button>
+                </div>
+                
+                <div class="country-card" data-country="germany">
+                    <img src="https://flagcdn.com/w320/de.png" alt="Germany Flag">
+                    <h3>Germany</h3>
+                    <p>Explore Germany's EU Blue Card and skilled migration options for qualified professionals.</p>
+                    <button class="btn btn-primary explore-btn">Explore Options</button>
+                </div>
+
+                   <div class="country-card" data-country="france">
+                    <img src="https://flagcdn.com/w320/fr.png" alt="France Flag">
+                    <h3>France</h3>
+                    <p>Explore France's Talent Passport and skilled migration options for qualified professionals.</p>
+                    <button class="btn btn-primary explore-btn">Explore Options</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============= COUNTRY DETAILS SECTION ============= -->
+    <section class="country-details-section" id="country-details" style="display: none;">
+        <div class="container">
+            <button class="btn back-to-countries"><i class="fas fa-arrow-left"></i> Back to Countries</button>
+            <div class="country-header">
+                <img id="country-flag" src="" alt="Country Flag">
+                <h2 id="country-name"></h2>
+            </div>
+            
+            <div class="country-content">
+                <div class="visa-programs" id="visa-programs">
+                    <!-- Visa programs will be loaded here dynamically -->
+                </div>
+                
+                <div class="eligibility-section">
+                    <div class="section-header">
+                        <h2>Eligibility Requirements</h2>
+                        <p>General eligibility criteria for skilled migration to <span class="country-name-text"></span></p>
+                    </div>
+                    
+                    <div class="eligibility-grid" id="eligibility-grid">
+                        <!-- Eligibility items will be loaded here dynamically -->
+                    </div>
+                </div>
+                
+                <div class="documents-section">
+                    <div class="section-header">
+                        <h2>Required Documents</h2>
+                        <p>Typical documentation needed for skilled migration applications</p>
+                    </div>
+                    
+                    <div class="documents-grid" id="documents-grid">
+                        <!-- Documents will be loaded here dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Form Section -->
+        <section class="contact-form-section section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Start Your Skilled Migration Journey</h2>
+                    <p>Fill out the form below and our experts will contact you within 24 hours</p>
+                </div>
+                
+                <div class="form-container">
+                    <form id="skilledForm" class="migration-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="middleName">Middle Name</label>
+                                <input type="text" id="middleName" name="middleName">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="sex">Gender *</label>
+                                <select id="sex" name="sex" required>
+                                    <option value="">Select</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">Date of Birth *</label>
+                                <input type="date" id="dob" name="dob" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="maritalStatus">Marital Status *</label>
+                                <select id="maritalStatus" name="maritalStatus" required>
+                                    <option value="">Select</option>
+                                    <option value="single">Single</option>
+                                    <option value="married">Married</option>
+                                    <option value="divorced">Divorced</option>
+                                    <option value="widowed">Widowed</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="currentCountry">Current Country *</label>
+                                <select id="currentCountry" name="currentCountry" required>
+                                    <option value="">Select your country</option>
+                                    <option value="sri-lanka">Sri Lanka</option>
+                                    <option value="india">India</option>
+                                    <option value="pakistan">Pakistan</option>
+                                    <option value="bangladesh">Bangladesh</option>
+                                    <option value="philippines">Philippines</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="educationLevel">Highest Education Level *</label>
+                                <select id="educationLevel" name="educationLevel" required>
+                                    <option value="">Select education level</option>
+                                    <option value="bachelors">Bachelor's Degree</option>
+                                    <option value="masters">Master's Degree</option>
+                                    <option value="phd">PhD/Doctorate</option>
+                                    <option value="diploma">Diploma/Advanced Diploma</option>
+                                    <option value="trade">Trade Qualification</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="occupation">Current Occupation *</label>
+                                <input type="text" id="occupation" name="occupation" placeholder="e.g., Software Engineer, Accountant, Nurse" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="workExperience">Years of Work Experience *</label>
+                                <select id="workExperience" name="workExperience" required>
+                                    <option value="">Select experience</option>
+                                    <option value="0-1">0-1 years</option>
+                                    <option value="1-3">1-3 years</option>
+                                    <option value="3-5">3-5 years</option>
+                                    <option value="5-8">5-8 years</option>
+                                    <option value="8+">8+ years</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="desiredCountry">Preferred Migration Destination *</label>
+                                <select id="desiredCountry" name="desiredCountry" required>
+                                    <option value="">Select destination</option>
+                                    <option value="australia">Australia</option>
+                                    <option value="canada">Canada</option>
+                                    <option value="newzealand">New Zealand</option>
+                                    <option value="uk">United Kingdom</option>
+                                    <option value="germany">Germany</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="englishTest">English Language Test</label>
+                                <select id="englishTest" name="englishTest">
+                                    <option value="">Not taken yet</option>
+                                    <option value="ielts">IELTS</option>
+                                    <option value="pte">PTE Academic</option>
+                                    <option value="toefl">TOEFL</option>
+                                    <option value="oet">OET</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="migrationGoals">Migration Goals & Timeline</label>
+                            <textarea id="migrationGoals" name="migrationGoals" rows="4" placeholder="Describe your migration goals, preferred timeline, and any specific requirements..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="additionalInfo">Additional Information</label>
+                            <textarea id="additionalInfo" name="additionalInfo" rows="4" placeholder="Any additional information about your qualifications, family situation, or questions..."></textarea>
+                        </div>
+
+                        <!-- CV Upload Section -->
+                        <div class="form-row">
+                            <div class="form-group file-upload-group">
+                                <label>Upload Your CV (PDF, DOC, DOCX) *</label>
+                                <div class="file-upload-wrapper">
+                                    <input type="file" id="cvUpload" name="cvUpload" accept=".pdf,.doc,.docx" required class="file-upload-input">
+                                    <label for="cvUpload" class="file-upload-label">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <span class="file-upload-text">Choose a file</span>
+                                        <span class="file-upload-hint">Max 5MB</span>
+                                    </label>
+                                    <div class="file-upload-preview" id="filePreview">
+                                        <span class="file-name"></span>
+                                        <button type="button" class="remove-file-btn" id="removeFileBtn">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="agree" name="agree" required>
+                            <label for="agree">I agree to the <a href="privacy.html" class="link">Terms and Conditions</a> and <a href="privacy.html" class="link">Privacy Policy</a> *</label>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="newsletter" name="newsletter">
+                            <label for="newsletter">I would like to receive updates about skilled migration opportunities</label>
+                        </div>
+                        
+                        <div class="form-submit">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                                Submit Application
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="inquiry-section section" style="background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%); color: #fff;">
+            <div class="container">
+                <div class="section-header" style="color: #fff;">
+                    <h2 style="color: #fff;">Have More Questions About Skilled Migration?</h2>
+                    <p style="color: #e3f2fd;">Our expert consultants are here to help you with personalized guidance</p>
+                </div>
+                <div class="inquiry-content">
+                    <div class="inquiry-grid">
+                        <div class="inquiry-card" style="background: rgba(255,255,255,0.10); color: #fff;">
+                            <div class="inquiry-icon" style="background: #1565c0; color: #fff;">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <h3 style="color: #fff;">Schedule a Call</h3>
+                            <p style="color: #e3f2fd;">Book a free 30-minute consultation with our migration experts to discuss your specific situation.</p>
+                            <a href="tel:+94777638715" class="btn btn-primary">Book Consultation</a>
+                        </div>
+                        <div class="inquiry-card" style="background: rgba(255,255,255,0.10); color: #fff;">
+                            <div class="inquiry-icon" style="background: #1565c0; color: #fff;">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h3 style="color: #fff;">Live Chat Support</h3>
+                            <p style="color: #e3f2fd;">Get instant answers to your questions through our live chat support available 24/7.</p>
+                            <a href="tel:+94777698214" class="btn btn-primary">Start Chat</a>
+                        </div>
+                      
+                    </div>
+                
+                </div>
+            </div>
+        </section>
+    </main>
+
+       <!-- Footer Section -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Ocyana Global</h3>
+                    <p>Your trusted partner for all migration needs. We specialize in helping individuals and families achieve their dreams of living, working, or studying abroad.</p>
+                    <div class="footer-social">
+                       <a href="https://www.facebook.com/share/1ArEouALDr/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/OcyanaMigration" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/ocyana-migration-b9a66636b/ " target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/ocyana_migration?igsh=MXFqbXB6NzR4ODJvZQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="media.html">Media</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="student.html">Student Migration</a></li>
+                        <li><a href="parent.html">Parent Migration</a></li>
+                        <li><a href="skilled.html">Skilled Migration</a></li>
+                        <li><a href="unskilled.html">Unskilled Migration</a></li>
+                        <li><a href="support.html">Language & Interview Support</a></li>
+                        <li><a href="doc.html">Visa & Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> C/G/04,Sir James peiris mawatha, Colombo 02. Postal code 00200</p>
+                    <p><a href="tel:+94777638715"><i class="fas fa-phone"></i> +94 77 763 8715</a></p>
+                    <p><a href="tel:+94777108380"><i class="fas fa-phone"></i> +94 77 710 8380</a></p>
+                    <p><a href="tel:+94777698214"><i class="fas fa-phone"></i> +94 77 769 8214</a></p>
+                    <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=ocyanamigration@gmail.com" target="_blank"><i class="fas fa-envelope"></i> ocyanamigration@gmail.com</a></p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ocyana Global Migration. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <!-- EmailJS Script -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <!-- Skilled Email Handler Script -->
+    <script src="js/skilled-email-handler.js"></script>
+
+    <script>
+        // Function to show success message (used by skilled-email-handler.js)
+        window.showSuccessMessage = function() {
+            // Remove any existing success messages first
+            const existingOverlay = document.getElementById('successMessageOverlay');
+            if (existingOverlay) {
+                existingOverlay.remove();
+            }
+            
+            // Create modal overlay
+            const overlay = document.createElement('div');
+            overlay.id = 'successMessageOverlay';
+            overlay.innerHTML = `
+                <div class="success-overlay">
+                    <div class="success-message-box">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 class="success-title">Application Submitted Successfully!</h3>
+                        <p class="success-text">
+                            Thank you! Your skilled migration inquiry has been submitted successfully. 
+                            Our expert team will review your application and contact you within 24 hours.
+                        </p>
+                        <button class="success-button" onclick="closeSuccessMessage()">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Add inline styles to ensure it works
+            const style = document.createElement('style');
+            style.innerHTML = `
+                .success-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.6);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 99999;
+                    animation: successFadeIn 0.3s ease;
+                }
+                
+                .success-message-box {
+                    background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+                    color: white;
+                    padding: 40px;
+                    border-radius: 15px;
+                    text-align: center;
+                    max-width: 500px;
+                    width: 90%;
+                    box-shadow: 0 20px 40px rgba(33, 150, 243, 0.3);
+                    animation: successSlideIn 0.4s ease;
+                    position: relative;
+                }
+                
+                .success-icon {
+                    font-size: 60px;
+                    margin-bottom: 20px;
+                    color: #4CAF50;
+                }
+                
+                .success-title {
+                    margin: 0 0 15px 0;
+                    font-size: 24px;
+                    font-weight: 700;
+                    color: white;
+                }
+                
+                .success-text {
+                    margin: 0 0 25px 0;
+                    font-size: 16px;
+                    line-height: 1.5;
+                    opacity: 0.9;
+                    color: white;
+                }
+                
+                .success-button {
+                    background: rgba(255, 255, 255, 0.2);
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                    color: white;
+                    padding: 12px 30px;
+                    border-radius: 25px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }
+                
+                .success-button:hover {
+                    background: rgba(255, 255, 255, 0.3);
+                    transform: translateY(-2px);
+                }
+                
+                @keyframes successFadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                
+                @keyframes successSlideIn {
+                    from { transform: translateY(-50px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+            `;
+            
+            document.head.appendChild(style);
+            document.body.appendChild(overlay);
+            
+            // Auto close after 5 seconds
+            setTimeout(() => {
+                closeSuccessMessage();
+            }, 5000);
+            
+            // Close on overlay click
+            overlay.addEventListener('click', function(e) {
+                if (e.target.classList.contains('success-overlay')) {
+                    closeSuccessMessage();
+                }
+            });
+        };
+        
+        // Function to close success message
+        window.closeSuccessMessage = function() {
+            const overlay = document.getElementById('successMessageOverlay');
+            if (overlay) {
+                overlay.style.animation = 'successFadeIn 0.3s ease reverse';
+                setTimeout(() => {
+                    if (overlay.parentNode) {
+                        overlay.remove();
+                    }
+                }, 300);
+            }
+        };
+
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        if (mobileToggle && navMenu) {
+            mobileToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Close mobile menu when clicking on a link (but not dropdown toggles)
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Don't close menu if this is a dropdown toggle
+                if (link.closest('.dropdown') && link.nextElementSibling && 
+                    link.nextElementSibling.classList.contains('dropdown-content')) {
+                    return; // Let the dropdown handler manage this
+                }
+                
+                if (mobileToggle && navMenu) {
+                    mobileToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Handle Mobile Dropdowns
+        const isMobile = () => window.innerWidth <= 768;
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('a');
+            
+            link.addEventListener('click', function(e) {
+                if (isMobile()) {
+                    e.preventDefault();
+                    const dropdownContent = this.nextElementSibling;
+                    
+                    // Close all other dropdowns first
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('mobile-open');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    if (dropdownContent && dropdownContent.classList.contains('dropdown-content')) {
+                        dropdown.classList.toggle('mobile-open');
+                    }
+                }
+            });
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+
+        if (backToTop) {
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        } 
+ const countryData = {
+            australia: {
+                name: "Australia",
+                flag: "https://flagcdn.com/w320/au.png",
+                visaPrograms: [
+                    {
+                        title: "Skilled Independent Visa (Subclass 189)",
+                        description: "This points-based visa is for skilled workers who are not sponsored by an employer, state or territory, or family member. With this visa, you can live and work permanently anywhere in Australia.",
+                        conditions: [
+                            "Applications are by invitation only",
+                            "Must have experience in a nominated occupation on Australia's Eligible Occupations List",
+                            "Obtain a skills assessment from the relevant assessing authority",
+                            "Submit an Expression of Interest (EOI) through SkillSelect",
+                            "Be between 18 and 45 years of age at the time of invitation",
+                            "Meet general Skilled Migration basic requirements (English, health, and character)",
+                            "Score at least 65 points on the Points Test"
+                        ],
+                        features: [
+                            "Permanent visa with full work rights",
+                            "Live and work anywhere in Australia",
+                            "Include eligible family members",
+                            "Pathway to citizenship"
+                        ]
+                    },
+                    {
+                        title: "Skilled Nominated Visa (Subclass 190)",
+                        description: "This is a state-sponsored permanent visa for skilled workers who are nominated by an Australian state or territory government. It allows you to live and work permanently in the nominating state/territory.",
+                        conditions: [
+                            "Have an occupation listed on the State or Territory Skilled Occupation List",
+                            "Obtain a positive skills assessment",
+                            "Submit an Expression of Interest (EOI) via SkillSelect",
+                            "Be nominated by a state or territory",
+                            "Be between 18 and 45 years old",
+                            "Meet basic Skilled Migration requirements",
+                            "Score at least 65 points, including nomination points"
+                        ],
+                        features: [
+                            "Permanent residency pathway",
+                            "Must live in nominating state for first 2 years",
+                            "Include eligible family members",
+                            "Access to Medicare and social services"
+                        ]
+                    },
+                    {
+                        title: "Skilled Work Regional Visa (Subclass 491)",
+                        description: "This is a 5-year provisional visa for skilled workers who are nominated by a state/territory or sponsored by an eligible family member residing in designated regional areas.",
+                        conditions: [
+                            "Have an occupation on the Regional Occupation List",
+                            "Obtain a skills assessment in your occupation",
+                            "Submit an EOI through SkillSelect",
+                            "Be sponsored by family or nominated by a regional state/territory",
+                            "Score at least 65 points including regional points",
+                            "Live and work in regional area for at least 3 years",
+                            "Meet English, health, and character requirements"
+                        ],
+                        features: [
+                            "5-year provisional visa",
+                            "Pathway to PR through Subclass 191",
+                            "Must live and work in regional area",
+                            "Additional points for regional nomination"
+                        ]
+                    },
+                    {
+                        title: "Permanent Residence Visa (Subclass 191)",
+                        description: "This permanent residency visa is for individuals who have held a Subclass 491 or 494 visa and have lived and worked in regional Australia for the required period.",
+                        conditions: [
+                            "Hold a Subclass 491 or 494 visa for at least 3 years",
+                            "Have lived and worked only in designated regional areas",
+                            "Meet minimum taxable income requirements",
+                            "Comply with all conditions of previous visa",
+                            "Meet health and character requirements"
+                        ],
+                        features: [
+                            "Permanent residency status",
+                            "No points test required",
+                            "Full access to Medicare",
+                            "Eligibility for citizenship"
+                        ]
+                    }
+                ],
+                eligibility: [
+                    {
+                        title: "Age Requirements",
+                        icon: "fas fa-birthday-cake",
+                        items: [
+                            "Generally must be under 45 years of age",
+                            "Some exceptions may apply for regional visas",
+                            "Maximum points awarded for ages 25-32"
+                        ]
+                    },
+                    {
+                        title: "Skills Assessment",
+                        icon: "fas fa-clipboard-check",
+                        items: [
+                            "Must have skills assessed by relevant authority",
+                            "Assessment must be for nominated occupation",
+                            "Valid for 3 years for most occupations"
+                        ]
+                    },
+                    {
+                        title: "English Proficiency",
+                        icon: "fas fa-language",
+                        items: [
+                            "Minimum competent English required (IELTS 6.0 or equivalent)",
+                            "Higher scores provide more points",
+                            "Tests accepted: IELTS, PTE, TOEFL, OET, Cambridge"
+                        ]
+                    },
+                    {
+                        title: "Points Test",
+                        icon: "fas fa-calculator",
+                        items: [
+                            "Minimum 65 points required",
+                            "Points for age, English, experience, qualifications",
+                            "Additional points for regional nomination, partner skills"
+                        ]
+                    }
+                ],
+                documents: [
+                    {
+                        title: "Identity Documents",
+                        icon: "fas fa-id-card",
+                        items: [
+                            "Passport bio-data page",
+                            "Birth certificate",
+                            "National ID card",
+                            "Marriage/divorce certificates if applicable"
+                        ]
+                    },
+                    {
+                        title: "Skills & Qualifications",
+                        icon: "fas fa-graduation-cap",
+                        items: [
+                            "Skills assessment result",
+                            "Educational certificates and transcripts",
+                            "Professional qualifications",
+                            "Trade certificates (if applicable)"
+                        ]
+                    },
+                    {
+                        title: "Work Experience",
+                        icon: "fas fa-briefcase",
+                        items: [
+                            "Employment references detailing duties",
+                            "Pay slips or tax records",
+                            "CV/resume",
+                            "Registration/license for regulated professions"
+                        ]
+                    },
+                    {
+                        title: "English Proficiency",
+                        icon: "fas fa-language",
+                        items: [
+                            "English test results (IELTS, PTE, etc.)",
+                            "Evidence of study in English (if claiming points)",
+                            "Translations of non-English documents"
+                        ]
+                    }
+                ]
+            },
+            canada: {
+                name: "Canada",
+                flag: "https://flagcdn.com/w320/ca.png",
+                visaPrograms: [
+                    {
+                        title: "Federal Skilled Worker Program (FSW)",
+                        description: "For skilled workers with foreign work experience who want to immigrate to Canada permanently. Managed under the Express Entry system.",
+                        conditions: [
+                            "1 year continuous skilled work experience (NOC 0,1,2,3)",
+                            "Language proficiency (CLB 7 minimum)",
+                            "Educational Credential Assessment (ECA)",
+                            "Score at least 67/100 on FSW grid",
+                            "Submit Express Entry profile and receive ITA"
+                        ],
+                        features: [
+                            "Permanent residency pathway",
+                            "Processing in 6 months or less",
+                            "No job offer required (but helps)",
+                            "Comprehensive Ranking System used"
+                        ]
+                    },
+                    {
+                        title: "Canadian Experience Class (CEC)",
+                        description: "For temporary foreign workers or international graduates with Canadian work experience who wish to become permanent residents.",
+                        conditions: [
+                            "1 year skilled work experience in Canada (last 3 years)",
+                            "Gained under authorized temporary status",
+                            "Language proficiency (CLB 7 for NOC 0/1, CLB 5 for NOC 2/3)",
+                            "Submit Express Entry profile and receive ITA"
+                        ],
+                        features: [
+                            "Fast track to permanent residence",
+                            "No ECA required for Canadian education",
+                            "No minimum funds requirement",
+                            "Processing in 3-4 months typically"
+                        ]
+                    },
+                    {
+                        title: "Provincial Nominee Program (PNP)",
+                        description: "Allows Canadian provinces to nominate individuals who wish to immigrate to Canada and settle in a particular province.",
+                        conditions: [
+                            "Meet specific province's eligibility criteria",
+                            "Have skills/experience needed in that province",
+                            "Intend to live in nominating province",
+                            "Some programs require job offer",
+                            "Language and education requirements vary"
+                        ],
+                        features: [
+                            "+600 CRS points if nominated through Express Entry",
+                            "Lower CRS score requirements",
+                            "Targeted to provincial labor market needs",
+                            "Pathway to permanent residence"
+                        ]
+                    }
+                ],
+                eligibility: [
+                    {
+                        title: "Express Entry",
+                        icon: "fas fa-tachometer-alt",
+                        items: [
+                            "Must qualify for FSW, CEC, or FSTP",
+                            "Create Express Entry profile",
+                            "Receive Comprehensive Ranking System score",
+                            "Highest scoring candidates receive ITAs"
+                        ]
+                    },
+                    {
+                        title: "Language Proficiency",
+                        icon: "fas fa-language",
+                        items: [
+                            "IELTS or CELPIP for English",
+                            "TEF for French",
+                            "Minimum CLB 7 for FSW",
+                            "Higher scores earn more CRS points"
+                        ]
+                    },
+                    {
+                        title: "Education",
+                        icon: "fas fa-graduation-cap",
+                        items: [
+                            "ECA required for foreign education",
+                            "Canadian education recognized automatically",
+                            "Higher education earns more points",
+                            "Trade certificates may qualify for FSTP"
+                        ]
+                    },
+                    {
+                        title: "Settlement Funds",
+                        icon: "fas fa-money-bill-wave",
+                        items: [
+                            "Proof of funds required for FSW",
+                            "Not required for CEC or with valid job offer",
+                            "Amount depends on family size",
+                           
+                        ]
+                    }
+                ],
+                documents: [
+                    {
+                        title: "Identity & Civil Status",
+                        icon: "fas fa-passport",
+                        items: [
+                            "Passport/travel documents",
+                            "Birth certificates",
+                            "Marriage/divorce certificates",
+                            "Police certificates"
+                        ]
+                    },
+                    {
+                        title: "Language Test Results",
+                        icon: "fas fa-language",
+                        items: [
+                            "IELTS/CELPIP/TEF test results",
+                            "Must be less than 2 years old",
+                            "Include all bands (reading, writing, etc.)",
+                            "Test report form number"
+                        ]
+                    },
+                    {
+                        title: "Work Experience",
+                        icon: "fas fa-briefcase",
+                        items: [
+                            "Reference letters from employers",
+                            "Pay stubs or tax documents",
+                            "Proof of self-employment if applicable",
+                            "Detailed description of duties"
+                        ]
+                    },
+                    {
+                        title: "Education Credentials",
+                        icon: "fas fa-certificate",
+                        items: [
+                            "ECA report (if foreign education)",
+                            "Diplomas/degrees/certificates",
+                            "Transcripts",
+                            "Professional qualifications"
+                        ]
+                    }
+                ]
+            },
+            newzealand: {
+                name: "New Zealand",
+                flag: "https://flagcdn.com/w320/nz.png",
+                visaPrograms: [
+                    {
+                        title: "Skilled Migrant Category Resident Visa",
+                        description: "New Zealand's main permanent residence visa for skilled workers using a points-based system (minimum 180 points).",
+                        conditions: [
+                            "Age 55 or younger",
+                            "Good character and health",
+                            "Competent English (IELTS 6.5 or equivalent)",
+                            "Recognized qualification",
+                            "Skilled employment or job offer in NZ",
+                            "Minimum 180 points"
+                        ],
+                        features: [
+                            "Direct pathway to permanent residence",
+                            "Include partner and dependent children",
+                            "Work and study rights",
+                            "Access to public services"
+                        ]
+                    },
+                    {
+                        title: "Accredited Employer Work Visa (AEWV)",
+                        description: "Primary work visa for foreign nationals with a job offer from an accredited New Zealand employer.",
+                        conditions: [
+                            "Job offer from accredited employer",
+                            "Meet minimum wage requirements",
+                            "Role must be on skills shortage list or meet market rate",
+                            "Health and character requirements",
+                            "Genuine intention to work in NZ"
+                        ],
+                        features: [
+                            "Valid for up to 5 years",
+                            "Pathway to residence after 2 years",
+                            "Can include family members",
+                            "Employer must be accredited"
+                        ]
+                    },
+                    {
+                        title: "Green List Residence Pathways",
+                        description: "Fast-tracked residence for occupations on New Zealand's Green List of high-demand skills.",
+                        conditions: [
+                            "Job offer in Tier 1 or Tier 2 Green List role",
+                            "Meet qualification/experience requirements",
+                            "Tier 1: Can apply for residence immediately",
+                            "Tier 2: After 2 years work in NZ",
+                            "Meet health and character requirements"
+                        ],
+                        features: [
+                            "Faster processing times",
+                            "Clear pathway to residence",
+                            "Includes health and education roles",
+                            "No points test required"
+                        ]
+                    }
+                ],
+                eligibility: [
+                    {
+                        title: "Points System",
+                        icon: "fas fa-calculator",
+                        items: [
+                            "Minimum 180 points required",
+                            "Points for age, qualifications, experience",
+                            "Bonus points for NZ work experience",
+                            "Job offer in skilled employment"
+                        ]
+                    },
+                    {
+                        title: "Age Limit",
+                        icon: "fas fa-user-clock",
+                        items: [
+                            "Generally must be 55 or younger",
+                            "Maximum points for ages 30-39",
+                            "No upper age limit for some work visas",
+                            "Age affects points calculation"
+                        ]
+                    },
+                    {
+                        title: "English Requirement",
+                        icon: "fas fa-language",
+                        items: [
+                            "IELTS 6.5 or equivalent for principal applicant",
+                            "IELTS 5.0 for partners",
+                            "Alternative tests accepted",
+                            "English-speaking background exemptions"
+                        ]
+                    },
+                    {
+                        title: "Health & Character",
+                        icon: "fas fa-heartbeat",
+                        items: [
+                            "Medical and chest x-ray certificates",
+                            "Police certificates from all countries lived",
+                            "Must be of good character",
+                            "Tuberculosis screening required"
+                        ]
+                    }
+                ],
+                documents: [
+                    {
+                        title: "Identity & Character",
+                        icon: "fas fa-id-card",
+                        items: [
+                            "Passport bio-data page",
+                            "Birth certificate",
+                            "Police certificates",
+                            "Marriage/divorce certificates (if applicable)"
+                        ]
+                    },
+                    {
+                        title: "Qualifications",
+                        icon: "fas fa-graduation-cap",
+                        items: [
+                            "Qualifications assessment (NZQA if required)",
+                            "Academic transcripts",
+                            "Professional registration",
+                            "Trade certificates"
+                        ]
+                    },
+                    {
+                        title: "Employment Evidence",
+                        icon: "fas fa-briefcase",
+                        items: [
+                            "Employment contracts",
+                            "Job descriptions",
+                            "Reference letters",
+                            "Pay slips/tax records"
+                        ]
+                    },
+                    {
+                        title: "English Proficiency",
+                        icon: "fas fa-language",
+                        items: [
+                            "IELTS/OET/TOEFL/PTE results",
+                            "Evidence of English-medium education",
+                            "Partner's English test results",
+                            "Translations of non-English documents"
+                        ]
+                    }
+                ]
+            },
+            uk: {
+                name: "United Kingdom",
+                flag: "https://flagcdn.com/w320/gb.png",
+                visaPrograms: [
+                    {
+                        title: "Skilled Worker Visa",
+                        description: "Main visa for skilled workers with a job offer from a UK employer with a sponsor license. Leads to ILR after 5 years.",
+                        conditions: [
+                            "Job offer from approved sponsor",
+                            "Role at appropriate skill level (RQF 3+)",
+                            "Salary meets general threshold (£26,200) or going rate",
+                            "English language at B1 level",
+                            "Maintenance funds unless exempt"
+                        ],
+                        features: [
+                            "Valid for up to 5 years",
+                            "Pathway to ILR after 5 years",
+                            "Can switch jobs/sponsors",
+                            "Dependents allowed"
+                        ]
+                    },
+                    {
+                        title: "Health and Care Worker Visa",
+                        description: "For qualified doctors, nurses and health professionals with job offers from the NHS or approved employers.",
+                        conditions: [
+                            "Job offer from NHS, social care or approved provider",
+                            "Recognized qualification",
+                            "English at B1 level",
+                            "Salary meets going rate for occupation",
+                            "Certificate of Sponsorship"
+                        ],
+                        features: [
+                            "Lower application fee",
+                            "Exempt from Immigration Health Surcharge",
+                            "Fast-track processing",
+                            "Dependents allowed"
+                        ]
+                    },
+                    {
+                        title: "Global Talent Visa",
+                        description: "For recognized or promising leaders in academia, research, arts, culture, or digital technology.",
+                        conditions: [
+                            "Endorsement from approved body",
+                            "Evidence of exceptional talent/promise",
+                            "For arts: international recognition",
+                            "For tech: proven technical skills",
+                            "No job offer required"
+                        ],
+                        features: [
+                            "Flexible work conditions",
+                            "Fast track to settlement (3 years)",
+                            "No maintenance requirement",
+                            "Dependents allowed"
+                        ]
+                    }
+                ],
+                eligibility: [
+                    {
+                        title: "Sponsorship",
+                        icon: "fas fa-handshake",
+                        items: [
+                            "Job offer from licensed sponsor",
+                            "Certificate of Sponsorship",
+                            "Role on shortage occupation list preferred",
+                            "Sponsor must pay immigration skills charge"
+                        ]
+                    },
+                    {
+                        title: "Salary Thresholds",
+                        icon: "fas fa-pound-sign",
+                        items: [
+                            "General threshold: £26,200 or going rate",
+                            "Lower for shortage occupations",
+                            "Higher for experienced workers",
+                            "New entrants: 70% of going rate"
+                        ]
+                    },
+                    {
+                        title: "English Language",
+                        icon: "fas fa-language",
+                        items: [
+                            "B1 level (IELTS 4.0-5.0 equivalent)",
+                            "Test from approved provider",
+                            "Exempt if from majority English-speaking country",
+                            "Degree taught in English may qualify"
+                        ]
+                    },
+                    {
+                        title: "Maintenance Funds",
+                        icon: "fas fa-money-bill-wave",
+                        items: [
+                            "£1,270 in bank for 28 days (unless exempt)",
+                            "Higher amount for dependents",
+                            "Sponsor can certify maintenance",
+                            "A-rated sponsors exempt"
+                        ]
+                    }
+                ],
+                documents: [
+                    {
+                        title: "Identity & Travel",
+                        icon: "fas fa-passport",
+                        items: [
+                            "Current passport",
+                            "Previous passports",
+                            "TB test results (if applicable)",
+                            "Biometric residence permit (if applicable)"
+                        ]
+                    },
+                    {
+                        title: "Sponsorship",
+                        icon: "fas fa-file-signature",
+                        items: [
+                            "Certificate of Sponsorship reference number",
+                            "Job offer letter",
+                            "Detailed job description",
+                            "Proof of advertised salary"
+                        ]
+                    },
+                    {
+                        title: "Qualifications",
+                        icon: "fas fa-certificate",
+                        items: [
+                            "Degree certificates",
+                            "Professional qualifications",
+                            "Transcripts (if required)",
+                            "UK NARIC statement (if required)"
+                        ]
+                    },
+                    {
+                        title: "Financial Evidence",
+                        icon: "fas fa-pound-sign",
+                        items: [
+                            "Bank statements showing maintenance funds",
+                            "Pay slips (if using overseas earnings)",
+                            "Sponsor maintenance certification",
+                            "Evidence of savings"
+                        ]
+                    }
+                ]
+            },
+            france: {
+                name: "France",
+                flag: "https://flagcdn.com/w320/fr.png",
+                visaPrograms: [
+                    {
+                        title: "Talent Passport Visa",
+                        description: "For highly skilled workers, professionals, and entrepreneurs to live and work in France.",
+                        conditions: [
+                            "Recognized qualifications or professional experience",
+                            "Employment contract or business plan",
+                            "Sufficient financial means",
+                            "Health insurance coverage"
+                        ],
+                        features: [
+                            "Valid for up to 4 years",
+                            "Renewable and allows family members",
+                            "Pathway to permanent residence"
+                        ]
+                    }
+                ],
+                eligibility: [
+                    {
+                        title: "Qualifications",
+                        icon: "fas fa-graduation-cap",
+                        items: [
+                            "University degree or equivalent experience",
+                            "Relevant work experience",
+                            "Professional certifications (if applicable)"
+                        ]
+                    },
+                    {
+                        title: "Financial Means",
+                        icon: "fas fa-euro-sign",
+                        items: [
+                            "Proof of sufficient funds",
+                            "Employment contract or business plan",
+                            "Accommodation in France"
+                        ]
+                    }
+                ],
+                documents: [
+                    {
+                        title: "Identity Documents",
+                        icon: "fas fa-id-card",
+                        items: [
+                            "Valid passport",
+                            "Birth certificate",
+                            "Passport photos"
+                        ]
+                    },
+                    {
+                        title: "Qualifications & Work",
+                        icon: "fas fa-briefcase",
+                        items: [
+                            "Degree certificates",
+                            "Employment references",
+                            "CV/resume"
+                        ]
+                    },
+                    {
+                        title: "Financial Evidence",
+                        icon: "fas fa-euro-sign",
+                        items: [
+                            "Bank statements",
+                            "Employment contract or business plan",
+                            "Proof of accommodation"
+                        ]
+                    }
+                ]
+            },
+            germany: {
+                name: "Germany",
+                flag: "https://flagcdn.com/w320/de.png",
+                visaPrograms: [
+                    {
+                        title: "EU Blue Card",
+                        description: "Residence permit for highly qualified non-EU nationals with a German job offer matching their qualifications.",
+                        conditions: [
+                            "University degree recognized in Germany",
+                            "Job offer with minimum salary (€58,400 or €45,552 for shortage occupations)",
+                            "Job must match qualification",
+                            "Health insurance coverage",
+                            "Valid work contract"
+                        ],
+                        features: [
+                            "Valid for up to 4 years",
+                            "Permanent residence after 33 months (21 with B1 German)",
+                            "Family reunification rights",
+                            "Freedom to travel in Schengen area"
+                        ]
+                    },
+                    {
+                        title: "Job Seeker Visa",
+                        description: "Allows qualified professionals to enter Germany for up to 6 months to search for employment matching their qualifications.",
+                        conditions: [
+                            "Recognized university degree",
+                            "Proof of financial means (€947/month)",
+                            "Health insurance coverage",
+                            "Relevant qualifications for German job market",
+                            "Accommodation arrangements"
+                        ],
+                        features: [
+                            "6-month stay to find employment",
+                            "Cannot work during this period",
+                            "Convert to work visa when job found",
+                            "No extension beyond 6 months"
+                        ]
+                    },
+                    {
+                        title: "Skilled Worker Visa",
+                        description: "For qualified professionals with vocational training recognized in Germany who have a job offer.",
+                        conditions: [
+                            "Recognized vocational qualification or degree",
+                            "Concrete job offer in Germany",
+                            "Salary meets collective agreement standards",
+                            "Approval from Federal Employment Agency",
+                            "Health insurance coverage"
+                        ],
+                        features: [
+                            "Tied to specific employer initially",
+                            "Can change jobs after 2 years",
+                            "Pathway to permanent residence",
+                            "Family can join immediately"
+                        ]
+                    }
+                ],
+                eligibility: [
+                    {
+                        title: "Qualifications",
+                        icon: "fas fa-graduation-cap",
+                        items: [
+                            "Recognized university degree or vocational training",
+                            "Anabin database check for foreign degrees",
+                            "Professional recognition for regulated professions",
+                            "Minimum 2 years vocational training"
+                        ]
+                    },
+                    {
+                        title: "Employment Offer",
+                        icon: "fas fa-briefcase",
+                        items: [
+                            "Concrete job offer matching qualifications",
+                            "Salary meets Blue Card or standard thresholds",
+                            "Approval from Federal Employment Agency",
+                            "Employer must justify hiring non-EU worker"
+                        ]
+                    },
+                    {
+                        title: "Language Skills",
+                        icon: "fas fa-language",
+                        items: [
+                            "No German required for Blue Card",
+                            "B1 German for permanent residence",
+                            "Job may require specific language level",
+                            "Integration course available"
+                        ]
+                    },
+                    {
+                        title: "Financial Means",
+                        icon: "fas fa-euro-sign",
+                        items: [
+                            "Proof of funds for job seekers (€947/month)",
+                            "Salary must cover living costs",
+                            "Health insurance coverage mandatory",
+                            "No access to social benefits initially"
+                        ]
+                    }
+                ],
+                documents: [
+                    {
+                        title: "Identity & Civil Status",
+                        icon: "fas fa-id-card",
+                        items: [
+                            "Valid passport",
+                            "Birth certificate",
+                            "Marriage/divorce certificates",
+                            "Passport photos"
+                        ]
+                    },
+                    {
+                        title: "Qualifications",
+                        icon: "fas fa-certificate",
+                        items: [
+                            "Degree certificates with transcripts",
+                            "Anabin recognition statement",
+                            "Professional licenses",
+                            "CV with complete education/work history"
+                        ]
+                    },
+                    {
+                        title: "Employment Documents",
+                        icon: "fas fa-file-contract",
+                        items: [
+                            "Detailed job offer/contract",
+                            "Job description",
+                            "Employer information",
+                            "Salary details"
+                        ]
+                    },
+                    {
+                        title: "Other Requirements",
+                        icon: "fas fa-clipboard-list",
+                        items: [
+                            "Health insurance confirmation",
+                            "Proof of accommodation",
+                            "Financial proof (for job seekers)",
+                            "German language certificates (if applicable)"
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // DOM Elements
+        const countryCards = document.querySelectorAll('.country-card');
+        const countryDetailsSection = document.getElementById('country-details');
+        const countrySelectionSection = document.querySelector('.section');
+        const backToCountriesBtn = document.querySelector('.back-to-countries');
+        const countryNameElement = document.getElementById('country-name');
+        const countryFlagElement = document.getElementById('country-flag');
+        const visaProgramsContainer = document.getElementById('visa-programs');
+        const eligibilityGrid = document.getElementById('eligibility-grid');
+        const documentsGrid = document.getElementById('documents-grid');
+        const countryNameTextElements = document.querySelectorAll('.country-name-text');
+
+        // Event Listeners
+        countryCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const country = this.getAttribute('data-country');
+                showCountryDetails(country);
+            });
+        });
+
+        backToCountriesBtn.addEventListener('click', function() {
+            countryDetailsSection.style.display = 'none';
+            countrySelectionSection.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Show Country Details Function
+        function showCountryDetails(country) {
+            const data = countryData[country];
+            
+            // Update country header
+            countryNameElement.textContent = data.name;
+            countryFlagElement.src = data.flag;
+            countryFlagElement.alt = `${data.name} Flag`;
+            
+            // Update all country name placeholders
+            countryNameTextElements.forEach(el => {
+                el.textContent = data.name;
+            });
+            
+            // Generate Visa Programs HTML
+            visaProgramsContainer.innerHTML = '';
+            data.visaPrograms.forEach(program => {
+                const programHTML = `
+                    <div class="program-card">
+                        <h3>${program.title}</h3>
+                        <p class="program-description">${program.description}</p>
+                        
+                        <div class="program-details">
+                            <div class="conditions">
+                                <h4><i class="fas fa-clipboard-check"></i> Application Conditions</h4>
+                                <ul>
+                                    ${program.conditions.map(condition => `<li>${condition}</li>`).join('')}
+                                </ul>
+                            </div>
+                            
+                            <div class="features">
+                                <h4><i class="fas fa-star"></i> Key Features</h4>
+                                <ul>
+                                    ${program.features.map(feature => `<li>${feature}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                visaProgramsContainer.innerHTML += programHTML;
+            });
+            
+            // Generate Eligibility HTML
+            eligibilityGrid.innerHTML = '';
+            data.eligibility.forEach(item => {
+                const eligibilityHTML = `
+                    <div class="eligibility-card">
+                        <div class="card-icon">
+                            <i class="${item.icon}"></i>
+                        </div>
+                        <h3>${item.title}</h3>
+                        <ul>
+                            ${item.items.map(point => `<li>${point}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+                eligibilityGrid.innerHTML += eligibilityHTML;
+            });
+            
+            // Generate Documents HTML
+            documentsGrid.innerHTML = '';
+            data.documents.forEach(category => {
+                const documentsHTML = `
+                    <div class="document-category">
+                        <h3><i class="${category.icon}"></i> ${category.title}</h3>
+                        <ul class="document-list">
+                            ${category.items.map(item => `<li><i class="fas fa-check"></i> ${item}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+                documentsGrid.innerHTML += documentsHTML;
+            });
+              // Show the details section and hide the selection section
+            countrySelectionSection.style.display = 'none';
+            countryDetailsSection.style.display = 'block';
+            
+            // Added setTimeout to ensure the section is visible before scrolling
+            setTimeout(() => {
+                countryDetailsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+       
+
+    // Initialize modal functionality when DOM is loaded
+    setupProgramModals();
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href && href.length > 1) {
+                const target = document.querySelector(href);  
+                if (target) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+
+    // Form field validation
+    document.querySelectorAll('input, select, textarea').forEach(field => {
+        field.addEventListener('input', function() {
+            if (this.value.trim() !== '') {
+                this.style.borderColor = '#e0e0e0';
+            }
+        });
+    });
+
+    // File upload handled by enhanced script below
+
+// Program Modal Functionality
+function setupProgramModals() {
+    const modal = document.getElementById('programModal');
+    const closeBtn = document.querySelector('.close-modal');
+    
+    if (!modal || !closeBtn) {
+        console.error('Modal elements not found');
+        return;
+    }
+    
+    // Close modal when clicking X or outside
+    closeBtn.addEventListener('click', closeModal);
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Close with ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.style.display === 'block') {
+            closeModal();
+        }
+    });
+    
+    // Set up view program buttons (this will be called after university cards are created)
+    setupViewProgramButtons();
+}
+
+function setupViewProgramButtons() {
+    const viewProgramBtns = document.querySelectorAll('.university-card .btn-primary');
+    console.log('Setting up', viewProgramBtns.length, 'program buttons');
+    
+    viewProgramBtns.forEach(btn => {
+        // Remove any existing event listeners to prevent duplicates
+        btn.removeEventListener('click', handleViewProgramClick);
+        btn.addEventListener('click', handleViewProgramClick);
+    });
+}
+
+function handleViewProgramClick(e) {
+    e.preventDefault();
+    console.log('View Programs button clicked');
+    
+    const card = this.closest('.university-card');
+    if (!card) {
+        console.error('University card not found');
+        return;
+    }
+    
+    const uniName = card.querySelector('.university-info h3')?.textContent || 'University Name';
+    const uniLocationElement = card.querySelector('.university-meta span');
+    const uniLocation = uniLocationElement ? uniLocationElement.textContent.replace(/.*\s/, '') : 'Location';
+      // Update modal content
+    document.getElementById('modalUniversityName').textContent = uniName;
+    document.getElementById('modalUniversityLocation').textContent = uniLocation;
+    
+    openModal();
+}
+
+function openModal() {
+    const modal = document.getElementById('programModal');
+    if (modal) {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        console.log('Modal opened');
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById('programModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        console.log('Modal closed');
+    }
+}
+
+// Call this function after loading university data
+function showUniversities(country) {
+    // ... your existing showUniversities code ...
+    
+    // After adding university cards to DOM:
+    setupProgramModals();
+}
+
+        // Success Message Functions
+        function showSuccessMessage() {
+            console.log('showSuccessMessage function called'); // Debug log
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'success-overlay';
+            overlay.innerHTML = `
+                <div class="success-message-box">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2 class="success-title">Application Submitted Successfully!</h2>
+                    <p class="success-text">
+                        Thank you! Your skilled migration inquiry has been submitted successfully. 
+                        Our expert team will review your application and contact you within 24 hours.
+                    </p>
+                    <button class="success-button" onclick="closeSuccessMessage()">
+                        Continue
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(overlay);
+            console.log('Success message modal appended to body'); // Debug log
+        }
+
+        function closeSuccessMessage() {
+            console.log('closeSuccessMessage function called'); // Debug log
+            const overlay = document.querySelector('.success-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+
+        // Enhanced Form field validation and animations
+        document.querySelectorAll('input, select, textarea').forEach(field => {
+            field.addEventListener('input', function() {
+                if (this.value.trim() !== '') {
+                    this.style.borderColor = '#e0e0e0';
+                }
+            });
+
+            // Add focus animations
+            field.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+                this.parentElement.classList.add('field-focused');
+            });
+
+            field.addEventListener('blur', function() {
+                this.parentElement.classList.remove('focused');
+                this.parentElement.classList.remove('field-focused');
+                if (this.value.trim() === '') {
+                    this.parentElement.classList.remove('field-filled');
+                } else {
+                    this.parentElement.classList.add('field-filled');
+                }
+            });
+            
+            // Check if field is pre-filled on page load
+            if (field.value.trim() !== '') {
+                field.parentElement.classList.add('field-filled');
+            }
+        });
+
+        // Enhanced File Upload functionality with animations
+        const fileInput = document.getElementById('cvUpload');
+        const filePreview = document.getElementById('filePreview');
+        const fileName = filePreview?.querySelector('.file-name');
+        const removeFileBtn = document.getElementById('removeFileBtn');
+
+        if (fileInput && filePreview && fileName && removeFileBtn) {
+            fileInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    fileName.textContent = file.name;
+                    filePreview.style.display = 'flex';
+                    
+                    // Add success animation
+                    filePreview.style.animation = 'none';
+                    filePreview.offsetHeight; // Trigger reflow
+                    filePreview.style.animation = 'previewFadeIn 0.3s ease-out';
+                }
+            });
+
+            removeFileBtn.addEventListener('click', function() {
+                fileInput.value = '';
+                filePreview.style.display = 'none';
+            });
+        }
+
+        // Form submission animation
+        const form = document.getElementById('skilledForm');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const submitBtn = form.querySelector('.btn[type="submit"]');
+                if (submitBtn) {
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+                    submitBtn.disabled = true;
+                    
+                    // Reset after 3 seconds if no other handler takes over
+                    setTimeout(() => {
+                        if (submitBtn.disabled) {
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.disabled = false;
+                        }
+                    }, 3000);
+                }
+            });
+        }
+
+        // Progressive form reveal animation
+        function animateFormGroups() {
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach((group, index) => {
+                group.style.opacity = '0';
+                group.style.transform = 'translateY(20px)';
+                group.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                
+                setTimeout(() => {
+                    group.style.opacity = '1';
+                    group.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        }
+
+        // Initialize form animations when form comes into view
+        const formSection = document.querySelector('.contact-form-section');
+        if (formSection) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateFormGroups();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            observer.observe(formSection);
+        }
+
+        // Form submission handler with success message
+        // Note: This is now handled by skilled-email-handler.js
+        // The email handler will call showSuccessMessage() after successful email sending
+
+    </script>
+    
+</body>
+</html>

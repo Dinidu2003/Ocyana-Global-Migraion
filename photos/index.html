@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocyana Global Migration - Your Trusted Partner in Overseas Migration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f0c29 0%, #313862 50%, #24243e 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        .loading-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .loading-title {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #1e88e5, #42a5f5, #1e88e5);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 2s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+
+        .loading-subtitle {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .loading-orb {
+            width: 80px;
+            height: 80px;
+            border: 3px solid rgba(66, 165, 245, 0.3);
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        .loading-orb::before {
+            content: '✈️';
+            font-size: 2rem;
+            animation: rotate 3s linear infinite;
+        }
+
+        .progress-container {
+            width: 300px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #1e88e5, #42a5f5);
+            border-radius: 3px;
+            transition: width 0.1s ease;
+        }
+
+        .progress-text {
+            color: white;
+            font-size: 1rem;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Header Styles */
+        .top-bar {
+            background: #0d47a1;
+            color: white;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+        }
+
+        .top-bar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info, .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .contact-info a, .social-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .contact-info a:hover, .social-links a:hover {
+            color: #42a5f5;
+        }
+
+        /* Main Header */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 35px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+       .logo h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0d47a1;
+    margin: 0;
+}
+
+     .logo span {
+    color: #42a5f5;
+}
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #1e88e5;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: #1e88e5;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: linear-gradient(135deg, #0010c2 0%, #0d47a1 100%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .coming-soon-dropdown {
+            background: linear-gradient(135deg, #001ea4 0%, #0000a2 100%);
+            color: rgb(255, 255, 255);
+            padding: 1rem;
+            text-align: center;
+            border-radius: 10px;
+           
+        }
+
+        .coming-soon-dropdown::before {
+            content: '🚀';
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 85vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                        url('photos/header.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem 1rem;
+            margin-top: 112px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            max-width: 650px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+            line-height: 1.6;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInUp 1s ease-out 0.4s both;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 160px;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #1e88e5;
+            color: white;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #0d47a1;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(30, 136, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #1e88e5;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .consultation-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .consultation-options {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(30, 136, 229, 0.4);
+            padding: 1.5rem;
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .consultation-dropdown:hover .consultation-options {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .consultation-option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .consultation-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .consultation-option i {
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1e88e5, #42a5f5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .learn-more {
+            color: #1e88e5;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .learn-more:hover {
+            color: #0d47a1;
+        }
+
+        /* About Section */
+        .about {
+            background: #f5f5f5;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .about-text .lead {
+            font-size: 1.3rem;
+            color: #1e88e5;
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1e88e5;
+            display: block;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Countries Section */
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .country-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .country-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .country-flag {
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .country-info {
+            padding: 1.5rem;
+        }
+
+        .country-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: #333;
+        }
+
+        .country-info p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: #f5f5f5;
+        }
+
+        .testimonials-slider {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            display: none;
+        }
+
+        .testimonial-card.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .testimonial-rating {
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-rating .star {
+            color: #ffc107;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #555;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e88e5, #42a5f5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .author-info h4 {
+            margin-bottom: 0.3rem;
+            color: #333;
+        }
+
+        .author-info span {
+            color: #1e88e5;
+            font-size: 0.9rem;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .slider-btn {
+            background: #1e88e5;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .slider-btn:hover {
+            background: #0d47a1;
+            transform: scale(1.1);
+        }
+
+        .slider-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ccc;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .dot.active {
+            background: #1e88e5;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .team-image {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-social {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 136, 229, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .team-card:hover .team-social {
+            opacity: 1;
+        }
+
+        .team-social a {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e88e5;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .team-social a:hover {
+            transform: scale(1.1);
+        }
+
+        .team-info {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .team-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .team-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-white {
+            background: white;
+            color: #1e88e5;
+        }
+
+        .btn-white:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            background: #f5f5f5;
+        }
+
+        .newsletter-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: #1e88e5;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #1e88e5, #42a5f5);
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .story-text p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.signature {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    padding: 20px;
+    background: var(--light-gray);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.signature img {
+    width: 150px;
+    height: auto;
+    margin-right: 25px;
+    object-fit: contain;
+}
+
+.signature-name {
+    border-left: 3px solid var(--primary-color);
+    padding-left: 25px;
+}
+
+.signature-name h4 {
+    font-size: 24px;
+    color: var(--dark-blue);
+    margin-bottom: 8px;
+}
+
+.signature-name p {
+    font-size: 16px;
+    color: var(--gray);
+    font-weight: 500;
+}
+
+/* Responsive Signature */
+@media (max-width: 768px) {
+    .signature {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+
+    .signature img {
+        width: 120px;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .signature-name {
+        border-left: none;
+        border-top: 3px solid var(--primary-color);
+        padding-left: 0;
+        padding-top: 15px;
+    }
+}
+
+        /* Footer */
+        .footer {
+            background: #222;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #42a5f5;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #42a5f5;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            width: 35px;
+            height: 35px;
+            background: #42a5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: #1e88e5;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 1rem;
+            text-align: center;
+            color: #888;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: #0d47a1;
+            transform: translateY(-3px);
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .main-header {
+                top: 35px;
+            }
+            
+            .hero {
+                margin-top: 105px;
+                height: 100vh;
+                padding: 0 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .nav-menu {
+                display: flex;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+                z-index: 1000;
+            }
+
+            .nav-menu.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .nav-menu li {
+                margin: 0;
+                text-align: center;
+            }
+
+            .nav-menu a {
+                display: block;
+                padding: 1rem;
+                /* Removed border-bottom to eliminate white separator lines */
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .dropdown-content {
+                position: static;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                box-shadow: none;
+               background: linear-gradient(135deg, #0010c2 0%, #0d47a1 100%) !important;
+                margin: 0;
+                border-radius: 0;
+                display: block;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .dropdown.mobile-open .dropdown-content {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                max-height: 500px;
+                /* Large enough for all items */
+                transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .dropdown-content a {
+                opacity: 0;
+                transform: translateY(10px);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                /* No border-bottom for dropdown items */
+            }
+
+            .dropdown.mobile-open .dropdown-content a {
+                opacity: 1;
+                transform: translateY(0);
+                transition-delay: 0.1s;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+                line-height: 1.3;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+                padding: 0;
+                line-height: 1.5;
+            }
+
+            .hero-buttons {
+                gap: 1rem;
+                width: 100%;
+                max-width: 320px;
+                margin: 0 auto;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+
+            .about-content,
+            .newsletter-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                gap: 1rem;
+                max-width: 100%;
+                margin: 0 auto;
+            }
+
+            .newsletter-input {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            .newsletter-form .btn {
+                width: 80%;
+                margin: 0 auto;
+                max-width: 200px;
+            }
+
+            .services-grid,
+            .countries-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info,
+            .social-links {
+                flex-direction: row;
+                gap: 1rem;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .contact-info {
+                order: 1;
+            }
+
+            .social-links {
+                order: 2;
+            }
+
+            .top-bar .container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .consultation-options {
+                position: static;
+                transform: none;
+                margin-top: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .top-bar .container {
+                padding: 0 0.5rem;
+            }
+
+            .contact-info,
+            .social-links {
+                font-size: 0.8rem;
+            }
+
+            .contact-info a,
+            .social-links a {
+                gap: 0.2rem;
+            }
+
+            .main-header {
+                top: 35px;
+            }
+
+            .hero {
+                height: 100vh;
+                padding: 0 0.5rem;
+                margin-top: 105px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .hero-content {
+                transform: none;
+                margin: 0 auto;
+                width: 100%;
+                max-width: 95%;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+                line-height: 1.4;
+                margin-bottom: 1rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+                padding: 0;
+            }
+
+            .hero-buttons {
+                gap: 0.8rem;
+                max-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <!-- Header -->
+   <header>
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <a href="tel:+94777108380"><i class="fas fa-phone"></i> +94 77 710 8380</a>
+                    <a href="https://mail.google.com/mail/u/0/?fs=1&to=ocyanamigration@gmail.com&su=&body=&tf=cm" target="_blank"><i class="fas fa-envelope"></i> ocyanamigration@gmail.com</a>
+                </div>
+               
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <h1>Ocyana<span>Global</span></h1>
+                </div>
+                <nav>
+                    <ul class="nav-menu" id="navMenu">
+                        <li><a href="index.html" class="active">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li class="dropdown">
+                            <a href="#services">Services</a>
+                            <div class="dropdown-content">
+                                <a href="student.html">Student Migration</a>
+                                <a href="parent.html">Parent Migration</a>
+                                <a href="skilled.html">Skilled Migration</a>
+                                <a href="unskilled.html">Unskilled Migration</a>
+                                <a href="support.html">Language and Support Migration</a>
+                                <a href="doc.html">Visa and Documentation</a>
+                            </div>
+                        </li>
+                        <li><a href="media.html">Media</a></li>
+                        <li class="dropdown">
+                            <a href="#inside-ogm">Inside the OGM</a>
+                            <div class="dropdown-content">
+                                <div class="coming-soon-dropdown">
+                                    <strong>Stay Tuned!</strong><br>
+                                    <small>Coming Soon</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href=contact.html>Contact</a></li>
+                        <li><a href="privacy.html">Privacy</a></li>
+                    </ul>
+                    <div class="mobile-menu-toggle" id="mobileToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Your Trusted Partner in Overseas Migration</h1>
+            <p>We help individuals and families achieve their dreams of living, working, or studying abroad</p>
+            <div class="hero-buttons">
+                <a href="#services" class="btn btn-primary">Our Services</a>
+                <div class="consultation-dropdown">
+                    <a href="#" class="btn btn-secondary">Free Consultation</a>
+                    <div class="consultation-options">
+                        <a href="https://wa.me/94777698214" class="consultation-option" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <strong>WhatsApp</strong><br>
+                                <small>Quick chat support</small>
+                            </div>
+                        </a>
+                        <a href="tel:94777108380" class="consultation-option">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Call Us</strong><br>
+                                <small>+94 77 710 8380</small>
+                            </div>
+                        </a>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ocyanamigration@gmail.com" target="_blank" class="consultation-option">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email</strong><br>
+                                <small>Send us a message</small>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Comprehensive migration solutions tailored to your needs</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Parent Migration</h3>
+                    <p>Reuniting families is at the heart of what we do. We handle visa applications, documentation, and settlement support.</p>
+                    <a href="parent.html" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Student Migration</h3>
+                    <p>Pursue higher education at top international universities with our assistance in university selection and visa applications.</p>
+                    <a href="student.html" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Skilled Migration</h3>
+                    <p>Unlock global job opportunities with our skilled migration services, eligibility assessment, and employer connections.</p>
+                    <a href="skilled.html" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <h3>Unskilled Migration</h3>
+                    <p>For those seeking employment opportunities abroad, we offer assistance with visa processing and job placements.</p>
+                    <a href="unskilled.html" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-passport"></i>
+                    </div>
+                    <h3>Visa & Documentation</h3>
+                    <p>Our team ensures accuracy in documentation, minimizing delays and increasing approval chances.</p>
+                    <a href="doc.html" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Language & Interview Support</h3>
+                    <p>Certified training for IELTS/PTE and expert interview prep to help you meet visa and job requirements with confidence.</p>
+                    <a href="support.html" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About Ocyana Global Migration</h2>
+                    <p class="lead">A trusted partner for migration solutions</p>
+                    <p>At Ocyana Global Migration, we specialize in helping individuals and families achieve their dreams of living, working, or studying abroad. Whether you are a parent looking to reunite with your children overseas, a skilled professional seeking better opportunities, or a student aspiring for world-class education, we are here to guide you every step of the way.</p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number">1+</span>
+                            Years Experience
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">100+</span>
+                            Successful Migrations
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">95%</span>
+                            Approval Rate
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">20+</span>
+                            Country Destinations
+                        </div>
+                    </div>
+                    <a href="about.html" class="btn btn-primary">Learn More About Us</a>
+                </div>
+                <div class="about-image">
+                    <img src="photos/about.png" alt="About Ocyana Global Migration">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countries Section -->
+    <section class="section" id="countries">
+        <div class="container">
+            <h2 class="section-title">Countries We Specialize In</h2>
+            <p class="section-subtitle">Your gateway to global opportunities</p>
+            <div class="countries-grid">
+                <div class="country-card">
+                    <div class="country-flag">
+                        <img src="photos/aus.png" alt="Australia" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;">
+                    </div>
+                    <div class="country-info">
+                        <h3>Australia</h3>
+                        <p>High quality of life, excellent education, and numerous work opportunities</p>
+                    </div>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">
+                        <img src="photos/canada.png" alt="Canada" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;">
+                    </div>
+                    <div class="country-info">
+                        <h3>Canada</h3>
+                        <p>Welcoming immigration policies and strong multicultural communities</p>
+                    </div>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">
+                        <img src="photos/uk.png" alt="United Kingdom" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;">
+                    </div>
+                    <div class="country-info">
+                        <h3>United Kingdom</h3>
+                        <p>Rich history, prestigious education, and diverse career prospects</p>
+                    </div>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">
+                        <img src="photos/usa.png" alt="United States" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;">
+                    </div>
+                    <div class="country-info">
+                        <h3>United States</h3>
+                        <p>Innovation hub with world-leading universities and corporations</p>
+                    </div>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">
+                        <img src="photos/eur.png" alt="Europe" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;">
+                    </div>
+                    <div class="country-info">
+                        <h3>Europe</h3>
+                        <p>Cultural diversity, excellent healthcare, and robust economies</p>
+                    </div>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">
+                        <img src="photos/new.png" alt="New Zealand" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;">
+                    </div>
+                    <div class="country-info">
+                        <h3>New Zealand</h3>
+                        <p>Breathtaking landscapes, work-life balance, and friendly communities</p>
+                    </div>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">
+                        <img src="photos/ire.png" alt="Italy" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;">
+                    </div>
+                    <div class="country-info">
+                        <h3>Italy</h3>
+                        <p>Iconic lifestyle, renowned cuisine, and vibrant cultural heritage</p>
+                    </div>
+                </div>
+                <div class="country-card">
+                    <div class="country-flag">
+                        <img src="photos/fra.png" alt="France" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;">
+                    </div>
+                    <div class="country-info">
+                        <h3>France</h3>
+                        <p>Fashion capital with rich culture and excellent educational institutions</p>
+                    </div>
+                </div>
+                 
+                 <div class="country-card">
+                <div class="country-flag">
+                    <img src="photos/ger.webp" alt="Germany Flag" style="width: 100%; height: 100%; object-fit: cover; border-radius: 5px;">
+                </div>
+                <div class="country-info">
+                    <h3>Germany</h3>
+                    <p>Thriving economy, rich culture, and world-class education opportunities</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Clients Say</h2>
+            <p class="section-subtitle">Success stories from people we've helped migrate</p>
+            <div class="testimonials-slider">
+                <div class="testimonial-card active">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                    </div>
+                    <p class="testimonial-text">"Ocyana Global Migration made my dream of studying in the UK a reality. Their expert guidance throughout the visa process was invaluable, and I couldn't be happier with the outcome."</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="photos/sis.jpg" alt="Dinithi Galahitiyawa" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        </div>
+                        <div class="author-info">
+                            <h4>Dinithi Galahitiyawa</h4>
+                            <span>Student Visa, United Kingdom</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                    </div>
+                    <p class="testimonial-text">"Thanks to Ocyana Global, I successfully migrated to Canada as a skilled professional. Their team's professionalism and attention to detail made all the difference in my application."</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="photos/mathe.jpg" alt="Matheesha Krishan" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        </div>
+                        <div class="author-info">
+                            <h4>Matheesha Krishan</h4>
+                            <span>Skilled Migration, Canada</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star star"></i>
+                        <i class="fas fa-star-half-alt star"></i>
+                    </div>
+                    <p class="testimonial-text">"The team at Ocyana Global provided excellent support for my student visa application to the UK. Their expertise and dedication helped me secure my place at my dream university."</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="photos/chamo.jpg" alt="Chamod Amarasinghe" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        </div>
+                        <div class="author-info">
+                            <h4>Chamod Amarasinghe</h4>
+                            <span>Student Visa, United Kingdom</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn" id="prevBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="slider-dots">
+                        <span class="dot active" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(3)"></span>
+                    </div>
+                    <button class="slider-btn" id="nextBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section" id="team">
+        <div class="container">
+            <h2 class="section-title">Our Founder & CEO</h2>
+            <p class="section-subtitle">Migration experts dedicated to your success</p>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="photos/shehan2.jpg" alt="Mr. Shehan Wijewardana" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="team-social">
+                            <a href="https://www.linkedin.com/in/shehan-wijewardana-22ba7628b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h3>Mr. Shehan Wijewardana</h3>
+                        <p>Chairman/Director</p>
+                    </div>
+                </div>
+                
+                    <div class="signature">
+                        <img src="photos/sign2.png" alt="CEO Signature">
+                        <div class="signature-name">
+                            <h4>Shehan Wijewardana</h4>
+                            
+                        </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta" id="cta">
+        <div class="container">
+            <h2>Ready to Start Your Migration Journey?</h2>
+            <p>Contact us today for a free consultation and let's explore your migration options together.</p>
+            <a href="tel:94777698214" class="btn btn-white">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="section newsletter" id="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <div>
+                    <h2>Subscribe to Our Newsletter</h2>
+                    <p>Stay updated with the latest immigration news, visa changes, and special offers.</p>
+                </div>
+                <div>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                    <div class="success-message" id="successMessage">
+                        Thank you for subscribing! We'll keep you updated with the latest immigration news.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Ocyana Global</h3>
+                    <p>Your trusted partner for all migration needs. We specialize in helping individuals and families achieve their dreams of living, working, or studying abroad.</p>
+                    <div class="footer-social">
+                       <a href="https://www.facebook.com/share/1ArEouALDr/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/OcyanaMigration" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/ocyana-migration-b9a66636b/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/ocyana_migration?igsh=MXFqbXB6NzR4ODJvZQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="media.html">Media</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="student.html">Student Migration</a></li>
+                        <li><a href="parent.html">Parent Migration</a></li>
+                        <li><a href="skilled.html">Skilled Migration</a></li>
+                        <li><a href="unskilled.html">Unskilled Migration</a></li>
+                        <li><a href="support.html">Language & Interview Support</a></li>
+                        <li><a href="doc.html">Visa & Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> C/G/04,Sir James peiris mawatha, Colombo 02. Postal code 00200</p>
+                    <p><a href="tel:+94777638715"><i class="fas fa-phone"></i> +94 77 763 8715</a></p>
+                    <p><a href="tel:+94777108380"><i class="fas fa-phone"></i> +94 77 710 8380</a></p>
+                    <p><a href="tel:+94777698214"><i class="fas fa-phone"></i> +94 77 769 8214</a></p>
+                    <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=ocyanamigration@gmail.com" target="_blank"><i class="fas fa-envelope"></i> ocyanamigration@gmail.com</a></p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ocyana Global Migration. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+        // Loading Screen
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create particles
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 10; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+
+            // Progress bar animation
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const loadingScreen = document.getElementById('loadingScreen');
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 100) progress = 100;
+                
+                progressBar.style.width = progress + '%';
+                progressText.textContent = Math.floor(progress);
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loadingScreen.classList.add('hidden');
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                        }, 500);
+                    }, 500);
+                }
+            }, 100);
+        });
+
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        if (mobileToggle && navMenu) {
+            mobileToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+        }
+
+        // Close mobile menu when clicking on a link (but not dropdown toggles)
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Don't close menu if this is a dropdown toggle
+                if (link.closest('.dropdown') && link.nextElementSibling && 
+                    link.nextElementSibling.classList.contains('dropdown-content')) {
+                    return; // Let the dropdown handler manage this
+                }
+                
+                if (mobileToggle && navMenu) {
+                    mobileToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Handle Mobile Dropdowns
+        const isMobile = () => window.innerWidth <= 768;
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('a');
+            
+            link.addEventListener('click', function(e) {
+                if (isMobile()) {
+                    e.preventDefault();
+                    
+                    // Close all other dropdowns first
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('mobile-open');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    dropdown.classList.toggle('mobile-open');
+                }
+            });
+        });
+
+        // Close mobile menu when clicking on dropdown items
+        document.querySelectorAll('.dropdown-content a').forEach(dropdownLink => {
+            dropdownLink.addEventListener('click', () => {
+                if (isMobile() && mobileToggle && navMenu) {
+                    mobileToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    // Also close any open dropdowns
+                    dropdowns.forEach(dropdown => {
+                        dropdown.classList.remove('mobile-open');
+                    });
+                }
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (isMobile() && !e.target.closest('.dropdown') && !e.target.closest('.mobile-menu-toggle')) {
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('mobile-open');
+                });
+                
+                if (!e.target.closest('.nav-menu') && navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    if (mobileToggle) mobileToggle.classList.remove('active');
+                }
+            }
+        });
+
+        // Smooth Scrolling (exclude dropdown toggles in mobile view)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                // Skip if this is a dropdown toggle in mobile view
+                if (isMobile() && this.closest('.dropdown') && this.nextElementSibling && 
+                    (this.nextElementSibling.classList.contains('dropdown-content') || 
+                     this.nextElementSibling.classList.contains('dropdown-menu'))) {
+                    return; // Let the dropdown handler take care of it
+                }
+                
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    // Close mobile menu if open
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                    }
+                    
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Testimonials Slider
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('.testimonial-card');
+        const dots = document.querySelectorAll('.dot');
+
+        function showTestimonial(n) {
+            testimonials.forEach(card => card.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            currentTestimonial = n;
+            if (currentTestimonial >= testimonials.length) currentTestimonial = 0;
+            if (currentTestimonial < 0) currentTestimonial = testimonials.length - 1;
+            
+            testimonials[currentTestimonial].classList.add('active');
+            dots[currentTestimonial].classList.add('active');
+        }
+
+        function currentSlide(n) {
+            showTestimonial(n - 1);
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            showTestimonial(currentTestimonial + 1);
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            showTestimonial(currentTestimonial - 1);
+        });
+
+        // Auto-advance testimonials
+        setInterval(() => {
+            showTestimonial(currentTestimonial + 1);
+        }, 5000);
+
+        // Newsletter Form
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            this.reset();
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Active Navigation Link
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all service cards and other elements
+        document.querySelectorAll('.service-card, .country-card, .team-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

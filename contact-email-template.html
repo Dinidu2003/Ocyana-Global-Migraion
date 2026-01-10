@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form Submission - Ocyana Global Migration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .email-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .email-header {
+            background: linear-gradient(135deg, #4A90E2, #5BA3F5);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .email-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .email-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .email-content {
+            padding: 40px;
+        }
+
+        .form-details {
+            border-left: 4px solid #4A90E2;
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .detail-row {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-row strong {
+            color: #333;
+            font-weight: 600;
+            width: 160px;
+            flex-shrink: 0;
+            padding-right: 15px;
+        }
+
+        .detail-value {
+            color: #555;
+            flex: 1;
+            word-break: break-word;
+        }
+
+        .detail-value a {
+            color: #4A90E2;
+            text-decoration: none;
+        }
+
+        .detail-value a:hover {
+            text-decoration: underline;
+        }
+
+        .section-divider {
+            border-top: 1px solid #e0e0e0;
+            margin: 20px 0;
+            padding-top: 20px;
+        }
+
+        .footer-note {
+            font-size: 14px;
+            color: #777;
+            margin-top: 30px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .cta-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-radius: 6px;
+            margin-top: 30px;
+        }
+
+        .cta-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .cta-section p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #4A90E2;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #3A7BC8;
+        }
+        
+        .student-section,
+        .skilled-section,
+        .parent-section,
+        .unskilled-section,
+        .support-section,
+        .doc-section {
+            display: none;
+        }
+        
+        .contact-section {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>New Contact Form Submission</h1>
+            <p>You've received a new message from your website contact form</p>
+        </div>
+        <div class="email-content">
+            <div class="form-details">
+                <div class="detail-row">
+                    <strong>Name:</strong>
+                    <div class="detail-value">{{contactName}}</div>
+                </div>
+                <div class="detail-row">
+                    <strong>Email:</strong>
+                    <div class="detail-value">
+                        <a href="mailto:{{contactEmail}}">{{contactEmail}}</a>
+                    </div>
+                </div>
+                <div class="detail-row">
+                    <strong>Phone:</strong>
+                    <div class="detail-value">{{contactPhone}}</div>
+                </div>
+                <div class="detail-row">
+                    <strong>Service Interest:</strong>
+                    <div class="detail-value">{{contactService}}</div>
+                </div>
+                <div class="detail-row">
+                    <strong>Message:</strong>
+                    <div class="detail-value">{{contactMessage}}</div>
+                </div>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="contact-section" style="display: block;">
+                {{{message_html}}}
+            </div>
+
+            <div class="cta-section">
+                <h3>Ready to respond?</h3>
+                <p>Click the button below to reply directly to this inquiry</p>
+                <a href="mailto:{{contactEmail}}?subject=RE:%20Your%20Ocyana%20Global%20Migration%20Inquiry&body=Dear%20{{contactName}},%0D%0A%0D%0AThank%20you%20for%20contacting%20Ocyana%20Global%20Migration.%20We've%20received%20your%20inquiry%20and%20would%20like%20to%20assist%20you.%0D%0A%0D%0A" class="cta-button">
+                    Reply Now
+                </a>
+            </div>
+
+            <div class="footer-note">
+                <p>This email was sent via the contact form on your website at {{date}}, {{time}}.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

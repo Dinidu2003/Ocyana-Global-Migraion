@@ -1,0 +1,2245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unskilled Services - Ocyana Global Migration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS library -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- Unskilled Migration email handler -->
+    <script src="js/unskilled-email-handler.js"></script>
+    <style>
+        /* Form validation styles */
+        .error-input {
+            border: 1px solid #ff0000 !important;
+        }
+        .error-message {
+            color: #ff0000;
+            font-size: 12px;
+            margin-top: 5px;
+            display: block;
+        }
+        #successMessage {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        /* Include the same styles as index.html */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0d47a1;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 10;
+        }
+
+        .loading-title {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .loading-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .loading-orb {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(135deg, #42a5f5 0%, #0d47a1 100%);
+            border-radius: 50%;
+            animation: pulse 2s ease infinite;
+        }
+
+        .progress-container {
+            height: 4px;
+            width: 280px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin: 0 auto 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background: white;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            top: -10px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { top: -10px; opacity: 1; }
+            80% { opacity: 0.7; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* Header Styles - Exact match with index.html */
+        .top-bar {
+            background: #0d47a1;
+            color: white;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .top-bar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            /* --- Improved Mobile Dropdown Styling (from skilled.html) --- */
+            .dropdown-content {
+                background: linear-gradient(135deg, #0010c2 0%, #0d47a1 100%) !important;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
+                border-radius: 8px !important;
+                transition: all 0.3s ease;
+            }
+            .dropdown-content a {
+                border: none !important;
+                border-bottom: none !important;
+                border-top: none !important;
+                color: #fff !important;
+                background: transparent !important;
+                transition: background 0.25s, color 0.25s, padding-left 0.3s;
+            }
+            .dropdown-content a:hover, .dropdown-content a:focus {
+                background: rgba(255,255,255,0.08) !important;
+                color: #fff !important;
+                padding-left: 18px;
+            }
+            .dropdown.mobile-open .dropdown-content {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                max-height: 500px;
+                transition: max-height 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s cubic-bezier(0.4,0,0.2,1), transform 0.4s cubic-bezier(0.4,0,0.2,1);
+            }
+            .dropdown-content a {
+                opacity: 0;
+                transform: translateY(10px);
+                transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1), transform 0.4s cubic-bezier(0.4,0,0.2,1);
+            }
+            .dropdown.mobile-open .dropdown-content a {
+                opacity: 1;
+                transform: translateY(0);
+                transition-delay: 0.12s;
+            }
+            .top-bar .container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .contact-info {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+            .contact-info a:first-child {
+                order: 1;
+                margin-right: auto;
+            }
+            .contact-info a:last-child {
+                order: 2;
+                margin-left: auto;
+            }
+
+            /* --- FORM MOBILE FIX --- */
+            .form-row {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .form-group {
+                width: 100%;
+                margin-bottom: 0;
+            }
+            .form-container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        .contact-info, .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .contact-info a, .social-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .contact-info a:hover, .social-links a:hover {
+            color: #42a5f5;
+        }
+
+        /* Main Header - Exact match with index.html */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 40px;
+            left: 0;
+            width: 100vw;
+            z-index: 1001;
+            transition: top 0.3s;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            z-index: 1002;
+        }
+
+        .main-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+     .logo h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0d47a1;
+            margin: 0;
+        }
+
+        .logo span {
+            color: #42a5f5;
+        }
+
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #1e88e5;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: #1e88e5;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+            left: 0;
+        }
+
+         .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: linear-gradient(135deg, #0010c2 0%, #0d47a1 100%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .coming-soon-dropdown {
+            background: linear-gradient(135deg, #001ea4 0%, #0000a2 100%);
+            color: rgb(255, 255, 255);
+            padding: 1rem;
+            text-align: center;
+            border-radius: 10px;
+           
+        }
+
+        .coming-soon-dropdown::before {
+            content: '🚀';
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 60vh;
+            background: url('photos/un2.png') center/cover no-repeat, linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem 1rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+                 font-size: 4.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #e8f4fd 50%, #3498db 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    letter-spacing: -2px;
+    line-height: 1.2;
+    position: relative;
+    display: inline-block;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7));
+    padding-bottom: 10px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+                 font-size: 1.3rem;
+            font-weight: 400;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 160px;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #1e88e5;
+            color: white;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #0d47a1;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(30, 136, 229, 0.4);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .service-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .service-content p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+
+
+        
+
+        /* CTA Section - Exact match with index.html */
+        .cta {
+            background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-white {
+            background: white;
+            color: #1e88e5;
+        }
+
+        .btn-white:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        /* Footer - Exact match with index.html */
+        .footer {
+            background: #222;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #42a5f5;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #42a5f5;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            width: 35px;
+            height: 35px;
+            background: #42a5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: #1e88e5;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 1rem;
+            text-align: center;
+            color: #888;
+        }
+
+        /* Back to Top Button - Exact match with index.html */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: #0d47a1;
+            transform: translateY(-3px);
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .nav-menu {
+                display: flex;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+                z-index: 1000;
+            }
+            
+            .nav-menu.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+            
+            .nav-menu li {
+                margin: 0;
+                text-align: center;
+            }
+            
+            .nav-menu a {
+                display: block;
+                padding: 1rem;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .dropdown-content {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: #0d55ff;
+                margin: 0;
+                border-radius: 0;
+                display: none;
+            }
+
+            .form-container {
+                padding: 2rem 1rem;
+            }
+            .form-row {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 1rem !important;
+                margin-bottom: 1.5rem;
+            }
+            .form-group {
+                width: 100%;
+                margin-bottom: 0;
+            }
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .form-submit button {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .service-card, .team-card {
+                min-width: 100%;
+            }
+            
+            .cta h2 {
+                font-size: 2rem;
+            }
+            
+            .dropdown.mobile-open .dropdown-content {
+                display: block;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .mobile-menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .form-container {
+                padding: 1rem;
+            }
+            .form-row {
+                gap: 0.5rem;
+            }
+            
+            .migration-form {
+                padding: 25px 20px;
+                margin: 0 10px;
+            }
+
+            .form-submit .btn {
+                width: 100%;
+                padding: 16px;
+                min-width: auto;
+            }
+            .form-group label {
+                font-size: 0.8rem;
+            }
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 0.8rem;
+                width: 100%;
+            }
+            .form-submit button {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+        }
+
+        /* Form Styles */
+/* ============= MODERN CONTACT FORM SECTION STYLES ============= */
+.contact-form-section {
+    background: linear-gradient(135deg, #f8fafe 0%, #ffffff 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-form-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(30, 136, 229, 0.03) 0%, transparent 70%);
+    animation: float 20s ease-in-out infinite;
+    z-index: 0;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+    50% { transform: translate(-48%, -52%) rotate(180deg); }
+}
+
+.form-container {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.migration-form {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+    animation: formFadeIn 0.8s ease-out;
+}
+
+.migration-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(30, 136, 229, 0.1), transparent);
+    transition: left 0.8s ease;
+}
+
+.migration-form:hover::before {
+    left: 100%;
+}
+
+@keyframes formFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+}
+
+.form-group label::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #1e88e5;
+    transition: width 0.3s ease;
+}
+
+.form-group:focus-within label::after {
+    width: 30px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid #e8f0fe;
+    border-radius: 12px;
+    font-size: 16px;
+    font-family: inherit;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #1e88e5;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 
+        0 0 0 4px rgba(30, 136, 229, 0.1),
+        0 8px 25px rgba(30, 136, 229, 0.15);
+    transform: translateY(-2px);
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+    border-color: #c8e6c9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: inherit;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    background: rgba(30, 136, 229, 0.02);
+    border-radius: 12px;
+    border: 1px solid rgba(30, 136, 229, 0.1);
+    transition: all 0.3s ease;
+}
+
+.checkbox-group:hover {
+    background: rgba(30, 136, 229, 0.05);
+    border-color: rgba(30, 136, 229, 0.2);
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    accent-color: #1e88e5;
+    cursor: pointer;
+}
+
+.checkbox-group label {
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.form-submit {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.form-submit .btn {
+    padding: 18px 45px;
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 25px rgba(30, 136, 229, 0.3);
+    min-width: 250px;
+}
+
+.form-submit .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.form-submit .btn:hover::before {
+    left: 100%;
+}
+
+.form-submit .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(30, 136, 229, 0.4);
+}
+
+.form-submit .btn:active {
+    transform: translateY(-1px);
+}
+
+.form-submit .btn i {
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.form-submit .btn:hover i {
+    transform: translateX(3px);
+}
+
+/* Enhanced File Upload Styles */
+.file-upload-group {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.file-upload-wrapper {
+    position: relative;
+    margin-top: 8px;
+}
+
+.file-upload-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.file-upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+    border: 2px dashed #c8e6c9;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #f8fffe 0%, #e8f5e8 100%);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.file-upload-label::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(30, 136, 229, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.file-upload-label:hover::before {
+    left: 100%;
+}
+
+.file-upload-label:hover {
+    border-color: #1e88e5;
+    background: linear-gradient(135deg, #e3f2fd 0%, #f0f8ff 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(30, 136, 229, 0.15);
+}
+
+.file-upload-label i {
+    font-size: 32px;
+    color: #1e88e5;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.file-upload-label:hover i {
+    transform: scale(1.1);
+    color: #0d47a1;
+}
+
+.file-upload-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.file-upload-hint {
+    font-size: 13px;
+    color: #666;
+    opacity: 0.8;
+}
+
+.file-upload-preview {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    margin-top: 15px;
+    border: 1px solid #4caf50;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+    animation: previewFadeIn 0.3s ease-out;
+}
+
+@keyframes previewFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.file-upload-preview .file-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 80%;
+}
+
+.remove-file-btn {
+    background: #ff5252;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.remove-file-btn:hover {
+    background: #d32f2f;
+    transform: scale(1.1);
+}
+
+/* Error states */
+.form-group input.error-input,
+.form-group select.error-input,
+.form-group textarea.error-input {
+    border-color: #ff5252;
+    background-color: rgba(255, 82, 82, 0.05);
+    animation: shake 0.6s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.error-message {
+    color: #ff5252;
+    font-size: 0.85rem;
+    margin-top: 8px;
+    display: block;
+    opacity: 0;
+    animation: errorFadeIn 0.3s ease-out forwards;
+}
+
+@keyframes errorFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Additional Form Animation Classes */
+.form-group.field-focused {
+    transform: translateY(-2px);
+}
+
+.form-group.field-focused label {
+    color: #1e88e5;
+}
+
+.form-group.field-filled label {
+    color: #1e88e5;
+    font-weight: 700;
+}
+
+.link {
+    color: #1e88e5;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.link:hover {
+    color: #0d47a1;
+    border-bottom-color: #0d47a1;
+}
+    </style>
+</head>
+
+<body>
+
+
+
+    <!-- Header -->
+    <header>
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <a href="tel:+94777638715"><i class="fas fa-phone"></i> +94 77 763 8715</a>
+                    <a href="https://mail.google.com/mail/u/0/?fs=1&to=ocyanamigration@gmail.com&su=&body=&tf=cm" target="_blank"><i class="fas fa-envelope"></i> ocyanamigration@gmail.com</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <h1>Ocyana<span>Global</span></h1>
+                </div>
+                <nav>
+                    <ul class="nav-menu" id="navMenu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li class="dropdown">
+                            <a href="#services" class="active">Services </a>
+                            <div class="dropdown-content">
+                                <a href="student.html">Student Migration</a>
+                                <a href="parent.html">Parent Migration</a>
+                                <a href="skilled.html">Skilled Migration</a>
+                                <a href="unskilled.html" class="active">Unskilled Migration</a>
+                                <a href="support.html">Language and Support Migration</a>
+                                <a href="doc.html">Visa and Documentation</a>
+                            </div>
+                        </li>
+                        <li><a href="media.html">Media</a></li>
+                        <li class="dropdown">
+                            <a href="#inside-ogm">Inside the OGM </a>
+                            <div class="dropdown-content">
+                                <div class="coming-soon-dropdown">
+                                    <strong>Stay Tuned!</strong><br>
+                                    <small>Coming Soon</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy</a></li>
+                    </ul>
+                    <div class="mobile-menu-toggle" id="mobileToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div style="height:110px;"></div>
+    </header>
+
+
+    <!-- Hero Section -->
+    <section class="hero fade-in-up">
+        <div class="hero-content">
+            <h1>Unskilled Migration Services</h1>
+            <p>We help individuals find valuable employment opportunities abroad with comprehensive support and guidance</p><br>
+            <a href="#services" class="btn btn-primary">Explore Our Services</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section fade-in-up" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Unskilled Migration Services</h2>
+            <p class="section-subtitle">Comprehensive support for those seeking employment opportunities abroad</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="photos/z1.jpg" alt="Job Placement">
+                    </div>
+                    <div class="service-content">
+                        <h3>Job Placement</h3>
+                        <p>Access to a wide network of employers seeking workers in various sectors including hospitality, agriculture, manufacturing, and construction.</p>
+                        <a href="contact.html" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="photos/z3.jpg" alt="Work Visa Processing">
+                    </div>
+                    <div class="service-content">
+                        <h3>Work Visa Processing</h3>
+                        <p>End-to-end assistance with work permit and visa applications, ensuring all documentation is complete and accurate.</p><br>
+                        <a href="contact.html" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="photos/z4.jpg" alt="Pre-Departure Training">
+                    </div>
+                    <div class="service-content">
+                        <h3>Pre-Departure Training</h3>
+                        <p>Comprehensive orientation about work culture, living conditions, basic language skills, and legal rights in your destination country.</p>
+                        <a href="contact.html" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="photos/z5.jpg" alt="Settlement Support">
+                    </div>
+                    <div class="service-content">
+                        <h3>Settlement Support</h3>
+                        <p>Assistance with accommodation arrangements, banking setup, local registration, and essential services upon arrival.</p>
+                        <a href="contact.html" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="photos/z6.jpg" alt="Family Reunification">
+                    </div>
+                    <div class="service-content">
+                        <h3>Family Reunification</h3>
+                        <p>Guidance on sponsoring family members and navigating the process of bringing your loved ones to join you abroad.</p><br>
+                        <a href="contact.html" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="photos/z.jpg" alt="Legal Support">
+                    </div>
+                    <div class="service-content">
+                        <h3>Legal Support</h3>
+                        <p>Ongoing assistance with visa renewals, changes in employment, and navigating legal requirements in your destination country.</p>
+                        <a href="contact.html" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destination Countries Section -->
+    <section class="section fade-in-up">
+        <div class="container">
+            <h2 class="section-title">Popular Destination Countries</h2>
+            <p class="section-subtitle">Countries with high demand for unskilled workers where we have established connections</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-content">
+                        <img src="https://flagcdn.com/w80/ae.png" alt="UAE Flag" style="width:70px;height:auto;margin-bottom:14px;">
+                        <h3>United Arab Emirates</h3>
+                        <p>High demand in construction, hospitality, retail, and domestic services with tax-free income and excellent infrastructure.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-content">
+                        <img src="https://flagcdn.com/w80/jp.png" alt="Japan Flag" style="width:70px;height:auto;margin-bottom:14px;">
+                        <h3>Japan</h3>
+                        <p>Opportunities in manufacturing, agriculture, food services, and healthcare support with structured work programs.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-content">
+                        <img src="https://flagcdn.com/w80/ca.png" alt="Canada Flag" style="width:70px;height:auto;margin-bottom:14px;">
+                        <h3>Canada</h3>
+                        <p>Jobs in agriculture, food processing, hospitality, and caregiving with pathways to permanent residency.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-content">
+                        <img src="https://flagcdn.com/w80/au.png" alt="Australia Flag" style="width:70px;height:auto;margin-bottom:14px;">
+                        <h3>Australia</h3>
+                        <p>Seasonal work programs in farming, hospitality, and tourism with competitive wages and good working conditions.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-content">
+                        <img src="https://flagcdn.com/w80/sg.png" alt="Singapore Flag" style="width:70px;height:auto;margin-bottom:14px;">
+                        <h3>Singapore</h3>
+                        <p>Opportunities in construction, manufacturing, domestic work, and service industries with stable employment.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-content">
+                        <img src="https://flagcdn.com/w80/kr.png" alt="South Korea Flag" style="width:70px;height:auto;margin-bottom:14px;">
+                        <h3>South Korea</h3>
+                        <p>Employment Program (EPS) offering jobs in manufacturing, agriculture, and fishing industries with good benefits.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Contact Form Section -->
+<section class="contact-form-section section fade-in-up">
+    <div class="container">
+        <div class="section-header" style="text-align: center; margin-bottom: 2rem;">
+            <h2 style="font-size: 2.5rem; font-weight: bold; color: #333;">Start Your Unskilled Migration Journey</h2>
+            <p style="font-size: 1.2rem; color: #666;">Fill out the form below and our experts will contact you within 24 hours.</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="unskilledForm" class="migration-form" style="max-width: 800px; margin: 0 auto;">
+                <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="middleName">Middle Name</label>
+                        <input type="text" id="middleName" name="middleName">
+                    </div>
+                </div>
+                
+                <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth *</label>
+                        <input type="date" id="dob" name="dob" required>
+                    </div>
+                </div>
+                
+                <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                </div>
+                
+                <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="sex">Gender *</label>
+                        <select id="sex" name="sex" required>
+                            <option value="">Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="maritalStatus">Marital Status *</label>
+                        <select id="maritalStatus" name="maritalStatus" required>
+                            <option value="">Select</option>
+                            <option value="single">Single</option>
+                            <option value="married">Married</option>
+                            <option value="divorced">Divorced</option>
+                            <option value="widowed">Widowed</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="currentCountry">Current Country *</label>
+                        <select id="currentCountry" name="currentCountry" required>
+                            <option value="">Select your country</option>
+                            <option value="usa">United States</option>
+                            <option value="canada">Canada</option>
+                            <option value="australia">Australia</option>
+                            <option value="uk">United Kingdom</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age *</label>
+                        <input type="number" id="age" name="age" min="18" max="65" required>
+                    </div>
+                </div>
+                
+                <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="desiredCountry">Desired Work Destination *</label>
+                        <select id="desiredCountry" name="desiredCountry" required>
+                            <option value="">Select destination</option>
+                            <option value="australia">Australia</option>
+                            <option value="canada">Canada</option>
+                            <option value="newzealand">New Zealand</option>
+                            <option value="uae">United Arab Emirates</option>
+                            <option value="saudi">Saudi Arabia</option>
+                            <option value="qatar">Qatar</option>
+                            <option value="germany">Germany</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="workExperience">Work Experience *</label>
+                        <select id="workExperience" name="workExperience" required>
+                            <option value="">Select experience level</option>
+                            <option value="none">No experience</option>
+                            <option value="1-2">1-2 years</option>
+                            <option value="3-5">3-5 years</option>
+                            <option value="5+">5+ years</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="jobInterest">Job Interest *</label>
+                        <select id="jobInterest" name="jobInterest" required>
+                            <option value="">Select preferred job type</option>
+                            <option value="agriculture">Agriculture/Farming</option>
+                            <option value="construction">Construction/Labor</option>
+                            <option value="hospitality">Hospitality/Cleaning</option>
+                            <option value="caregiving">Caregiving/Domestic</option>
+                            <option value="manufacturing">Manufacturing/Factory</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="languageLevel">English Proficiency *</label>
+                        <select id="languageLevel" name="languageLevel" required>
+                            <option value="">Select proficiency</option>
+                            <option value="none">None</option>
+                            <option value="basic">Basic</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                            <option value="fluent">Fluent</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row" style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="additionalInfo">Additional Information</label>
+                        <textarea id="additionalInfo" name="additionalInfo" rows="4" placeholder="Any additional information about your work experience or preferences..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-row" style="display: grid; grid-template-columns: 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div class="form-group file-upload-group">
+                        <label>Upload Your CV (Optional)</label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="cvUpload" name="cvUpload" accept=".pdf,.doc,.docx" class="file-upload-input">
+                            <label for="cvUpload" class="file-upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span class="file-upload-text">Choose a file</span>
+                                <span class="file-upload-hint">Max 5MB</span>
+                            </label>
+                            <div class="file-upload-preview" id="filePreview">
+                                <span class="file-name"></span>
+                                <button type="button" class="remove-file-btn" id="removeFileBtn">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row" style="margin-bottom: 0.5rem;">
+                    <div class="form-group checkbox-group" style="margin-bottom: 0.5rem;">
+                        <input type="checkbox" id="agree" name="agree" required>
+                        <label for="agree">I agree to the <a href="#" class="link">Terms and Conditions</a> and <a href="#" class="link">Privacy Policy</a> *</label>
+                    </div>
+                </div>
+                
+                <div class="form-row" style="margin-bottom: 1.5rem;">
+                    <div class="form-group checkbox-group" style="margin-bottom: 0.5rem;">
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        <label for="newsletter">I would like to receive updates about work abroad opportunities</label>
+                    </div>
+                </div>                <div class="form-submit" style="text-align: center; margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary" style="padding: 0.8rem 2rem; font-size: 1rem;">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Application
+                    </button>
+                </div>
+            </form>
+            <div id="successMessage" style="display: none;">
+                <h3><i class="fas fa-check-circle"></i> Thank you for your submission!</h3>
+                <p>We have received your information and will be in touch with you shortly.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Call to Action Section -->
+    <section class="section cta fade-in-up" id="cta">
+        <div class="container">
+            <h2>Ready to Start Your Unskilled Migration Journey?</h2>
+            <p>Contact us today for a free consultation and let's explore your migration options together.</p>
+            <a href="contact.html" class="btn btn-white">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer fade-in-up" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Ocyana Global</h3>
+                    <p>Your trusted partner for all migration needs. We specialize in helping individuals and families achieve their dreams of living, working, or studying abroad.</p>
+                    <div class="footer-social">
+                       <a href="https://www.facebook.com/share/1ArEouALDr/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/OcyanaMigration" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/ocyana-migration-b9a66636b/ " target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/ocyana_migration?igsh=MXFqbXB6NzR4ODJvZQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="media.html">Media</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="student.html">Student Migration</a></li>
+                        <li><a href="parent.html">Parent Migration</a></li>
+                        <li><a href="skilled.html">Skilled Migration</a></li>
+                        <li><a href="unskilled.html">Unskilled Migration</a></li>
+                        <li><a href="support.html">Language & Interview Support</a></li>
+                        <li><a href="doc.html">Visa & Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> C/G/04,Sir James peiris mawatha, Colombo 02. Postal code 00200</p>
+                    <p><a href="tel:+94777638715"><i class="fas fa-phone"></i> +94 77 763 8715</a></p>
+                    <p><a href="tel:+94777108380"><i class="fas fa-phone"></i> +94 77 710 8380</a></p>
+                    <p><a href="tel:+94777698214"><i class="fas fa-phone"></i> +94 77 769 8214</a></p>
+                    <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=ocyanamigration@gmail.com" target="_blank"><i class="fas fa-envelope"></i> ocyanamigration@gmail.com</a></p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ocyana Global Migration. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+    // Fade-in-up animation for smoothness
+    (function() {
+        const fadeEls = document.querySelectorAll('.fade-in-up');
+        function isInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top < window.innerHeight - 60 && rect.bottom > 0
+            );
+        }
+        function revealOnScroll() {
+            fadeEls.forEach(el => {
+                if (isInViewport(el)) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('DOMContentLoaded', revealOnScroll);
+    })();
+
+        // Back to Top Button - Exact match with index.html
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        if (mobileToggle && navMenu) {
+            mobileToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Close mobile menu when clicking on a link (but not dropdown toggles)
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Don't close menu if this is a dropdown toggle
+                if (link.closest('.dropdown') && link.nextElementSibling && 
+                    link.nextElementSibling.classList.contains('dropdown-content')) {
+                    return; // Let the dropdown handler manage this
+                }
+                
+                if (mobileToggle && navMenu) {
+                    mobileToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Handle Mobile Dropdowns
+        const isMobile = () => window.innerWidth <= 768;
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('a');
+            
+            link.addEventListener('click', function(e) {
+                if (isMobile()) {
+                    e.preventDefault();
+                    
+                    // Close all other dropdowns first
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('mobile-open');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    dropdown.classList.toggle('mobile-open');
+                }
+            });
+        });
+
+        // Close mobile menu when clicking on dropdown items
+        document.querySelectorAll('.dropdown-content a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMobile() && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    mobileToggle.classList.remove('active');
+                    // Also close any open dropdowns
+                    dropdowns.forEach(dropdown => {
+                        dropdown.classList.remove('mobile-open');
+                    });
+                }
+            });
+        });
+
+        // Enhanced Form Field Validation and Animations
+document.addEventListener('DOMContentLoaded', function() {
+    // Progressive form reveal animation
+    const formGroups = document.querySelectorAll('.form-group');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 100);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    formGroups.forEach(group => {
+        group.style.opacity = '0';
+        group.style.transform = 'translateY(30px)';
+        group.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(group);
+    });
+
+    // Enhanced input focus animations
+    const inputs = document.querySelectorAll('input, select, textarea');
+    inputs.forEach(input => {
+        // Add focus and blur effects
+        input.addEventListener('focus', function() {
+            this.parentElement.classList.add('focused');
+            this.style.transform = 'scale(1.02)';
+        });
+
+        input.addEventListener('blur', function() {
+            this.parentElement.classList.remove('focused');
+            this.style.transform = 'scale(1)';
+            
+            // Validation feedback
+            if (this.value.trim() !== '') {
+                this.classList.add('has-content');
+            } else {
+                this.classList.remove('has-content');
+            }
+        });
+
+        // Real-time validation for required fields
+        input.addEventListener('input', function() {
+            if (this.hasAttribute('required')) {
+                if (this.value.trim() === '') {
+                    this.classList.add('error');
+                    this.classList.remove('valid');
+                } else {
+                    this.classList.remove('error');
+                    this.classList.add('valid');
+                }
+            }
+        });
+    });
+
+    // Form submission animations
+    const form = document.querySelector('.migration-form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const submitBtn = form.querySelector('input[type="submit"]');
+            if (submitBtn) {
+                submitBtn.style.transform = 'scale(0.95)';
+                submitBtn.style.background = 'linear-gradient(135deg, #1565c0 0%, #0d47a1 100%)';
+                
+                setTimeout(() => {
+                    submitBtn.style.transform = 'scale(1)';
+                }, 150);
+            }
+        });
+    }
+});
+
+// Enhanced File Upload with Drag & Drop
+const fileInput = document.getElementById('cvUpload');
+const filePreview = document.getElementById('filePreview');
+const fileName = filePreview.querySelector('.file-name');
+const removeFileBtn = document.getElementById('removeFileBtn');
+const fileUploadArea = fileInput.closest('.form-group');
+
+// Drag and drop functionality
+fileUploadArea.addEventListener('dragover', function(e) {
+    e.preventDefault();
+    this.classList.add('drag-over');
+});
+
+fileUploadArea.addEventListener('dragleave', function(e) {
+    e.preventDefault();
+    this.classList.remove('drag-over');
+});
+
+fileUploadArea.addEventListener('drop', function(e) {
+    e.preventDefault();
+    this.classList.remove('drag-over');
+    
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        const file = files[0];
+        if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+            fileInput.files = files;
+            showFilePreview(file);
+        } else {
+            showFileError('Please upload a PDF file only.');
+        }
+    }
+});
+
+// Enhanced file input change handler
+fileInput.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        showFilePreview(file);
+    }
+});
+
+function showFilePreview(file) {
+    fileName.textContent = file.name;
+    filePreview.style.display = 'flex';
+    filePreview.style.animation = 'slideInUp 0.3s ease';
+    
+    // Add file size info
+    const fileSize = (file.size / 1024 / 1024).toFixed(2);
+    fileName.textContent = `${file.name} (${fileSize} MB)`;
+}
+
+function showFileError(message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'file-error';
+    errorDiv.textContent = message;
+    errorDiv.style.cssText = 'color: #f44336; font-size: 0.9rem; margin-top: 0.5rem; animation: shake 0.5s ease;';
+    
+    fileUploadArea.appendChild(errorDiv);
+    setTimeout(() => errorDiv.remove(), 3000);
+}
+
+removeFileBtn.addEventListener('click', function() {
+    fileInput.value = '';
+    filePreview.style.animation = 'slideOutDown 0.3s ease';
+    setTimeout(() => {
+        filePreview.style.display = 'none';
+    }, 300);
+});
+
+// Add shake animation for errors
+const shakeKeyframes = `
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideOutDown {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(20px); }
+}
+`;
+
+const animationStyles = document.createElement('style');
+animationStyles.textContent = shakeKeyframes;
+document.head.appendChild(animationStyles);
+
+// --- Custom Success Message Styles ---
+const style = document.createElement('style');
+style.innerHTML = `
+.custom-success-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 9999;
+    background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
+    color: #fff;
+    padding: 1.2rem 2.5rem 1.2rem 1.5rem;
+    border-radius: 0 0 1.5rem 1.5rem;
+    box-shadow: 0 4px 24px rgba(30,136,229,0.15);
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    justify-content: center;
+    transition: opacity 0.4s, top 0.4s;
+}
+.custom-success-message.show {
+    opacity: 1;
+    pointer-events: auto;
+    top: 0;
+}
+.custom-success-message .icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+    color: #fff;
+}
+@media (max-width: 600px) {
+    .custom-success-message {
+        font-size: 1rem;
+        padding: 1rem 1.2rem 1rem 1rem;
+    }
+    .custom-success-message .icon {
+        font-size: 1.3rem;
+        margin-right: 0.7rem;
+    }
+}
+`;
+document.head.appendChild(style);
+
+function showSuccessMessage(message) {
+    let msgDiv = document.getElementById('customSuccessMessage');
+    if (!msgDiv) {
+        msgDiv = document.createElement('div');
+        msgDiv.id = 'customSuccessMessage';
+        msgDiv.className = 'custom-success-message';
+        msgDiv.innerHTML = `<span class="icon"><i class="fas fa-check-circle"></i></span><span class="msg-text"></span>`;
+        document.body.appendChild(msgDiv);
+    }
+    msgDiv.querySelector('.msg-text').textContent = message;
+    msgDiv.classList.add('show');
+    setTimeout(() => {
+        msgDiv.classList.remove('show');
+    }, 3500);
+}
+
+        // Function to show blue-themed success message (used by unskilled-email-handler.js)
+        window.showSuccessMessage = function() {
+            // Remove any existing success messages first
+            const existingOverlay = document.getElementById('successMessageOverlay');
+            if (existingOverlay) {
+                existingOverlay.remove();
+            }
+            
+            // Create modal overlay
+            const overlay = document.createElement('div');
+            overlay.id = 'successMessageOverlay';
+            overlay.innerHTML = `
+                <div class="success-overlay">
+                    <div class="success-message-box">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 class="success-title">Application Submitted Successfully!</h3>
+                        <p class="success-text">
+                            Thank you! Your unskilled migration inquiry has been submitted successfully. 
+                            Our expert team will review your application and contact you within 24 hours.
+                        </p>
+                        <button class="success-button" onclick="closeSuccessMessage()">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Add inline styles to ensure it works
+            const style = document.createElement('style');
+            style.innerHTML = `
+                .success-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.6);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 99999;
+                    animation: successFadeIn 0.3s ease;
+                }
+                
+                .success-message-box {
+                    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+                    color: white;
+                    padding: 40px;
+                    border-radius: 15px;
+                    text-align: center;
+                    max-width: 500px;
+                    width: 90%;
+                    box-shadow: 0 20px 40px rgba(33, 150, 243, 0.3);
+                    animation: successSlideIn 0.4s ease;
+                    position: relative;
+                }
+                
+                .success-icon {
+                    font-size: 60px;
+                    margin-bottom: 20px;
+                    color: #4CAF50;
+                }
+                
+                .success-title {
+                    margin: 0 0 15px 0;
+                    font-size: 24px;
+                    font-weight: 700;
+                    color: white;
+                }
+                
+                .success-text {
+                    margin: 0 0 25px 0;
+                    font-size: 16px;
+                    line-height: 1.5;
+                    opacity: 0.9;
+                    color: white;
+                }
+                
+                .success-button {
+                    background: rgba(255, 255, 255, 0.2);
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                    color: white;
+                    padding: 12px 30px;
+                    border-radius: 25px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }
+                
+                .success-button:hover {
+                    background: rgba(255, 255, 255, 0.3);
+                    transform: translateY(-2px);
+                }
+                
+                @keyframes successFadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                
+                @keyframes successSlideIn {
+                    from { transform: translateY(-50px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+            `;
+            
+            document.head.appendChild(style);
+            document.body.appendChild(overlay);
+            
+            // Auto close after 5 seconds
+            setTimeout(() => {
+                closeSuccessMessage();
+            }, 5000);
+            
+            // Close on overlay click
+            overlay.addEventListener('click', function(e) {
+                if (e.target.classList.contains('success-overlay')) {
+                    closeSuccessMessage();
+                }
+            });
+        };
+        
+        // Function to close success message
+        window.closeSuccessMessage = function() {
+            const overlay = document.getElementById('successMessageOverlay');
+            if (overlay) {
+                overlay.style.animation = 'successFadeIn 0.3s ease reverse';
+                setTimeout(() => {
+                    if (overlay.parentNode) {
+                        overlay.remove();
+                    }
+                }, 300);
+            }
+        };
+
+    </script>
+    <style>
+    /* Fade-in-up animation for smoothness */
+    .fade-in-up {
+        opacity: 0;
+        transform: translateY(60px);
+        transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+    }
+    .fade-in-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    /* Loading orb pulse */
+    @keyframes pulse {
+        0% { box-shadow: 0 0 40px #90caf9, 0 0 0 0 #fff; }
+        100% { box-shadow: 0 0 60px #1565c0, 0 0 0 20px #e3f2fd44; }
+    }
+    /* Particle animation for loading screen */
+    .particles { position:absolute;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:1; }
+    .particle {
+        position: absolute;
+        top: -30px;
+        width: 12px;
+        height: 12px;
+        background: linear-gradient(135deg,#fff 0%,#90caf9 100%);
+        border-radius: 50%;
+        opacity: 0.7;
+        animation: fall 5s linear infinite;
+    }
+    @keyframes fall {
+        0% { top: -30px; opacity: 0.7; }
+        80% { opacity: 0.8; }
+        100% { top: 100vh; opacity: 0; }
+    }
+    </style>
+</body>
+</html>

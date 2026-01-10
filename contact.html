@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Ocyana Global Migration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS library -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- Custom email handler specific for contact form -->
+    <script src="js/contact-email-handler.js"></script>
+    <!-- Add Font Awesome if not already included for fallback modal icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Header Styles - Same as other pages */
+        .top-bar {
+            background: #0d47a1;
+            color: white;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+        }
+
+        .top-bar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info, .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .contact-info a, .social-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .contact-info a:hover, .social-links a:hover {
+            color: #42a5f5;
+        }
+
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 30px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+       .logo h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0d47a1;
+            margin: 0;
+        }
+
+        .logo span {
+            color: #42a5f5;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #1e88e5;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: #1e88e5;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: linear-gradient(135deg, #0010c2 0%, #0d47a1 100%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .coming-soon-dropdown {
+            background: linear-gradient(135deg, #001ea4 0%, #0000a2 100%);
+            color: rgb(255, 255, 255);
+            padding: 1rem;
+            text-align: center;
+            border-radius: 10px;
+           
+        }
+
+        .coming-soon-dropdown::before {
+            content: '🚀';
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Contact Hero Section */
+        .contact-hero {
+            height: 60vh;
+            background: url('photos/c4.jpg') center/cover no-repeat, linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            margin-top: 100px;
+        }
+
+        .contact-hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            font-size: 3rem;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .contact-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 20%;
+            right: 15%;
+            font-size: 2.5rem;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .contact-hero h1 {
+           font-size: 4.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #e8f4fd 50%, #3498db 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    letter-spacing: -2px;
+    line-height: 1.2;
+    position: relative;
+    display: inline-block;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7));
+    padding-bottom: 10px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .contact-hero p {
+             font-size: 1.3rem;
+            font-weight: 400;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Contact Info Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-info-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .contact-info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #0d47a1;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .contact-info-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #1e88e5;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: #1e88e5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: #333;
+        }
+
+        .contact-text p, .contact-text a {
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .contact-text a:hover {
+            color: #1e88e5;
+        }
+
+        .social-contact {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-contact a {
+            width: 40px;
+            height: 40px;
+            background: #f5f5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1e88e5;
+            transition: all 0.3s ease;
+        }
+
+        .social-contact a:hover {
+            background: #1e88e5;
+            color: white;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #1e88e5;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+        }
+        
+        .form-control.error-input {
+            border-color: #ff3333;
+            background-color: rgba(255, 51, 51, 0.03);
+        }
+        
+        .form-control.error-input:focus {
+            box-shadow: 0 0 0 3px rgba(255, 51, 51, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: #1e88e5;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0d47a1;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+        }
+
+        /* Map Section */
+        .map-section {
+            background: #f5f5f5;
+        }
+
+        .map-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            align-items: start;
+            margin-top: 2rem;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 4rem;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .location-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 2rem;
+        }
+
+        .location-info h3 {
+            color: #0d47a1;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-item i {
+            color: #1e88e5;
+            font-size: 1.2rem;
+            width: 30px;
+            text-align: center;
+            margin-right: 1rem;
+        }
+
+        .info-content h4 {
+            color: #0d47a1;
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-content p {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .directions-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #1e88e5, #42a5f5);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .directions-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30, 136, 229, 0.3);
+        }
+
+        /* Business Hours */
+        .hours-section {
+            background: white;
+        }
+
+        .hours-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .hours-content {
+            background: #f5f5f5;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hours-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #0d47a1;
+        }
+
+        .hour-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .hour-item:last-child {
+            border-bottom: none;
+        }
+
+        .day {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .time {
+            color: #1e88e5;
+            font-weight: 500;
+        }
+
+        .emergency-contact {
+            background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%);
+            color: #ffffff;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(13, 71, 161, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .emergency-contact h4 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: #ffffff;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .emergency-contact p {
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.95;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            line-height: 1.5;
+        }
+
+        .emergency-contact .btn-light {
+            background: #ffffff;
+            color: #0d47a1;
+            border: 2px solid #ffffff;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 0.5rem;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .emergency-contact .btn-light:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #0d47a1;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .emergency-contact .btn-light i {
+            margin-right: 0.5rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: #f5f5f5;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: #0d47a1;
+            transition: background-color 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: #f8f9fa;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-question {
+            background: #1e88e5;
+            color: white;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1.5rem;
+            max-height: 500px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(rgba(30, 136, 229, 0.9), rgba(13, 71, 161, 0.9)),
+                        url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3') center/cover no-repeat;
+            color: white;
+            text-align: center;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            text-decoration: none !important;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #1e88e5;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 1rem;
+            animation: fadeIn 0.5s ease;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+
+        .success-message i {
+            margin-right: 8px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Footer */
+        .footer {
+            background: #222;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #42a5f5;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #42a5f5;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            width: 35px;
+            height: 35px;
+            background: #42a5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: #1e88e5;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 1rem;
+            text-align: center;
+            color: #888;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: #0d47a1;
+            transform: translateY(-3px);
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .map-container {
+                height: 350px;
+                margin-top: 2rem;
+            }
+
+            .nav-menu {
+                display: flex;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+                z-index: 1000;
+            }
+
+            .nav-menu.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .nav-menu li {
+                margin: 0;
+                text-align: center;
+            }
+
+            .nav-menu a {
+                display: block;
+                padding: 1rem;
+                border-bottom: none !important;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .dropdown-content {
+                position: static;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                box-shadow: none;
+                background: linear-gradient(135deg, #0010c2 0%, #0d47a1 100%) !important;
+                margin: 0;
+                border-radius: 0;
+                display: block;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .dropdown.mobile-open .dropdown-content {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                max-height: 500px;
+            }
+
+            .dropdown-content a {
+                opacity: 0;
+                transform: translateY(10px);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                border-bottom: none !important;
+            }
+
+            .dropdown.mobile-open .dropdown-content a {
+                opacity: 1;
+                transform: translateY(0);
+                transition-delay: 0.1s;
+            }
+
+            .contact-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .map-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .location-info {
+                order: -1;
+                position: static;
+            }
+
+            .hours-container {
+                grid-template-columns: 1fr;
+            }
+
+
+            .top-bar .container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .contact-info {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.5rem;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .contact-info a:first-child {
+                order: 1;
+                margin-right: auto;
+            }
+            .contact-info a:last-child {
+                order: 2;
+                margin-left: auto;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .map-container {
+                height: 300px;
+                margin-top: 1rem;
+            }
+
+            .contact-hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .contact-info-card,
+            .contact-form {
+                padding: 1.5rem;
+            }
+
+            .location-info {
+                padding: 1.5rem;
+            }
+
+            .top-bar .container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .contact-info {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.5rem;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .contact-info a:first-child {
+                order: 1;
+                margin-right: auto;
+            }
+            .contact-info a:last-child {
+                order: 2;
+                margin-left: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <a href="tel:+94777638715"><i class="fas fa-phone"></i> +94 77 763 8715</a>
+                    <a href="https://mail.google.com/mail/u/0/?fs=1&to=ocyanamigration@gmail.com&su=&body=&tf=cm" target="_blank"><i class="fas fa-envelope"></i> ocyanamigration@gmail.com</a>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <h1>Ocyana<span>Global</span></h1>
+                </div>
+                <nav>
+                    <ul class="nav-menu" id="navMenu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li class="dropdown">
+                            <a href="#services">Services </a>
+                            <div class="dropdown-content">
+                                <a href="student.html">Student Migration</a>
+                                <a href="parent.html">Parent Migration</a>
+                                <a href="skilled.html">Skilled Migration</a>
+                                <a href="unskilled.html">Unskilled Migration</a>
+                                <a href="support.html">Language and Support Migration</a>
+                                <a href="doc.html">Visa and Documentation</a>
+                            </div>
+                        </li>
+                        <li><a href="media.html">Media</a></li>
+                        <li class="dropdown">
+                            <a href="#inside-ogm">Inside the OGM </a>
+                            <div class="dropdown-content">
+                                <div class="coming-soon-dropdown">
+                                    <strong>Stay Tuned!</strong><br>
+                                    <small>Coming Soon</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href=contact.html class="active">Contact</a></li>
+                        <li><a href="privacy.html">Privacy</a></li>
+                    </ul>
+                    <div class="mobile-menu-toggle" id="mobileToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contact Hero -->
+    <section class="contact-hero">
+        <div class="container">
+            <h1>Get In Touch With Us</h1>
+            <p>Ready to start your migration journey? Contact our expert team for personalized guidance and support.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">Contact Information</div>
+            <div class="section-subtitle">Reach out to us through any of these channels for expert migration assistance</div>
+            
+            <div class="contact-container">
+                <div class="contact-info-card">
+                    <h3>Contact Details</h3><br>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Our Office</h4>
+                            <p>C/G/04, Sir James Peiris Mawatha, Colombo 02. Postal Code 00200</p><br>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Phone Numbers</h4>
+                            <p><a href="tel:+94777638715">+94 77 763 8715</a></p>
+                            <p><a href="tel:+94777108380">+94 77 710 8380</a></p><br>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Email Address</h4>
+                            <p><a href="mailto:ocyanamigration@gmail.com">ocyanamigration@gmail.com</a></p><br>
+                        </div>
+                    </div>
+                    <div class="social-contact">
+                        <a href="https://www.facebook.com/share/1ArEouALDr/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/OcyanaMigration" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/ocyana-migration-b9a66636b/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/ocyana_migration?igsh=MXFqbXB6NzR4ODJvZQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/94777638715" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="contact-info-card">
+                    <h3>Quick Contact</h3><br>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Working Hours</h4>
+                            <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                            <p>Saturday: 9:00 AM - 1:00 PM</p><br>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Global Presence</h4>
+                            <p>We serve clients worldwide with offices in multiple countries</p><br>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Support</h4>
+                            <p>24/7 emergency support available for urgent migration cases</p><br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3><br>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name <span style="color: #ff3333;">*</span></label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address <span style="color: #ff3333;">*</span></label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Enter your phone number (optional)">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Interested In</label>
+                            <select id="service" name="service" class="form-control">
+                                <option value="">Select a service (optional)</option>
+                                <option value="student">Student Migration</option>
+                                <option value="parent">Parent Migration</option>
+                                <option value="skilled">Skilled Migration</option>
+                                <option value="unskilled">Unskilled Migration</option>
+                                <option value="support">Language Support</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message <span style="color: #ff3333;">*</span></label>
+                            <textarea id="message" name="message" class="form-control" placeholder="Enter your message here" required></textarea>
+                        </div>
+                        <p><small><span style="color: #ff3333;">*</span> Required fields</small></p>
+                        <button type="submit" class="btn btn-primary submit-btn">Send Message</button>
+                        <div style="margin-top: 15px; text-align: center;">
+                            <p style="font-size: 0.9rem; color: #666;">Having trouble? <a href="contact-backup.html" style="color: #0d47a1;">Try our backup contact form</a></p>
+                        </div>
+                    </form>
+                    <div id="successMessage" class="success-message">
+                        <i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully. We'll contact you soon.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="section map-section">
+        <div class="container">
+            <div class="section-title">Visit Our Office</div>
+            <div class="section-subtitle">Located in the heart of Colombo, we're here to help you with all your migration needs</div>
+            
+            <div class="map-wrapper">
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps?q=6.919287,79.853859&hl=en&z=17&output=embed"
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                
+                <div class="location-info">
+                    <h3>Ocyana Global Migration</h3>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="info-content">
+                            <h4>Address</h4>
+                            <p>C/G/04, Sir James Peiris Mawatha<br>Colombo 02, Sri Lanka</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div class="info-content">
+                            <h4>Business Hours</h4>
+                            <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 9:00 AM - 2:00 PM</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div class="info-content">
+                            <h4>Phone</h4>
+                            <p>+94 77 763 8715</p>
+                            <p>+94 77 710 8380</p>                        
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="info-content">
+                            <h4>Email</h4>
+                            <p>ocyanamigration@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <button class="directions-btn" onclick="getDirections()">
+                        <i class="fas fa-route"></i>
+                        Get Directions
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Hours Section -->
+    <section class="section hours-section">
+        <div class="container">
+            <div class="section-title">Business Hours</div>
+            <div class="section-subtitle">We're available to serve you during these times</div>
+            
+            <div class="hours-container">
+                <div class="hours-content">
+                    <h3>Office Hours</h3>
+                    <p>Our team is available during standard business hours to assist with your migration needs. For urgent cases outside these hours, please use our emergency contact.</p>
+                    <div class="hours-list">
+                        <div class="hour-item">
+                            <span class="day">Monday - Friday</span>
+                            <span class="time">9:00 AM - 6:00 PM</span>
+                        </div>
+                        <div class="hour-item">
+                            <span class="day">Saturday</span>
+                            <span class="time">9:00 AM - 1:00 PM</span>
+                        </div>
+                        <div class="hour-item">
+                            <span class="day">Sunday</span>
+                            <span class="time">Closed</span>
+                        </div>
+                    </div>
+                    <div class="emergency-contact">
+                        <h4>Emergency Contact</h4>
+                        <p>For urgent migration cases outside business hours</p>
+                        <a href="tel:+94777108380" class="btn btn-light"><i class="fas fa-phone"></i> +94 77 763 8715</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section faq-section">
+        <div class="container">
+            <div class="section-title">Frequently Asked Questions</div>
+            <div class="section-subtitle">Find answers to common questions about contacting us</div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How quickly can I expect a response to my inquiry?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We typically respond to all inquiries within 24 hours during business days. For urgent matters, please call our emergency contact number for immediate assistance.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do I need to book an appointment for a consultation?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>While walk-ins are welcome, we recommend scheduling an appointment to ensure you receive dedicated time with one of our migration specialists. You can book online or by phone.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What documents should I bring to my first consultation?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For your first consultation, please bring any identification documents, educational certificates, work experience proofs, and any previous visa applications if applicable. Our team will guide you on specific requirements based on your migration goals.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you offer remote consultations?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer comprehensive remote consultations via video call, phone, or email to accommodate clients who cannot visit our office in person.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is there a fee for the initial consultation?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer a free 30-minute initial consultation to assess your situation and determine how we can assist you. For more in-depth consultations, a nominal fee may apply which can be credited toward any services you engage us for.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Start Your Migration Journey?</h2>
+                <p>Contact us today for expert guidance and personalized service tailored to your migration needs. Our team is ready to help you navigate the process with confidence.</p>
+                <div class="cta-buttons">
+                    <a href="tel:+94777698214" class="btn btn-secondary"><i class="fas fa-phone"></i> Call Us Now</a>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ocyanamigration@gmail.com" target="_blank" class="btn btn-secondary"><i class="fas fa-envelope"></i> Send a Message</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Ocyana Global</h3>
+                    <p>Your trusted partner for all migration needs. We specialize in helping individuals and families achieve their dreams of living, working, or studying abroad.</p>
+                    <div class="footer-social">
+                       <a href="https://www.facebook.com/share/1ArEouALDr/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/OcyanaMigration" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/ocyana-migration-b9a66636b/ " target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/ocyana_migration?igsh=MXFqbXB6NzR4ODJvZQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="media.html">Media</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="student.html">Student Migration</a></li>
+                        <li><a href="parent.html">Parent Migration</a></li>
+                        <li><a href="skilled.html">Skilled Migration</a></li>
+                        <li><a href="unskilled.html">Unskilled Migration</a></li>
+                        <li><a href="support.html">Language & Interview Support</a></li>
+                        <li><a href="doc.html">Visa & Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> C/G/04,Sir James peiris mawatha, Colombo 02. Postal code 00200</p>
+                    <p><a href="tel:+94777638715"><i class="fas fa-phone"></i> +94 77 763 8715</a></p>
+                    <p><a href="tel:+94777108380"><i class="fas fa-phone"></i> +94 77 710 8380</a></p>
+                    <p><a href="tel:+94777698214"><i class="fas fa-phone"></i> +94 77 769 8214</a></p>
+                    <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=ocyanamigration@gmail.com" target="_blank"><i class="fas fa-envelope"></i> ocyanamigration@gmail.com</a></p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ocyana Global Migration. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        if (mobileToggle && navMenu) {
+            mobileToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Close mobile menu when clicking on a link (but not dropdown toggles)
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Don't close menu if this is a dropdown toggle
+                if (link.closest('.dropdown') && link.nextElementSibling && 
+                    link.nextElementSibling.classList.contains('dropdown-content')) {
+                    return; // Let the dropdown handler manage this
+                }
+                
+                if (mobileToggle && navMenu) {
+                    mobileToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Handle Mobile Dropdowns
+        const isMobile = () => window.innerWidth <= 768;
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('a');
+            
+            link.addEventListener('click', function(e) {
+                if (isMobile()) {
+                    e.preventDefault();
+                    const dropdownContent = this.nextElementSibling;
+                    
+                    // Close all other dropdowns first
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('mobile-open');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    if (dropdownContent && dropdownContent.classList.contains('dropdown-content')) {
+                        dropdown.classList.toggle('mobile-open');
+                    }
+                }
+            });
+        });
+
+        // Close mobile menu when clicking on dropdown items
+        document.querySelectorAll('.dropdown-content a').forEach(dropdownLink => {
+            dropdownLink.addEventListener('click', () => {
+                if (isMobile() && mobileToggle && navMenu) {
+                    mobileToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    // Also close any open dropdowns
+                    dropdowns.forEach(dropdown => {
+                        dropdown.classList.remove('mobile-open');
+                    });
+                }
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (isMobile() && !e.target.closest('.dropdown') && !e.target.closest('.mobile-menu-toggle')) {
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('mobile-open');
+                });
+                
+                if (!e.target.closest('.nav-menu') && navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    if (mobileToggle) mobileToggle.classList.remove('active');
+                }
+            }
+        });
+
+        // Smooth Scrolling (exclude dropdown toggles in mobile view)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                // Skip if this is a dropdown toggle in mobile view
+                if (isMobile() && this.closest('.dropdown') && this.nextElementSibling && 
+                    (this.nextElementSibling.classList.contains('dropdown-content') || 
+                     this.nextElementSibling.classList.contains('dropdown-menu'))) {
+                    return; // Let the dropdown handler take care of it
+                }
+                
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    // Close mobile menu if open
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                    }
+                    
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+                
+                // Close other open FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (item !== faqItem && item.classList.contains('active')) {
+                        item.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Form submission is handled by contact-email-handler.js
+
+        // Get Directions Function
+        function getDirections() {
+            const destination = '6.919287,79.853859';
+            const url = `https://www.google.com/maps/dir/?api=1&destination=${destination}`;
+            window.open(url, '_blank');
+        }
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe animated elements
+        document.querySelectorAll('.contact-info-card, .contact-form, .info-item, .faq-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Function to show blue-themed success message (used by email-handler.js)
+        window.showSuccessMessage = function() {
+            // Remove any existing success messages first
+            const existingOverlay = document.getElementById('successMessageOverlay');
+            if (existingOverlay) {
+                existingOverlay.remove();
+            }
+            
+            // Create modal overlay
+            const overlay = document.createElement('div');
+            overlay.id = 'successMessageOverlay';
+            overlay.innerHTML = `
+                <div class="success-overlay">
+                    <div class="success-message-box">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 class="success-title">Application Submitted Successfully!</h3>
+                        <p class="success-text">
+                            Thank you! Your contact inquiry has been submitted successfully. 
+                            Our expert team will review your application and contact you within 24 hours.
+                        </p>
+                        <button class="success-button" onclick="closeSuccessMessage()">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Add inline styles to ensure it works
+            const style = document.createElement('style');
+            style.innerHTML = `
+                .success-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.6);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 99999;
+                    animation: successFadeIn 0.3s ease;
+                }
+                
+                .success-message-box {
+                    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+                    color: white;
+                    padding: 40px;
+                    border-radius: 15px;
+                    text-align: center;
+                    max-width: 500px;
+                    width: 90%;
+                    box-shadow: 0 20px 40px rgba(33, 150, 243, 0.3);
+                    animation: successSlideIn 0.4s ease;
+                    position: relative;
+                }
+                
+                .success-icon {
+                    font-size: 60px;
+                    margin-bottom: 20px;
+                    color: #4CAF50;
+                }
+                
+                .success-title {
+                    margin: 0 0 15px 0;
+                    font-size: 24px;
+                    font-weight: 700;
+                    color: white;
+                }
+                
+                .success-text {
+                    margin: 0 0 25px 0;
+                    font-size: 16px;
+                    line-height: 1.5;
+                    opacity: 0.9;
+                    color: white;
+                }
+                
+                .success-button {
+                    background: rgba(255, 255, 255, 0.2);
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                    color: white;
+                    padding: 12px 30px;
+                    border-radius: 25px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }
+                
+                .success-button:hover {
+                    background: rgba(255, 255, 255, 0.3);
+                    transform: translateY(-2px);
+                }
+                
+                @keyframes successFadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                
+                @keyframes successSlideIn {
+                    from { transform: translateY(-50px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+            `;
+            
+            document.head.appendChild(style);
+            document.body.appendChild(overlay);
+            
+            // Auto close after 5 seconds
+            setTimeout(() => {
+                closeSuccessMessage();
+            }, 5000);
+            
+            // Close on overlay click
+            overlay.addEventListener('click', function(e) {
+                if (e.target.classList.contains('success-overlay')) {
+                    closeSuccessMessage();
+                }
+            });
+        };
+        
+        // Function to close success message
+        window.closeSuccessMessage = function() {
+            const overlay = document.getElementById('successMessageOverlay');
+            if (overlay) {
+                overlay.style.animation = 'successFadeIn 0.3s ease reverse';
+                setTimeout(() => {
+                    if (overlay.parentNode) {
+                        overlay.remove();
+                    }
+                }, 300);
+            }
+        };
+    </script>
+</body>
+</html>

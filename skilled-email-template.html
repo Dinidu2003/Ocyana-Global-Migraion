@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skilled Migration Form Submission - Ocyana Global Migration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .email-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .email-header {
+            background: linear-gradient(135deg, #1e88e5, #0d47a1);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .email-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .email-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .email-content {
+            padding: 40px;
+        }
+
+        .form-details {
+            border-left: 4px solid #1e88e5;
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .detail-row {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-row strong {
+            color: #333;
+            font-weight: 600;
+            width: 160px;
+            flex-shrink: 0;
+            padding-right: 15px;
+        }
+
+        .detail-value {
+            color: #555;
+            flex: 1;
+            word-break: break-word;
+        }
+
+        .detail-value a {
+            color: #1e88e5;
+            text-decoration: none;
+        }
+
+        .detail-value a:hover {
+            text-decoration: underline;
+        }
+
+        .section-divider {
+            border-top: 1px solid #e0e0e0;
+            margin: 20px 0;
+            padding-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .email-content {
+                padding: 20px;
+            }
+            
+            .form-details {
+                padding: 20px;
+            }
+            
+            .detail-row {
+                flex-direction: column;
+                margin-bottom: 15px;
+            }
+            
+            .detail-row strong {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>Skilled Migration Form Submission</h1>
+            <p>A new skilled migration inquiry has been received. Please review the details below.</p>
+        </div>
+        
+        <div class="email-content">
+            <div class="form-details">
+                <!-- CONTACT INFORMATION -->
+                <div class="detail-row">
+                    <strong style="color: #1e88e5; font-size: 18px;">CONTACT INFORMATION</strong>
+                    <span class="detail-value"></span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Full Name:</strong>
+                    <span class="detail-value">{{skilledName}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Sex:</strong>
+                    <span class="detail-value">{{skilledSex}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Date of Birth:</strong>
+                    <span class="detail-value">{{skilledDOB}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Marital Status:</strong>
+                    <span class="detail-value">{{skilledMaritalStatus}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Email:</strong>
+                    <span class="detail-value"><a href="mailto:{{skilledEmail}}">{{skilledEmail}}</a></span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Phone:</strong>
+                    <span class="detail-value">{{skilledPhone}}</span>
+                </div>
+
+                <!-- SKILLED MIGRATION DETAILS -->
+                <div class="detail-row section-divider">
+                    <strong style="color: #1e88e5; font-size: 18px;">SKILLED MIGRATION DETAILS</strong>
+                    <span class="detail-value"></span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Current Country:</strong>
+                    <span class="detail-value">{{skilledCurrentCountry}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Education Level:</strong>
+                    <span class="detail-value">{{skilledEducationLevel}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Occupation:</strong>
+                    <span class="detail-value">{{skilledOccupation}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Work Experience:</strong>
+                    <span class="detail-value">{{skilledWorkExperience}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Preferred Country:</strong>
+                    <span class="detail-value">{{skilledDesiredCountry}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>English Test:</strong>
+                    <span class="detail-value">{{skilledEnglishTest}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Migration Goals:</strong>
+                    <span class="detail-value">{{skilledMigrationGoals}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Additional Info:</strong>
+                    <span class="detail-value">{{skilledAdditionalInfo}}</span>
+                </div>
+
+                <div class="detail-row">
+                    <strong>CV Uploaded:</strong>
+                    <span class="detail-value">{{skilledFileUpload}}</span>
+                </div>
+                
+                <!-- PREFERENCES -->
+                <div class="detail-row section-divider">
+                    <strong style="color: #1e88e5; font-size: 18px;">PREFERENCES</strong>
+                    <span class="detail-value"></span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Newsletter:</strong>
+                    <span class="detail-value">{{skilledNewsletter}}</span>
+                </div>
+
+                <!-- SUBMISSION DETAILS -->
+                <div class="detail-row section-divider">
+                    <strong style="color: #1e88e5; font-size: 18px;">SUBMISSION DETAILS</strong>
+                    <span class="detail-value"></span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Date:</strong>
+                    <span class="detail-value">{{date}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Time:</strong>
+                    <span class="detail-value">{{time}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

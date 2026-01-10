@@ -1,0 +1,4902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Migration Services - Ocyana Global Migration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS library -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- Student-specific email handler -->
+    <script src="js/student-email-handler.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+             
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+           
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header Styles */
+        .top-bar {
+            background: #0d47a1;
+            color: white;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+        }
+
+        .top-bar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info, .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .contact-info a, .social-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .contact-info a:hover, .social-links a:hover {
+            color: #42a5f5;
+        }
+
+        /* Main Header */
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 30px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0d47a1;
+            margin: 0;
+        }
+
+        .logo span {
+            color: #42a5f5;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #1e88e5;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: #1e88e5;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+            left: 0;
+        }
+
+          .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: linear-gradient(135deg, #0010c2 0%, #0d47a1 100%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .coming-soon-dropdown {
+            background: linear-gradient(135deg, #001ea4 0%, #0000a2 100%);
+            color: rgb(255, 255, 255);
+            padding: 1rem;
+            text-align: center;
+            border-radius: 10px;
+           
+        }
+
+        .coming-soon-dropdown::before {
+            content: '🚀';
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            height: 60vh;
+             background: url('photos/front.jpg') center/cover no-repeat, linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 100px;
+        }
+
+        .page-hero h1 {
+           font-size: 4.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #e8f4fd 50%, #3498db 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    letter-spacing: -2px;
+    line-height: 1.2;
+    position: relative;
+    display: inline-block;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7));
+    padding-bottom: 10px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .page-hero p {
+               font-size: 1.3rem;
+            font-weight: 400;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .breadcrumb {
+            background: #f5f5f5;
+            padding: 1rem 0;
+        }
+
+        .breadcrumb-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+        }
+
+        .breadcrumb-nav a {
+            color: #1e88e5;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Service Overview */
+        .service-overview {
+            background: white;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .overview-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .overview-text .lead {
+            font-size: 1.3rem;
+            color: #1e88e5;
+            margin-bottom: 1rem;
+        }
+
+        .overview-text p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            color: #555;
+        }
+
+        .feature-list li i {
+            color: #1e88e5;
+            margin-right: 0.5rem;
+            width: 20px;
+        }
+
+        .overview-image {
+            position: relative;
+        }
+
+        .overview-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: #f5f5f5;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1e88e5, #42a5f5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1e88e5;
+            display: block;
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* Services Grid */
+        .services-section {
+            background: white;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-color: #1e88e5;
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1e88e5, #42a5f5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features li {
+            padding: 0.3rem 0;
+            color: #555;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #1e88e5;
+            font-weight: bold;
+        }
+
+        /* Process Section */
+        .process-section {
+            background: #f5f5f5;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .process-step {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: #1e88e5;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .process-step h3 {
+            margin: 1rem 0;
+            color: #333;
+            font-size: 1.3rem;
+        }
+
+        .process-step p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Requirements Section */
+        .requirements-section {
+            background: white;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .requirement-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid #1e88e5;
+        }
+
+        .requirement-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .requirement-card i {
+            color: #1e88e5;
+        }
+
+        .requirement-list {
+            list-style: none;
+        }
+
+        .requirement-list li {
+            padding: 0.5rem 0;
+            color: #555;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .requirement-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #1e88e5;
+            font-weight: bold;
+        }
+
+        /* Destinations Section */
+        .destinations-section {
+            background: #f5f5f5;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 15px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 160px;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #1e88e5;
+            color: white;
+            box-shadow: 0 4px 15px rgba(30, 136, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #0d47a1;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(30, 136, 229, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: #222;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #42a5f5;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #42a5f5;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            width: 35px;
+            height: 35px;
+            background: #42a5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: #1e88e5;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 1rem;
+            text-align: center;
+            color: #888;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: #0d47a1;
+            transform: translateY(-3px);
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Additional styles from studentold.html for new sections */
+        
+        /* ============= GENERAL STYLES ============= */
+        :root {
+            --primary-color: #1e88e5;
+            --secondary-color: #0d47a1;
+            --accent-color: #42a5f5;
+            --text-color: #333333;
+            --light-text: #ffffff;
+            --dark-text: #222222;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #757575;
+            --hover-color: #1565c0;
+            --section-padding: 80px 0;
+            --transition: all 0.3s ease;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --card-radius: 8px;
+        }
+
+        .section {
+            padding: var(--section-padding);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: var(--dark-text);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: var(--dark-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ============= COUNTRY SELECTION STYLES ============= */
+        .country-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .country-card {
+            background-color: var(--light-text);
+            border-radius: var(--card-radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .country-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(30, 136, 229, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .country-card:hover::before {
+            left: 100%;
+        }
+
+        .country-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary-color);
+        }
+
+        .country-card img {
+            width: 60px;
+            height: 40px;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border-radius: 4px;
+        }
+
+        .country-card h3 {
+            font-size: 18px;
+            color: var(--dark-text);
+        }
+
+        /* ============= UNIVERSITY SECTION STYLES ============= */
+        .university-section {
+            display: none;
+        }
+
+        .university-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .university-card {
+            background-color: var(--light-text);
+            border-radius: var(--card-radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+            animation: slideInUp 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .university-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .university-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-right: 20px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            padding: 10px;
+        }
+
+        .university-info h3 {
+            font-size: 22px;
+            color: var(--dark-text);
+            margin-bottom: 5px;
+        }
+
+        .university-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            color: var(--dark-gray);
+            font-size: 14px;
+        }
+
+        .university-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .university-meta i {
+            color: var(--primary-color);
+        }
+
+        .university-description {
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+
+        .university-highlights {
+            margin-bottom: 20px;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+        .highlight-item i {
+            color: var(--primary-color);
+            margin-top: 3px;
+        }
+
+        .back-to-countries {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .back-to-countries i {
+            margin-right: 5px;
+        }
+
+        /* ============= ELIGIBILITY SECTION STYLES ============= */
+        .eligibility-section {
+            background-color: var(--light-gray);
+        }
+
+        .eligibility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .eligibility-card {
+            background-color: var(--light-text);
+            border-radius: var(--card-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .eligibility-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--light-text);
+        }
+
+        .card-icon i {
+            font-size: 30px;
+        }
+
+        .eligibility-card h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--dark-text);
+            text-align: center;
+        }
+
+        .eligibility-card ul {
+            list-style: none;
+        }
+
+        .eligibility-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--medium-gray);
+            color: var(--dark-gray);
+        }
+
+        .eligibility-card li:last-child {
+            border-bottom: none;
+        }
+
+        /* ============= DOCUMENTS SECTION STYLES ============= */
+        .documents-section {
+            background-color: var(--light-gray);
+        }
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .document-category {
+            background-color: var(--light-text);
+            border-radius: var(--card-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .document-category h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--dark-text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .document-category h3 i {
+            color: var(--primary-color);
+        }
+
+        .document-list {
+            list-style: none;
+        }
+
+        .document-list li {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--medium-gray);
+            color: var(--dark-gray);
+            gap: 10px;
+        }
+
+        .document-list li:last-child {
+            border-bottom: none;
+        }
+
+        .document-list i {
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+
+        /* ============= MODERN CONTACT FORM SECTION STYLES ============= */
+        .contact-form-section {
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(30, 136, 229, 0.02) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-48%, -52%) rotate(180deg); }
+        }
+
+        .form-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .migration-form {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: formFadeIn 0.8s ease-out;
+        }
+
+        .migration-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(30, 136, 229, 0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .migration-form:hover::before {
+            left: 100%;
+        }
+
+        @keyframes formFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-text);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+
+        .form-group label::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .form-group:focus-within label::after {
+            width: 30px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e8f0fe;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 
+                0 0 0 4px rgba(30, 136, 229, 0.1),
+                0 8px 25px rgba(30, 136, 229, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .form-group input:hover,
+        .form-group select:hover,
+        .form-group textarea:hover {
+            border-color: #c8e6c9;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group input.error-input,
+        .form-group select.error-input,
+        .form-group textarea.error-input {
+            border-color: #ff5252;
+            background-color: rgba(255, 82, 82, 0.05);
+            animation: shake 0.6s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .form-group input.error-input:focus,
+        .form-group select.error-input:focus,
+        .form-group textarea.error-input:focus {
+            box-shadow: 0 0 0 4px rgba(255, 82, 82, 0.1);
+        }
+        
+        .error-message {
+            color: #ff5252;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            display: block;
+            opacity: 0;
+            animation: errorFadeIn 0.3s ease-out forwards;
+        }
+
+        @keyframes errorFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(30, 136, 229, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(30, 136, 229, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-group:hover {
+            background: rgba(30, 136, 229, 0.05);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 400;
+            cursor: pointer;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .link:hover {
+            color: var(--hover-color);
+            border-bottom-color: var(--hover-color);
+        }
+
+        /* Enhanced File Upload Styles */
+        .file-upload-group {
+            width: 100%;
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            margin-top: 8px;
+        }
+
+        .file-upload-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            border: 2px dashed #c8e6c9;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #f8fffe 0%, #e8f5e8 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-upload-label::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(30, 136, 229, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .file-upload-label:hover::before {
+            left: 100%;
+        }
+
+        .file-upload-label:hover {
+            border-color: var(--primary-color);
+            background: linear-gradient(135deg, #e3f2fd 0%, #f0f8ff 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.15);
+        }
+
+        .file-upload-label i {
+            font-size: 32px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-label:hover i {
+            transform: scale(1.1);
+            color: var(--hover-color);
+        }
+
+        .file-upload-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark-text);
+            margin-bottom: 5px;
+        }
+
+        .file-upload-hint {
+            font-size: 13px;
+            color: var(--dark-gray);
+            opacity: 0.8;
+        }
+
+        .file-upload-preview {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            margin-top: 15px;
+            border: 1px solid #4caf50;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+            animation: previewFadeIn 0.3s ease-out;
+        }
+
+        @keyframes previewFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .file-upload-preview .file-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--dark-text);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 80%;
+        }
+
+        .remove-file-btn {
+            background: #ff5252;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .remove-file-btn:hover {
+            background: #d32f2f;
+            transform: scale(1.1);
+        }
+
+        .form-submit {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .form-submit .btn {
+            padding: 18px 45px;
+            font-size: 16px;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--hover-color) 100%);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.3);
+        }
+
+        .form-submit .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .form-submit .btn:hover::before {
+            left: 100%;
+        }
+
+        .form-submit .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(30, 136, 229, 0.4);
+        }
+
+        .form-submit .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .form-submit .btn i {
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .form-submit .btn:hover i {
+            transform: translateX(3px);
+        }
+
+        /* Form step indicators */
+        .form-step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            gap: 15px;
+        }
+
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .step-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        .step-dot::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .step-dot.active::after {
+            opacity: 0.3;
+        }
+
+        /* Additional Form Animation Classes */
+        .form-group.field-focused {
+            transform: translateY(-2px);
+        }
+
+        .form-group.field-focused label {
+            color: var(--primary-color);
+        }
+
+        .form-group.field-filled label {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Responsive Form Styles */
+        @media (max-width: 768px) {
+            .migration-form {
+                padding: 30px 25px;
+                border-radius: 15px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .file-upload-label {
+                padding: 25px 15px;
+            }
+            
+            .form-submit .btn {
+                width: 100%;
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .migration-form {
+                padding: 25px 20px;
+                margin: 0 10px;
+            }
+            
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 14px 16px;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+            
+            .success-message-box {
+                padding: 40px 30px;
+                width: 95%;
+            }
+            
+            .success-title {
+                font-size: 1.5rem;
+            }
+            
+            .success-text {
+                font-size: 1rem;
+            }
+        }
+
+        /* ============= INQUIRY SECTION STYLES ============= */
+        .inquiry-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+        }
+
+        .inquiry-section .section-header h2,
+        .inquiry-section .section-header p {
+            color: var(--light-text);
+        }
+
+        .inquiry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .inquiry-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--card-radius);
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .inquiry-card:hover {
+            transform: translateY(-10px);
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .inquiry-icon {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--light-text);
+        }
+
+        .inquiry-icon i {
+            font-size: 35px;
+        }
+
+        .inquiry-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--light-text);
+        }
+
+        .inquiry-card p {
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .inquiry-card .btn {
+            background-color: var(--light-text);
+            color: var(--primary-color);
+            border: none;
+        }
+
+        .inquiry-card .btn:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .contact-cta {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: var(--card-radius);
+            padding: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-content h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--light-text);
+        }
+
+        .cta-content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .cta-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--light-text);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* ============= PROGRAM MODAL STYLES ============= */
+        .program-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .program-modal-content {
+            background-color: var(--light-text);
+            max-width: 900px;
+            margin: 50px auto;
+            border-radius: var(--card-radius);
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            padding: 25px;
+            position: relative;
+        }
+
+        .modal-header h3 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .modal-header p {
+            opacity: 0.9;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: var(--light-text);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .program-section {
+            margin-bottom: 30px;
+        }
+
+        .program-section h4 {
+            font-size: 20px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--medium-gray);
+        }
+
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .program-card {
+            background-color: var(--light-gray);
+            border-radius: var(--card-radius);
+            padding: 20px;
+            transition: var(--transition);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .program-card h5 {
+            font-size: 18px;
+            color: var(--dark-text);
+            margin-bottom: 10px;
+        }
+
+        .program-card p {
+            color: var(--dark-gray);
+            font-size: 14px;
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+            background-color: var(--light-gray);
+            text-align: center;
+        }
+
+        /* ============= RESPONSIVE STYLES ============= */
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .migration-form {
+                padding: 30px 20px;
+            }
+            
+            .documents-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .country-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+            
+            .cta-stats {
+                gap: 30px;
+            }
+            
+            .stat-number {
+                font-size: 24px;
+            }
+            
+            .inquiry-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .program-modal-content {
+                margin: 20px auto;
+            }
+            
+            .program-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-header h2 {
+                font-size: 28px;
+            }
+            
+            .university-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .university-logo {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .migration-form {
+                padding: 20px 15px;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .main-header {
+                top: 30px;
+            }
+            
+            .page-hero {
+                margin-top: 100px;
+            }
+            
+            /* Top Bar Mobile */
+            .top-bar .container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .contact-info,
+            .social-links {
+                flex-direction: row;
+                gap: 1rem;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .contact-info {
+                order: 1;
+            }
+
+            .social-links {
+                order: 2;
+            }
+
+            .contact-info a, .social-links a {
+                font-size: 0.8rem;
+            }
+
+            /* Main Header Mobile */
+            .main-header .container {
+                padding: 0 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+                z-index: 1000;
+            }
+
+            .nav-menu.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .nav-menu li {
+                margin: 0;
+                text-align: center;
+            }
+
+            .nav-menu a {
+                display: block;
+                padding: 1rem;
+                /* Removed border-bottom to eliminate white separator lines */
+            }
+
+            .dropdown-content {
+                position: static;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                box-shadow: none;
+               background: linear-gradient(135deg, #0010c2 0%, #0d47a1 100%) !important;
+                margin: 0;
+                border-radius: 0;
+                display: block;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .dropdown.mobile-open .dropdown-content {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                max-height: 500px;
+                /* Large enough for all items */
+                transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .dropdown-content a {
+                opacity: 0;
+                transform: translateY(10px);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                /* No border-bottom for dropdown items */
+            }
+
+            .dropdown.mobile-open .dropdown-content a {
+                opacity: 1;
+                transform: translateY(0);
+                transition-delay: 0.1s;
+            }
+
+            .coming-soon-dropdown {
+                margin: 0.5rem;
+                padding: 0.8rem;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .mobile-menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            /* Page Hero Mobile */
+            .page-hero {
+                padding: 3rem 0;
+                text-align: center;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .page-hero p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            /* Breadcrumb Mobile */
+            .breadcrumb-nav {
+                flex-wrap: wrap;
+                gap: 0.3rem;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .breadcrumb-nav a,
+            .breadcrumb-nav span {
+                font-size: 0.9rem;
+            }
+
+            /* Service Overview Mobile */
+            .service-overview-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .overview-text h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .overview-text .lead {
+                font-size: 1.1rem;
+            }
+
+            .overview-text p {
+                font-size: 0.95rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .overview-image {
+                order: -1;
+            }
+
+            .overview-image img {
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            .service-highlights {
+                text-align: left;
+            }
+
+            .highlight-item {
+                margin-bottom: 0.8rem;
+            }
+
+            /* Section Headers Mobile */
+            .section-header h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .section-header p {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            /* Country Grid Mobile */
+            .country-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .country-card {
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .country-card img {
+                width: 30px;
+                height: auto;
+                margin-bottom: 0.5rem;
+            }
+
+            .country-card h3 {
+                font-size: 0.9rem;
+                margin: 0;
+            }
+
+            /* Universities Container Mobile */
+            .university-section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+
+            .university-section h3 {
+                font-size: 1.3rem;
+                margin: 30px 0 15px;
+            }
+
+            .back-to-countries {
+                margin-bottom: 20px;
+                font-size: 0.9rem;
+            }
+
+            .university-card {
+                margin-bottom: 1.5rem;
+            }
+
+            .university-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .university-logo {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .university-meta {
+                flex-direction: column;
+                gap: 0.3rem;
+                text-align: center;
+            }
+
+            .university-meta span {
+                font-size: 0.85rem;
+            }
+
+            .university-description p {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            .highlight-item {
+                font-size: 0.85rem;
+                margin-bottom: 0.5rem;
+            }
+
+            /* Eligibility Section Mobile */
+            .eligibility-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .eligibility-card {
+                padding: 1.5rem;
+            }
+
+            .eligibility-card h3 {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+
+            .eligibility-card ul li {
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+
+            /* Documents Section Mobile */
+            .documents-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .document-category {
+                padding: 1.5rem;
+            }
+
+            .document-category h3 {
+                font-size: 1.1rem;
+                margin-bottom: 1rem;
+            }
+
+            .document-list li {
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+
+            /* Contact Form Mobile */
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .form-group label {
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 12px;
+                font-size: 1rem;
+            }
+
+            .file-upload-wrapper {
+                margin-bottom: 1rem;
+            }
+
+            .file-upload-label {
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+
+            .checkbox-group {
+                font-size: 0.9rem;
+            }
+
+            .form-submit .btn {
+                width: 100%;
+                padding: 15px;
+                font-size: 1rem;
+            }
+
+            /* Inquiry Section Mobile */
+            .inquiry-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .inquiry-card {
+                padding: 1.5rem;
+                text-align: center;
+            }
+
+            .inquiry-card h3 {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+
+            .inquiry-card p {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .cta-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+                margin-top: 1.5rem;
+            }
+
+            .stat-item {
+                padding: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.8rem;
+            }
+
+            /* Program Modal Mobile */
+            .program-modal-content {
+                width: 95%;
+                max-width: none;
+                margin: 1rem;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .modal-header h3 {
+                font-size: 1.3rem;
+            }
+
+            .modal-header p {
+                font-size: 0.9rem;
+            }
+
+            .program-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .program-card {
+                padding: 1rem;
+            }
+
+            .program-card h5 {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .program-card p {
+                font-size: 0.85rem;
+            }
+
+            .process-step {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .process-step h5 {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .process-step p {
+                font-size: 0.85rem;
+            }
+
+            /* Footer Mobile */
+            .footer {
+                padding: 2rem 0 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .footer-section h3 {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+
+            .footer-section p,
+            .footer-section li {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+
+            .footer-social {
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            .footer-bottom {
+                padding-top: 1rem;
+                font-size: 0.9rem;
+            }
+
+            /* Back to Top Mobile */
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Remove border-bottom from nav links in extra small screens too */
+            .nav-menu a {
+                border-bottom: none !important;
+            }
+            .dropdown-content a {
+                border-bottom: none !important;
+            }
+            .top-bar .container {
+                padding: 0 0.5rem;
+            }
+
+            .contact-info,
+            .social-links {
+                font-size: 0.8rem;
+            }
+
+            .contact-info a,
+            .social-links a {
+                gap: 0.2rem;
+            }
+
+            .main-header {
+                top: 30px;
+            }
+
+            .page-hero {
+                margin-top: 100px;
+            }
+
+            /* Extra Small Screens */
+            .container {
+                padding: 0 0.5rem;
+            }
+
+            /* Top Bar Extra Mobile */
+            .top-bar {
+                padding: 0.3rem 0;
+                font-size: 0.8rem;
+            }
+
+            /* Logo Extra Mobile */
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            /* Page Hero Extra Mobile */
+            .page-hero h1 {
+                font-size: 1.8rem;
+                line-height: 1.2;
+            }
+
+            .page-hero p {
+                font-size: 0.95rem;
+            }
+
+            /* Country Grid Extra Mobile */
+            .country-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .country-card {
+                padding: 0.8rem;
+            }
+
+            .country-card h3 {
+                font-size: 0.85rem;
+            }
+
+            /* University Card Extra Mobile */
+            .university-card {
+                padding: 1rem;
+            }
+
+            .university-info h3 {
+                font-size: 1.1rem;
+            }
+
+            .university-meta span {
+                font-size: 0.8rem;
+            }
+
+            .university-description p {
+                font-size: 0.85rem;
+            }
+
+            .highlight-item {
+                font-size: 0.8rem;
+            }
+
+            /* Section Headers Extra Mobile */
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .section-header p {
+                font-size: 0.9rem;
+            }
+
+            /* Eligibility & Documents Extra Mobile */
+            .eligibility-card,
+            .document-category {
+                padding: 1rem;
+            }
+
+            .eligibility-card h3,
+            .document-category h3 {
+                font-size: 1.1rem;
+            }
+
+            .eligibility-card ul li,
+            .document-list li {
+                font-size: 0.85rem;
+            }
+
+            /* Form Extra Mobile */
+            .form-container {
+                padding: 1rem;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 10px;
+                font-size: 0.95rem;
+            }
+
+            .file-upload-label {
+                padding: 12px;
+                font-size: 0.85rem;
+            }
+
+            .checkbox-group {
+                font-size: 0.85rem;
+            }
+
+            /* Inquiry Section Extra Mobile */
+            .inquiry-card {
+                padding: 1rem;
+            }
+
+            .inquiry-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .inquiry-card p {
+                font-size: 0.85rem;
+            }
+
+            .cta-stats {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .stat-item {
+                padding: 0.8rem;
+            }
+
+            .stat-number {
+                font-size: 1.3rem;
+            }
+
+            .stat-label {
+                font-size: 0.75rem;
+            }
+
+            /* Program Modal Extra Mobile */
+            .program-modal-content {
+                margin: 0.5rem;
+                padding: 1rem;
+            }
+
+            .modal-header h3 {
+                font-size: 1.2rem;
+            }
+
+            .program-card,
+            .process-step {
+                padding: 0.8rem;
+            }
+
+            .program-card h5,
+            .process-step h5 {
+                font-size: 0.95rem;
+            }
+
+            .program-card p,
+            .process-step p {
+                font-size: 0.8rem;
+            }
+
+            /* Footer Extra Mobile */
+            .footer {
+                padding: 1.5rem 0 1rem;
+            }
+
+            .footer-section h3 {
+                font-size: 1.1rem;
+            }
+
+            .footer-section p,
+            .footer-section li {
+                font-size: 0.85rem;
+            }
+
+            .footer-bottom {
+                font-size: 0.8rem;
+            }
+
+            /* Back to Top Extra Mobile */
+            .back-to-top {
+                bottom: 15px;
+
+        /* ============= PROGRAM MODAL MOBILE FIXES ============= */
+
+        /* Fix modal overlay and positioning for mobile */
+        @media (max-width: 768px) {
+            .program-modal {
+                padding: 10px;
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+            .program-modal-content {
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+                border-radius: 10px;
+                max-height: calc(100vh - 40px);
+                overflow-y: auto;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            }
+            /* Fix modal header spacing */
+            .modal-header {
+                padding: 20px 15px;
+                text-align: center;
+            }
+            .modal-header h3 {
+                font-size: 20px;
+                margin-bottom: 8px;
+                line-height: 1.3;
+                word-wrap: break-word;
+            }
+            .modal-header p {
+                font-size: 14px;
+                opacity: 0.9;
+                line-height: 1.4;
+            }
+            .close-modal {
+                top: 15px;
+                right: 15px;
+                font-size: 20px;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(255,255,255,0.2);
+                border-radius: 50%;
+            }
+            /* Fix modal body content alignment and spacing */
+            .modal-body {
+                padding: 20px 15px;
+                text-align: left;
+            }
+            .program-section {
+                margin-bottom: 25px;
+            }
+            .program-section h4 {
+                font-size: 18px;
+                margin-bottom: 12px;
+                padding-bottom: 8px;
+                text-align: left;
+                color: var(--secondary-color);
+            }
+            /* Fix program grid for mobile - single column layout */
+            .program-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 12px;
+                margin-top: 15px;
+            }
+            .program-card {
+                padding: 15px;
+                border-radius: 8px;
+                background-color: #f8f9fa;
+                border-left: 3px solid var(--primary-color);
+                text-align: left;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            }
+            .program-card h5 {
+                font-size: 16px;
+                margin-bottom: 8px;
+                color: var(--dark-text);
+                line-height: 1.3;
+            }
+            .program-card p {
+                font-size: 13px;
+                color: var(--dark-gray);
+                line-height: 1.4;
+                margin: 0;
+            }
+            /* Fix process steps layout for mobile */
+            .process-steps {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .process-step {
+                padding: 15px;
+                border-radius: 8px;
+                background: #f8f9fa;
+                border-left: 3px solid var(--primary-color);
+                text-align: left;
+                position: relative;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            }
+            .process-step h5 {
+                font-size: 15px;
+                margin-bottom: 8px;
+                color: var(--dark-text);
+                line-height: 1.3;
+            }
+            .process-step p {
+                font-size: 13px;
+                color: var(--dark-gray);
+                line-height: 1.4;
+                margin: 0;
+            }
+            /* Fix modal footer */
+            .modal-footer {
+                padding: 15px;
+                background-color: #f8f9fa;
+                text-align: center;
+                border-top: 1px solid #e9ecef;
+            }
+            .modal-footer .btn {
+                width: 100%;
+                padding: 12px 20px;
+                font-size: 14px;
+                font-weight: 600;
+            }
+        }
+
+        /* Extra small devices (phones, 480px and down) */
+        @media (max-width: 480px) {
+            .program-modal {
+                padding: 5px;
+                padding-top: 10px;
+            }
+            .program-modal-content {
+                border-radius: 8px;
+                max-height: calc(100vh - 20px);
+            }
+            .modal-header {
+                padding: 15px 12px;
+            }
+            .modal-header h3 {
+                font-size: 18px;
+                margin-bottom: 6px;
+            }
+            .modal-header p {
+                font-size: 13px;
+            }
+            .modal-body {
+                padding: 15px 12px;
+            }
+            .program-section h4 {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+            .program-card {
+                padding: 12px;
+            }
+            .program-card h5 {
+                font-size: 15px;
+                margin-bottom: 6px;
+            }
+            .program-card p {
+                font-size: 12px;
+            }
+            .process-step {
+                padding: 12px;
+            }
+            .process-step h5 {
+                font-size: 14px;
+                margin-bottom: 6px;
+            }
+            .process-step p {
+                font-size: 12px;
+            }
+            .modal-footer {
+                padding: 12px;
+            }
+            .modal-footer .btn {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+        }
+
+        /* Additional fixes for modal scrolling and positioning */
+        .program-modal {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Ensure modal content doesn't get cut off */
+        @media (max-height: 600px) and (max-width: 768px) {
+            .program-modal-content {
+                max-height: calc(100vh - 20px);
+                margin: 10px auto;
+            }
+            .modal-header {
+                padding: 15px;
+            }
+            .modal-body {
+                padding: 15px;
+            }
+            .program-section {
+                margin-bottom: 20px;
+            }
+            .modal-footer {
+                padding: 12px 15px;
+            }
+        }
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <a href="tel:+94777638715"><i class="fas fa-phone"></i> +94 77 763 8715</a>
+                    <a href="https://mail.google.com/mail/u/0/?fs=1&to=ocyanamigration@gmail.com&su=&body=&tf=cm" target="_blank"><i class="fas fa-envelope"></i> ocyanamigration@gmail.com</a>
+                </div>
+              
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class="main-header">
+            <div class="container">
+                  <div class="logo">
+                    <h1>Ocyana<span>Global</span></h1>
+                </div>
+                <nav>
+                    <ul class="nav-menu" id="navMenu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li class="dropdown">
+                            <a href="#services" class="active">Services</a>
+                            <div class="dropdown-content">
+                                <a href="student.html" class="active">Student Migration</a>
+                                <a href="parent.html">Parent Migration</a>
+                                <a href="skilled.html">Skilled Migration</a>
+                                <a href="unskilled.html">Unskilled Migration</a>
+                                <a href="support.html">Language and Support Migration</a>
+                                <a href="doc.html">Visa and Documentation</a>
+                            </div>
+                        </li>
+                        <li><a href="media.html">Media</a></li>
+                        <li class="dropdown">
+                            <a href="#inside-ogm">Inside the OGM</a>
+                            <div class="dropdown-content">
+                                <div class="coming-soon-dropdown">
+                                    <strong>Stay Tuned!</strong><br>
+                                    <small>Coming Soon</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy</a></li>
+                    </ul>
+                    <div class="mobile-menu-toggle" id="mobileToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Student Migration Services</h1>
+            <p>Transform your academic dreams into reality with expert guidance for studying abroad</p>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="index.html#services">Services</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Student Migration</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Service Overview -->
+    <section class="service-overview section">
+        <div class="container">
+            <div class="service-overview-content">
+                <div class="overview-text">
+                    <h2>Your Gateway to Global Education</h2><br>
+                    <p class="lead">We help students navigate the complex process of studying abroad with expert guidance and support.</p><br>
+                    <p>Our student migration services are designed to make your international education journey seamless. From university selection to visa processing, we provide end-to-end support to ensure you can focus on your academic goals.</p><br>
+                    <div class="service-highlights">
+                        <div class="highlight-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>University selection and application assistance</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Visa application and documentation support</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Scholarship and financial aid guidance</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Pre-departure orientation and accommodation assistance</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="overview-image">
+                    <img src="photos/s3.png" alt="Student Migration Services" style="max-width: 650px; width: 100%; height: auto; display: block; margin-left: auto; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);">
+                </div>
+            </div>
+        <style>
+        /* Responsive and alignment fixes for service overview */
+        .service-overview-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+        .overview-text {
+            flex: 1 1 0;
+            min-width: 300px;
+        }
+        .overview-image {
+            flex: 1 1 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .overview-image img {
+            max-width: 650px;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+        @media (max-width: 900px) {
+            .service-overview-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .overview-image {
+                justify-content: center;
+            }
+        }
+        </style>
+        </div>
+    </section>
+
+        <!-- Country Selection Section -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Choose Your Destination Country</h2>
+                    <p>Select a country to explore top universities and study opportunities</p>
+                </div>
+                
+                <div class="country-grid" id="countryGrid">
+                    <div class="country-card" data-country="australia">
+                        <img src="https://flagcdn.com/w80/au.png" alt="Australia Flag">
+                        <h3>Australia</h3>
+                    </div>
+                    <div class="country-card" data-country="canada">
+                        <img src="https://flagcdn.com/w80/ca.png" alt="Canada Flag">
+                        <h3>Canada</h3>
+                    </div>
+                    <div class="country-card" data-country="finland">
+                        <img src="https://flagcdn.com/w80/fi.png" alt="Finland Flag">
+                        <h3>Finland</h3>
+                    </div>
+                    <div class="country-card" data-country="uk">
+                        <img src="https://flagcdn.com/w80/gb.png" alt="UK Flag">
+                        <h3>United Kingdom</h3>
+                    </div>
+                    <div class="country-card" data-country="newzealand">
+                        <img src="https://flagcdn.com/w80/nz.png" alt="New Zealand Flag">
+                        <h3>New Zealand</h3>
+                    </div>
+                    <div class="country-card" data-country="usa">
+                        <img src="https://flagcdn.com/w80/us.png" alt="USA Flag">
+                        <h3>United States</h3>
+                    </div>
+                    <div class="country-card" data-country="germany">
+                        <img src="https://flagcdn.com/w80/de.png" alt="Germany Flag">
+                        <h3>Germany</h3>
+                    </div>
+                    <div class="country-card" data-country="ireland">
+                        <img src="https://flagcdn.com/w80/ie.png" alt="Ireland Flag">
+                        <h3>Ireland</h3>
+                    </div>
+                    <div class="country-card" data-country="scotland">
+                        <img src="https://flagcdn.com/w80/gb-sct.png" alt="Scotland Flag">
+                        <h3>Scotland</h3>
+                    </div>
+                    <div class="country-card" data-country="dubai">
+                        <img src="https://flagcdn.com/w80/ae.png" alt="Dubai Flag">
+                        <h3>Dubai (UAE)</h3>
+                    </div>
+                    <div class="country-card" data-country="singapore">
+                        <img src="https://flagcdn.com/w80/sg.png" alt="Singapore Flag">
+                        <h3>Singapore</h3>
+                    </div>
+                    <div class="country-card" data-country="malaysia">
+                        <img src="https://flagcdn.com/w80/my.png" alt="Malaysia Flag">
+                        <h3>Malaysia</h3>
+                    </div>
+                    <div class="country-card" data-country="france">
+                        <img src="https://flagcdn.com/w80/fr.png" alt="France Flag">
+                        <h3>France</h3>
+                    </div>
+
+                    <div class="country-card" data-country="france">
+                        <img src="photos/qut.png" alt="France Flag">
+                        <h3>Qatar</h3>
+                    </div>
+
+                    <div class="country-card" data-country="france">
+                        <img src="photos/sau.png" alt="France Flag">
+                        <h3>Saudi Arabia</h3>
+                    </div>
+                </div>
+                
+                <!-- Universities will be shown here when a country is selected -->
+                <div id="universitiesContainer">
+                    <!-- Content will be loaded dynamically via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Eligibility Requirements -->
+        <section class="eligibility-section section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Eligibility Requirements</h2>
+                    <p>Check if you meet the necessary criteria for student migration</p>
+                </div>
+                
+                <div class="eligibility-grid">
+                    <div class="eligibility-card">
+                        <div class="card-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Academic Requirements</h3>
+                        <ul>
+                            <li>Completed secondary education</li>
+                            <li>Minimum GPA requirements (varies by institution)</li>
+                            <li>English language proficiency (IELTS/TOEFL)</li>
+                            <li>Specific prerequisites for chosen program</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="eligibility-card">
+                        <div class="card-icon">
+                            <i class="fas fa-passport"></i>
+                        </div>
+                        <h3>Visa Requirements</h3>
+                        <ul>
+                            <li>Valid passport</li>
+                            <li>Letter of acceptance from institution</li>
+                            <li>Proof of financial support</li>
+                            <li>Health insurance coverage</li>
+                            <li>Medical examination (some countries)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="eligibility-card">
+                        <div class="card-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h3>Financial Requirements</h3>
+                        <ul>
+                            <li>Proof of tuition payment ability</li>
+                            <li>Living expense funds (varies by country)</li>
+                            <li>Bank statements (typically 3-6 months)</li>
+                            <li>Scholarship documentation (if applicable)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Required Documents -->
+        <section class="documents-section section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Required Documents</h2>
+                    <p>Essential documents needed for your student migration application</p>
+                </div>
+                
+                <div class="documents-grid">
+                    <div class="document-category">
+                        <h3><i class="fas fa-file-alt"></i> Academic Documents</h3>
+                        <ul class="document-list">
+                            <li><i class="fas fa-file-certificate"></i> High school transcripts</li>
+                            <li><i class="fas fa-file-certificate"></i> Degree certificates (if applicable)</li>
+                            <li><i class="fas fa-file-certificate"></i> English proficiency test results</li>
+                            <li><i class="fas fa-file-certificate"></i> Standardized test scores (SAT, ACT, etc.)</li>
+                            <li><i class="fas fa-file-certificate"></i> Letters of recommendation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="document-category">
+                        <h3><i class="fas fa-id-card"></i> Personal Documents</h3>
+                        <ul class="document-list">
+                            <li><i class="fas fa-passport"></i> Valid passport</li>
+                            <li><i class="fas fa-id-card"></i> Birth certificate</li>
+                            <li><i class="fas fa-file-image"></i> Passport-sized photographs</li>
+                            <li><i class="fas fa-file-medical"></i> Medical examination reports</li>
+                            <li><i class="fas fa-file-signature"></i> Statement of purpose</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="document-category">
+                        <h3><i class="fas fa-money-bill-wave"></i> Financial Documents</h3>
+                        <ul class="document-list">
+                            <li><i class="fas fa-file-invoice-dollar"></i> Bank statements</li>
+                            <li><i class="fas fa-file-contract"></i> Sponsorship letter (if applicable)</li>
+                            <li><i class="fas fa-award"></i> Scholarship award letters</li>
+                            <li><i class="fas fa-file-invoice"></i> Proof of tuition payment</li>
+                            <li><i class="fas fa-home"></i> Proof of accommodation arrangements</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact Form Section -->
+        <section class="contact-form-section section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Start Your Student Migration Journey</h2>
+                    <p>Fill out the form below and our experts will contact you within 24 hours</p>
+                </div>
+                
+                <div class="form-container">
+                    <form id="studentForm" class="migration-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="middleName">Middle Name</label>
+                                <input type="text" id="middleName" name="middleName">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="sex">Gender *</label>
+                                <select id="sex" name="sex" required>
+                                    <option value="">Select</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">Date of Birth *</label>
+                                <input type="date" id="dob" name="dob" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="maritalStatus">Marital Status *</label>
+                                <select id="maritalStatus" name="maritalStatus" required>
+                                    <option value="">Select</option>
+                                    <option value="single">Single</option>
+                                    <option value="married">Married</option>
+                                    <option value="divorced">Divorced</option>
+                                    <option value="widowed">Widowed</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="currentCountry">Current Country *</label>
+                                <select id="currentCountry" name="currentCountry" required>
+                                    <option value="">Select your country</option>
+                                    <option value="sri-lanka">Sri Lanka</option>
+                                    <option value="india">India</option>
+                                    <option value="bangladesh">Bangladesh</option>
+                                    <option value="pakistan">Pakistan</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="educationLevel">Current Education Level *</label>
+                                <select id="educationLevel" name="educationLevel" required>
+                                    <option value="">Select education level</option>
+                                    <option value="high_school">High School</option>
+                                    <option value="bachelors">Bachelor's Degree</option>
+                                    <option value="masters">Master's Degree</option>
+                                    <option value="phd">PhD</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="desiredCountry">Desired Study Destination *</label>
+                                <select id="desiredCountry" name="desiredCountry" required>
+                                    <option value="">Select destination</option>
+                                    <option value="australia">Australia</option>
+                                    <option value="canada">Canada</option>
+                                    <option value="finland">Finland</option>
+                                    <option value="uk">United Kingdom</option>
+                                    <option value="newzealand">New Zealand</option>
+                                    <option value="usa">United States</option>
+                                    <option value="germany">Germany</option>
+                                    <option value="ireland">Ireland</option>
+                                    <option value="scotland">Scotland</option>
+                                    <option value="dubai">Dubai (UAE)</option>
+                                    <option value="singapore">Singapore</option>
+                                    <option value="malaysia">Malaysia</option>
+                                    <option value="france">France</option>
+                                    <option value="qatar">Qatar</option>
+                                    <option value="saudi_arabia">Saudi Arabia</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="studyField">Field of Study *</label>
+                                <select id="studyField" name="studyField" required>
+                                    <option value="">Select field</option>
+                                    <option value="engineering">Engineering</option>
+                                    <option value="business">Business</option>
+                                    <option value="medicine">Medicine</option>
+                                    <option value="arts">Arts & Humanities</option>
+                                    <option value="science">Science</option>
+                                    <option value="it">Information Technology</option>
+                                    <option value="law">Law</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="academicGoals">Academic Goals</label>
+                            <textarea id="academicGoals" name="academicGoals" rows="4" placeholder="Briefly describe your academic goals and why you want to study abroad..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="additionalInfo">Additional Information</label>
+                            <textarea id="additionalInfo" name="additionalInfo" rows="4" placeholder="Any additional information about your academic background or preferences..."></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group file-upload-group">
+                                <label>Upload Your CV (PDF, DOC, DOCX) *</label>
+                                <div class="file-upload-wrapper">
+                                    <input type="file" id="cvUpload" name="cvUpload" accept=".pdf,.doc,.docx" required class="file-upload-input">
+                                    <label for="cvUpload" class="file-upload-label">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <span class="file-upload-text">Choose a file</span>
+                                        <span class="file-upload-hint">Max 5MB</span>
+                                    </label>
+                                    <div class="file-upload-preview" id="filePreview">
+                                        <span class="file-name"></span>
+                                        <button type="button" class="remove-file-btn" id="removeFileBtn">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="agree" name="agree" required>
+                            <label for="agree">I agree to the <a href="privacy.html" class="link">Terms and Conditions</a> and <a href="privacy.html" class="link">Privacy Policy</a> *</label>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="newsletter" name="newsletter">
+                            <label for="newsletter">I would like to receive updates about study abroad opportunities</label>
+                        </div>
+                        
+                        <div class="form-submit">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                                Submit Application
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!-- FAQ Section -->
+        <section class="inquiry-section section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Have More Questions About Student Migration?</h2>
+                    <p>Our expert consultants are here to help you with personalized guidance</p>
+                </div>
+                
+                <div class="inquiry-content">
+                    <div class="inquiry-grid">
+                        <div class="inquiry-card">
+                            <div class="inquiry-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <h3>Schedule a Call</h3>
+                            <p>Book a free 30-minute consultation with our migration experts to discuss your specific situation.</p>
+                            <a href="tel:+94777638715" class="btn btn-primary">Book Consultation</a>
+                        </div>
+                        
+                        <div class="inquiry-card">
+                            <div class="inquiry-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h3>Live Chat Support</h3>
+                            <p>Get instant answers to your questions through our live chat support available 24/7.</p>
+                            <a href="tel:+94777698214" class="btn btn-primary">Start Chat</a>
+                        </div>
+                        
+                       
+                    </div>
+                    
+                    <div class="contact-cta">
+                        <div class="cta-content">
+                            <h3>Ready to Start Your Study Abroad Journey?</h3>
+                            <p>Our team of certified education consultants has helped thousands of students achieve their international education dreams.</p>
+                            <div class="cta-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">95%</span>
+                                    <span class="stat-label">Visa Success Rate</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">100+</span>
+                                    <span class="stat-label">University Partnerships</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">1+</span>
+                                    <span class="stat-label">Years Experience</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Ocyana Global</h3>
+                    <p>Your trusted partner for all migration needs. We specialize in helping individuals and families achieve their dreams of living, working, or studying abroad.</p>
+                    <div class="footer-social">
+                       <a href="https://www.facebook.com/share/1ArEouALDr/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/OcyanaMigration" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/ocyana-migration-b9a66636b/ " target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/ocyana_migration?igsh=MXFqbXB6NzR4ODJvZQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="media.html">Media</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="student.html">Student Migration</a></li>
+                        <li><a href="parent.html">Parent Migration</a></li>
+                        <li><a href="skilled.html">Skilled Migration</a></li>
+                        <li><a href="unskilled.html">Unskilled Migration</a></li>
+                        <li><a href="support.html">Language & Interview Support</a></li>
+                        <li><a href="doc.html">Visa & Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> C/G/04,Sir James peiris mawatha, Colombo 02. Postal code 00200</p>
+                    <p><a href="tel:+94777638715"><i class="fas fa-phone"></i> +94 77 763 8715</a></p>
+                    <p><a href="tel:+94777108380"><i class="fas fa-phone"></i> +94 77 710 8380</a></p>
+                    <p><a href="tel:+94777698214"><i class="fas fa-phone"></i> +94 77 769 8214</a></p>
+                    <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=ocyanamigration@gmail.com" target="_blank"><i class="fas fa-envelope"></i> ocyanamigration@gmail.com</a></p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ocyana Global Migration. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Program Modal -->
+    <div id="programModal" class="program-modal">
+        <div class="program-modal-content">
+            <div class="modal-header">
+                <span class="close-modal">&times;</span>
+                <h3 id="modalUniversityName">University Name</h3>
+                <p id="modalUniversityLocation">Location, Country</p>
+            </div>
+            <div class="modal-body">
+                <div class="program-section">
+                    <h4>Eligible Programs</h4>
+                    <div class="program-grid">
+                        <div class="program-card">
+                            <h5>Bachelor's Degrees</h5>
+                            <p>4-year undergraduate programs across various disciplines</p>
+                        </div>
+                        <div class="program-card">
+                            <h5>Master's Degrees</h5>
+                            <p>1-2 year graduate programs with research or coursework options</p>
+                        </div>
+                        <div class="program-card">
+                            <h5>PhD Programs</h5>
+                            <p>Research-focused doctoral degrees with faculty supervision</p>
+                        </div>
+                        <div class="program-card">
+                            <h5>Diploma Courses</h5>
+                            <p>1-2 year vocational and technical training programs</p>
+                        </div>
+                        <div class="program-card">
+                            <h5>Language Courses</h5>
+                            <p>English language preparation and pathway programs</p>
+                        </div>
+                        <div class="program-card">
+                            <h5>Exchange Programs</h5>
+                            <p>Short-term study abroad opportunities</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="program-section">
+                    <h4>Entry Requirements</h4>
+                    <div class="program-grid">
+                        <div class="program-card">
+                            <h5>English Proficiency</h5>
+                            <p>IELTS 6.5+ or TOEFL 80+ (varies by program)</p>
+                        </div>
+                        <div class="program-card">
+                            <h5>Academic Records</h5>
+                            <p>Minimum GPA of 3.0/4.0 or equivalent</p>
+                        </div>
+                        <div class="program-card">
+                            <h5>Financial Capacity</h5>
+                            <p>Proof of funds for tuition and living expenses</p>
+                        </div>
+                        <div class="program-card">
+                            <h5>Additional Tests</h5>
+                            <p>SAT, GRE, or GMAT may be required</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="program-section">
+                    <h4>Application Process Steps</h4>
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <h5>Course & Country Selection</h5>
+                            <p>Our experts help you choose the right program and destination based on your goals and qualifications.</p>
+                        </div>
+                        <div class="process-step">
+                            <h5>University Application</h5>
+                            <p>We assist with preparing and submitting all required documents to your chosen institutions.</p>
+                        </div>
+                        <div class="process-step">
+                            <h5>Offer Letter & Documentation</h5>
+                            <p>Once accepted, we help you understand and complete all necessary paperwork.</p>
+                        </div>
+                        <div class="process-step">
+                            <h5>Visa Application</h5>
+                            <p>Our team guides you through the visa process including health checks and interviews.</p>
+                        </div>
+                        <div class="process-step">
+                            <h5>Pre-Departure Preparation</h5>
+                            <p>We provide orientation and help arrange accommodation and travel.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Start Your Application</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Mobile Menu Toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (mobileToggle && navMenu) {
+        mobileToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+    }
+
+    // Close mobile menu when clicking on a link (but not dropdown toggles)
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            // Don't close menu if this is a dropdown toggle
+            if (link.closest('.dropdown') && link.nextElementSibling && 
+                link.nextElementSibling.classList.contains('dropdown-content')) {
+                return; // Let the dropdown handler manage this
+            }
+            
+            if (mobileToggle && navMenu) {
+                mobileToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    });
+
+    // Handle Mobile Dropdowns
+    const isMobile = () => window.innerWidth <= 768;
+    const dropdowns = document.querySelectorAll('.dropdown');
+    
+    dropdowns.forEach(dropdown => {
+        const link = dropdown.querySelector('a');
+        
+        link.addEventListener('click', function(e) {
+            if (isMobile()) {
+                e.preventDefault();
+                const dropdownContent = this.nextElementSibling;
+                
+                // Close all other dropdowns first
+                dropdowns.forEach(otherDropdown => {
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.classList.remove('mobile-open');
+                    }
+                });
+                
+                // Toggle current dropdown
+                if (dropdownContent && dropdownContent.classList.contains('dropdown-content')) {
+                    dropdown.classList.toggle('mobile-open');
+                }
+            }
+        });
+    });
+
+    // Close mobile menu when clicking on dropdown items
+    document.querySelectorAll('.dropdown-content a').forEach(dropdownLink => {
+        dropdownLink.addEventListener('click', () => {
+            if (isMobile() && mobileToggle && navMenu) {
+                mobileToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+                // Also close any open dropdowns
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('mobile-open');
+                });
+            }
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (isMobile() && !e.target.closest('.dropdown') && !e.target.closest('.mobile-menu-toggle')) {
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('mobile-open');
+            });
+            
+            if (!e.target.closest('.nav-menu') && navMenu && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                if (mobileToggle) mobileToggle.classList.remove('active');
+            }
+        }
+    });
+
+    // Country selection functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const countryCards = document.querySelectorAll('.country-card');
+        const universitiesContainer = document.getElementById('universitiesContainer');
+        
+        console.log('Country cards found:', countryCards.length);
+        console.log('Universities container found:', !!universitiesContainer);
+
+        // Sample university data (in a real app, this would come from an API)
+        const universitiesData = {
+            australia: [
+                {
+                    name: "University of Sydney",
+                    logo: "photos/syd.png",
+                    location: "Sydney, New South Wales, Australia",
+                    ranking: "Ranked #1 in Australia",
+                    programs: "400+ programs",
+                    description: "The University of Sydney is Australia's first university, established in 1850. It's consistently ranked among the world's top universities and is renowned for its teaching excellence and research output.",
+                    highlights: [
+                        "Australia's first university with historic campus",
+                        "Strong alumni network including 7 Australian Prime Ministers",
+                        "World-class research facilities",
+                        "Beautiful campus with iconic Quadrangle building"
+                    ],
+                    state: "New South Wales"
+                },
+                {
+                    name: "University of New South Wales (UNSW)",
+                    logo: "photos/unsw.png",
+                    location: "Sydney, New South Wales, Australia",
+                    ranking: "Ranked #4 in Australia",
+                    programs: "300+ programs",
+                    description: "UNSW Sydney is a leading research-intensive university known for its strong focus on innovation and entrepreneurship, particularly in engineering, business, and law.",
+                    highlights: [
+                        "Renowned engineering and technology programs",
+                        "Strong industry connections for internships",
+                        "Modern campus near Sydney's business district",
+                        "Vibrant student life with 300+ clubs"
+                    ],
+                    state: "New South Wales"
+                },
+                {
+                    name: "University of Melbourne",
+                    logo: "photos/mel4.png",
+                    location: "Melbourne, Victoria, Australia",
+                    ranking: "Ranked #1 in Australia",
+                    programs: "400+ programs",
+                    description: "The University of Melbourne is a public research university consistently ranked in the world's top 50. It's particularly strong in medicine, law, and arts.",
+                    highlights: [
+                        "Consistently ranks in world's top 50 universities",
+                        "Beautiful parkland campus in Melbourne's center",
+                        "Strong research output and funding",
+                        "Comprehensive student support services"
+                    ],
+                    state: "Victoria"
+                },
+                {
+                    name: "Monash University",
+                    logo: "photos/mon.png",
+                    location: "Melbourne, Victoria, Australia",
+                    ranking: "Ranked #6 in Australia",
+                    programs: "350+ programs",
+                    description: "Monash University is Australia's largest university with a strong reputation in health sciences, information technology, and innovative research.",
+                    highlights: [
+                        "Excellent health sciences and IT programs",
+                        "Multiple campuses including international locations",
+                        "Strong focus on research and innovation",
+                        "Diverse student community from over 170 countries"
+                    ],
+                    state: "Victoria"
+                }
+            ],
+            canada: [
+                {
+                    name: "University of Toronto",
+                    logo: "photos/toro.png", 
+                    location: "Toronto, Ontario, Canada",
+                    ranking: "Ranked #1 in Canada",
+                    programs: "700+ programs",
+                    description: "The University of Toronto is a public research university in Toronto, Ontario, Canada, located on the grounds that surround Queen's Park. It was founded by royal charter in 1827 as King's College.",
+                    highlights: [
+                        "One of the world's top research-intensive universities",
+                        "Diverse student body with 160+ countries represented",
+                        "Strong alumni network including 5 Nobel laureates",
+                        "Excellent co-op and internship opportunities"
+                    ],
+                    state: "Ontario"
+                },
+                {
+                    name: "Western University",
+                    logo: "photos/wes.jpg",
+                    location: "London, Ontario, Canada",
+                    ranking: "Ranked #7 in Canada",
+                    programs: "400+ programs",
+                    description: "Western University offers a strong mix of academic and co-op programs, known for its vibrant campus life and research opportunities.",
+                    highlights: [
+                        "Excellent business and medical programs",
+                        "Strong industry connections for co-op placements",
+                        "Beautiful campus with Gothic architecture",
+                        "Vibrant student community"
+                    ],
+                    state: "Ontario"
+                },
+                {
+                    name: "University of Ottawa",
+                    logo: "photos/ott.jpg",
+                    location: "Ottawa, Ontario, Canada",
+                    ranking: "Ranked #9 in Canada",
+                    programs: "450+ programs",
+                    description: "Bilingual campus with excellent law and health sciences faculties, located in Canada's capital city.",
+                    highlights: [
+                        "Official bilingual (English-French) university",
+                        "Strong law and political science programs",
+                        "Prime location for government internships",
+                        "Modern research facilities"
+                    ],
+                    state: "Ontario"
+                },
+                {
+                    name: "University of British Columbia (UBC)",
+                    logo: "photos/ubc.png",
+                    location: "Vancouver, British Columbia, Canada",
+                    ranking: "Ranked #2 in Canada",
+                    programs: "500+ programs",
+                    description: "The University of British Columbia is a public research university with campuses in Vancouver and Kelowna, British Columbia. Established in 1908, UBC is British Columbia's oldest university.",
+                    highlights: [
+                        "Stunning campus located between mountains and ocean",
+                        "Strong focus on sustainability and environmental research",
+                        "Excellent student life with 300+ clubs",
+                        "World-class research facilities"
+                    ],
+                    state: "British Columbia"
+                },
+                {
+                    name: "Simon Fraser University",
+                    logo: "photos/sfu.png",
+                    location: "Burnaby, British Columbia, Canada",
+                    ranking: "Ranked #13 in Canada",
+                    programs: "200+ programs",
+                    description: "SFU is known for its strong focus on co-op and applied learning, with three campuses in the Vancouver area.",
+                    highlights: [
+                        "Renowned for cooperative education programs",
+                        "Innovative semester system with year-round study options",
+                        "Strong connections with tech industry",
+                        "Beautiful mountaintop campus"
+                    ],
+                    state: "British Columbia"
+                }
+            ],
+            finland: [
+                {
+                    name: "Aalto University",
+                    logo: "photos/al.png",
+                    location: "Espoo, Finland",
+                    ranking: "Ranked #1 in Finland",
+                    programs: "150+ programs",
+                    description: "Finland's top university for technology, business, and arts; highly ranked globally (QS ~#109).",
+                    highlights: [
+                        "Strong in engineering, business, design",
+                        "Innovative interdisciplinary approach",
+                        "Beautiful campus near Helsinki",
+                        "Excellent career services"
+                    ]
+                },
+                {
+                    name: "University of Helsinki",
+                    logo: "photos/hel.jpg",
+                    location: "Helsinki, Finland",
+                    ranking: "Ranked #2 in Finland",
+                    programs: "200+ programs",
+                    description: "Finland's oldest and largest university, located in the capital with strong research focus.",
+                    highlights: [
+                        "Wide range of programs",
+                        "Excellent research facilities",
+                        "Tuition-free for EU students",
+                        "Strong international reputation"
+                    ]
+                },
+                {
+                    name: "University of Turku",
+                    logo: "photos/tur.jpg",
+                    location: "Turku, Finland",
+                    ranking: "Ranked #3 in Finland",
+                    programs: "180+ programs",
+                    description: "Comprehensive university in southwest Finland; QS rank ~#315 globally.",
+                    highlights: [
+                        "Strong sciences and medicine programs",
+                        "Beautiful campus in historic city",
+                        "Affordable student housing",
+                        "Excellent student support"
+                    ]
+                }
+            ],
+            uk: [
+                {
+                    name: "University of Oxford",
+                    logo: "photos/ox.jpg",
+                    location: "Oxford, England, United Kingdom",
+                    ranking: "Ranked #1 globally",
+                    programs: "350+ programs",
+                    description: "The University of Oxford is a collegiate research university in Oxford, England. There is evidence of teaching as early as 1096, making it the oldest university in the English-speaking world.",
+                    highlights: [
+                        "World-renowned academic excellence",
+                        "Historic and prestigious institution",
+                        "Strong alumni network",
+                        "Research-intensive environment"
+                    ],
+                    region: "England"
+                },
+                {
+                    name: "University of Cambridge",
+                    logo: "photos/cam.png",
+                    location: "Cambridge, England, United Kingdom",
+                    ranking: "Ranked #2 globally",
+                    programs: "150+ programs",
+                    description: "The University of Cambridge is a collegiate research university in Cambridge, United Kingdom. Founded in 1209 and granted a royal charter by Henry III in 1231.",
+                    highlights: [
+                        "World-class research facilities",
+                        "Historic collegiate system",
+                        "Outstanding academic reputation",
+                        "Beautiful historic campus"
+                    ],
+                    region: "England"
+                },
+                {
+                    name: "Imperial College London",
+                    logo: "photos/imp.png",
+                    location: "London, England, United Kingdom",
+                    ranking: "Ranked #6 globally",
+                    programs: "200+ programs",
+                    description: "Imperial College London is a public research university specializing in science, engineering, medicine, and business.",
+                    highlights: [
+                        "Best for science, tech, and engineering in UK",
+                        "Strong industry partnerships",
+                        "Central London location",
+                        "Cutting-edge research facilities"
+                    ],
+                    region: "England"
+                },
+                {
+                    name: "University of Edinburgh",
+                    logo: "photos/edi.png",
+                    location: "Edinburgh, Scotland, United Kingdom",
+                    ranking: "Ranked #15 globally",
+                    programs: "300+ programs",
+                    description: "Top-ranked university with a historic campus, founded in 1582. Scotland's fourth oldest university.",
+                    highlights: [
+                        "Beautiful historic campus in Scotland's capital",
+                        "Strong research programs across disciplines",
+                        "Vibrant international student community",
+                        "Excellent graduate employment rates"
+                    ],
+                    region: "Scotland"
+                }
+            ],
+            newzealand: [
+                {
+                    name: "University of Auckland",
+                    logo: "photos/auk.jpg",
+                    location: "Auckland, New Zealand",
+                    ranking: "Ranked #1 in New Zealand",
+                    programs: "150+ programs",
+                    description: "The University of Auckland is New Zealand's highest-ranked university, known for its research excellence and comprehensive program offerings.",
+                    highlights: [
+                        "NZ's top-ranked comprehensive university",
+                        "Strong research output and facilities",
+                        "Beautiful campus in New Zealand's largest city",
+                        "Diverse international student body"
+                    ],
+                    city: "Auckland"
+                },
+                {
+                    name: "Auckland University of Technology (AUT)",
+                    logo: "photos/aut.png",
+                    location: "Auckland, New Zealand",
+                    ranking: "Ranked #3 in New Zealand",
+                    programs: "250+ programs",
+                    description: "AUT is known for its modern programs and research, with strong industry connections and practical learning focus.",
+                    highlights: [
+                        "Modern, career-focused programs",
+                        "Strong industry partnerships",
+                        "Innovative teaching methods",
+                        "Excellent student support services"
+                    ],
+                    city: "Auckland"
+                },
+                {
+                    name: "Victoria University of Wellington",
+                    logo: "photos/well.png",
+                    location: "Wellington, New Zealand",
+                    ranking: "Ranked #2 in New Zealand",
+                    programs: "180+ programs",
+                    description: "Victoria University of Wellington is strong in humanities and law, located in New Zealand's capital city.",
+                    highlights: [
+                        "Excellent law and humanities programs",
+                        "Prime location for government and policy studies",
+                        "Beautiful hilltop campus",
+                        "Strong research culture"
+                    ],
+                    city: "Wellington"
+                }
+            ],
+            usa: [
+                {
+                    name: "Harvard University",
+                    logo: "photos/har.png",
+                    location: "Cambridge, Massachusetts, USA",
+                    ranking: "Ranked #1 globally",
+                    programs: "500+ programs",
+                    description: "Harvard University is a private Ivy League research university in Cambridge, Massachusetts. Established in 1636, Harvard is the oldest institution of higher education in the United States.",
+                    highlights: [
+                        "World-leading academic reputation",
+                        "Extensive research opportunities",
+                        "Strong alumni network",
+                        "Historic and prestigious institution"
+                    ]
+                },
+                {
+                    name: "Stanford University",
+                    logo: "photos/stan.png",
+                    location: "Stanford, California, USA",
+                    ranking: "Ranked #2 globally",
+                    programs: "450+ programs",
+                    description: "Stanford University is a private research university in Stanford, California. The campus occupies 8,180 acres, among the largest in the United States.",
+                    highlights: [
+                        "Innovation and entrepreneurship hub",
+                        "Beautiful California campus",
+                        "Strong technology programs",
+                        "Excellent research facilities"
+                    ]
+                }
+            ],
+            germany: [
+                {
+                    name: "Technical University of Munich (TUM)",
+                    logo: "photos/tun.png",
+                    location: "Munich, Bavaria, Germany",
+                    ranking: "Ranked #1 in Germany",
+                    programs: "180+ programs",
+                    description: "TUM is Germany's premier university for engineering and science, with a strong international reputation.",
+                    highlights: [
+                        "Excellent engineering and technology programs",
+                        "Affordable education costs",
+                        "Beautiful Bavarian location",
+                        "Strong industry connections"
+                    ],
+                    region: "Bavaria"
+                },
+                {
+                    name: "Ludwig Maximilian University of Munich (LMU)",
+                    logo: "photos/lmu.png",
+                    location: "Munich, Bavaria, Germany",
+                    ranking: "Ranked #2 in Germany",
+                    programs: "200+ programs",
+                    description: "LMU is a top research institution with comprehensive program offerings across disciplines.",
+                    highlights: [
+                        "Comprehensive research university",
+                        "Strong humanities and sciences programs",
+                        "Historic institution with modern facilities",
+                        "Located in vibrant Munich"
+                    ],
+                    region: "Bavaria"
+                },
+                {
+                    name: "RWTH Aachen University",
+                    logo: "photos/rath.png",
+                    location: "Aachen, North Rhine-Westphalia, Germany",
+                    ranking: "Ranked #3 in Germany",
+                    programs: "150+ programs",
+                    description: "RWTH Aachen is Germany's leading engineering and tech university, known for its practical approach.",
+                    highlights: [
+                        "Leading engineering and technology programs",
+                        "Strong industry collaborations",
+                        "Excellent graduate employment rates",
+                        "Innovative research environment"
+                    ],
+                    region: "North Rhine-Westphalia"
+                }
+            ],
+            ireland: [
+                {
+                    name: "Trinity College Dublin (TCD)",
+                    logo: "photos/trin.jpg",
+                    location: "Dublin, Ireland",
+                    ranking: "Ranked #1 in Ireland",
+                    programs: "400+ programs",
+                    description: "Ireland's oldest (1592) and highest-ranked university (top 90 globally in QS).",
+                    highlights: [
+                        "Historic campus in Dublin city center",
+                        "Excellent reputation globally",
+                        "Strong alumni networks",
+                        "Comprehensive student support"
+                    ]
+                },
+                {
+                    name: "University College Dublin (UCD)",
+                    logo: "photos/dub.png",
+                    location: "Dublin, Ireland",
+                    ranking: "Ranked #2 in Ireland",
+                    programs: "300+ programs",
+                    description: "Ireland's largest (~38,000 students); ranking ~#126 globally with strong STEM and business programs.",
+                    highlights: [
+                        "Modern campus facilities",
+                        "Excellent industry connections",
+                        "Strong graduate employability",
+                        "Comprehensive international student support"
+                    ]
+                },
+                {
+                    name: "University of Limerick (UL)",
+                    logo: "photos/lim.png",
+                    location: "Limerick, Ireland",
+                    ranking: "Ranked #5 in Ireland",
+                    programs: "200+ programs",
+                    description: "Established 1972; known for strong industry linkages and co-op education programs.",
+                    highlights: [
+                        "Excellent work placement programs",
+                        "Beautiful riverside campus",
+                        "Strong engineering and business schools",
+                        "High graduate employment rates"
+                    ]
+                }
+            ],
+            scotland: [
+                {
+                    name: "University of St Andrews",
+                    logo: "photos/sen.png",
+                    location: "St Andrews, Fife, Scotland",
+                    ranking: "Ranked #1 in Scotland",
+                    programs: "200+ programs",
+                    description: "Scotland's oldest university (founded 1413), ranked top in Scotland with 94% score and 83% student satisfaction.",
+                    highlights: [
+                        "Beautiful historic coastal location",
+                        "Excellent graduate prospects (89.6%)",
+                        "Guaranteed first-year accommodation",
+                        "Strong international student support"
+                    ]
+                },
+                {
+                    name: "University of Edinburgh",
+                    logo: "photos/edi2.png",
+                    location: "Edinburgh, Scotland",
+                    ranking: "Ranked #2 in Scotland",
+                    programs: "300+ programs",
+                    description: "Ancient (1582), top-3 in Scotland with overall score of 80% and strong research funding (£365m/yr).",
+                    highlights: [
+                        "Beautiful historic campus",
+                        "Excellent student immigration support",
+                        "High graduate employability",
+                        "Vibrant cultural city location"
+                    ]
+                },
+                {
+                    name: "University of Glasgow",
+                    logo: "photos/gal.jpg",
+                    location: "Glasgow, Scotland",
+                    ranking: "Ranked #3 in Scotland",
+                    programs: "250+ programs",
+                    description: "Founded 1451, top 100 globally, third-largest Scottish uni by research and student body.",
+                    highlights: [
+                        "Stunning Gothic architecture",
+                        "Strong medicine and engineering programs",
+                        "Vibrant international community",
+                        "Excellent career services"
+                    ]
+                }
+            ],
+            dubai: [
+                {
+                    name: "Heriot-Watt University Dubai",
+                    logo: "photos/watt.png",
+                    location: "Dubai Knowledge Park, Dubai, UAE",
+                    ranking: "Ranked #1 in Dubai",
+                    programs: "100+ programs",
+                    description: "First UK campus in Dubai (opened 2005). Enrolls ~5,000 students from 115 nationalities. KHDA-rated 5 stars for teaching and facilities.",
+                    highlights: [
+                        "Named 'Best University in the Middle East' by Forbes (2019)",
+                        "Modern labs, Bloomberg trading room, incubator",
+                        ">90% of grads find jobs or enter further study within 6 months",
+                        "Strong UK degree recognition"
+                    ]
+                },
+                {
+                    name: "University of Wollongong in Dubai (UOWD)",
+                    logo: "photos/woll.png",
+                    location: "Dubai Knowledge Village, Dubai, UAE",
+                    ranking: "Ranked #2 in Dubai",
+                    programs: "80+ programs",
+                    description: "Off-shore campus of Australia's UOW, established 1993. Independent entity with ~3,500–3,700 students from 108+ countries.",
+                    highlights: [
+                        "Strong in Computer Science & Engineering",
+                        "Australian degree standards",
+                        "Modern campus facilities",
+                        "Vibrant international community"
+                    ]
+                },
+                {
+                    name: "American University in Dubai (AUD)",
+                    logo: "photos/aud.jpeg",
+                    location: "Dubai, UAE",
+                    ranking: "Ranked #5 in Dubai",
+                    programs: "60+ programs",
+                    description: "Established 1995; AACSB, ABET & NAAB accredited; teaches 2,600+ students from 108 countries.",
+                    highlights: [
+                        "Ranked #601–650 globally (QS)",
+                        "Top in employability—QS 'Global Employability' ranking of #180",
+                        "Strong business and architecture programs",
+                        "Career-ready focus with internships"
+                    ]
+                }
+            ],
+            singapore: [
+                {
+                    name: "National University of Singapore (NUS)",
+                    logo: "photos/nus.png",
+                    location: "Kent Ridge, Singapore",
+                    ranking: "Ranked #1 in Asia",
+                    programs: "300+ programs",
+                    description: "Singapore's flagship public research university (founded 1905) with ~36,000 students and 2,500 faculty.",
+                    highlights: [
+                        "QS #8 globally, THE #17 (2025)",
+                        "Comprehensive offerings—Medicine, Engineering, Computing, Business",
+                        "Most international Asian university",
+                        "Consistently tops rankings"
+                    ]
+                },
+                {
+                    name: "Nanyang Technological University (NTU)",
+                    logo: "photos/nus.png",
+                    location: "Jurong West, Singapore",
+                    ranking: "Ranked #2 in Asia",
+                    programs: "250+ programs",
+                    description: "Major public research university, founded as NTI in 1981 (university status 1991) with ~37,500 students.",
+                    highlights: [
+                        "QS #15; THE Young University #1 globally",
+                        "STEM excellence, world-class engineering",
+                        "200-ha eco-friendly campus",
+                        "Strong research output"
+                    ]
+                },
+                {
+                    name: "Singapore Management University (SMU)",
+                    logo: "photos/smu.png",
+                    location: "Bras Basah, Singapore",
+                    ranking: "Ranked #3 in Singapore",
+                    programs: "50+ programs",
+                    description: "Autonomous university established 2000, based on U.S. model (Wharton-style) with ~10,000 students.",
+                    highlights: [
+                        "Business school triple-accredited (AACSB, EQUIS, AMBA)",
+                        "Top 100 worldwide in Business & Economics",
+                        "City campus in downtown Singapore",
+                        "Strong industry connections"
+                    ]
+                }
+            ],
+            malaysia: [
+                {
+                    name: "Universiti Malaya (UM)",
+                    logo: "photos/mala.png",
+                    location: "Kuala Lumpur, Malaysia",
+                    ranking: "Ranked #1 in Malaysia",
+                    programs: "200+ programs",
+                    description: "Malaysia's oldest and top public research university (est. 1905) with ~36k students.",
+                    highlights: [
+                        "QS #60 globally (2025); Asia #12",
+                        "Strong Academic (QS #62) and Employer Reputation (#34)",
+                        "46 subjects ranked; 20 in world's top 100",
+                        "Only Malaysian uni in QS top 100"
+                    ]
+                },
+                {
+                    name: "Universiti Sains Malaysia (USM)",
+                    logo: "photos/usm.png",
+                    location: "Penang, Malaysia",
+                    ranking: "Ranked #2 in Malaysia",
+                    programs: "180+ programs",
+                    description: "Malaysia's second oldest public research university (est. 1969) with 24k+ students.",
+                    highlights: [
+                        "QS #137 (2024); THE 401-500",
+                        "APEX-autonomous status",
+                        "Strong in Science, Engineering, Medicine",
+                        "Multi-campus reach"
+                    ]
+                },
+                {
+                    name: "Taylor's University",
+                    logo: "photos/tay.jpg",
+                    location: "Subang Jaya, Malaysia",
+                    ranking: "Ranked #6 in Malaysia",
+                    programs: "120+ programs",
+                    description: "Top Malaysian private university with QS #251 ranking.",
+                    highlights: [
+                        "QS Asia #36",
+                        "5-Star QS online learning",
+                        "Strong industry links",
+                        "Excellent student employability"
+                    ]
+                }
+            ],
+            france: [
+                {
+                    name: "Université PSL (Paris Sciences & Lettres)",
+                    logo: "photos/psl.jpg",
+                    location: "Paris, France",
+                    ranking: "Ranked #1 in France",
+                    programs: "150+ programs",
+                    description: "Collegiate public research university (est. 2010) combining historic institutions like ENS Paris.",
+                    highlights: [
+                        "QS #24 globally; THE #40",
+                        "140 research labs",
+                        "Exceptional faculty-student ratio",
+                        "Strong employer reputation"
+                    ]
+                },
+                {
+                    name: "Sorbonne University",
+                    logo: "photos/sor.jpg",
+                    location: "Paris, France",
+                    ranking: "Ranked #3 in France",
+                    programs: "300+ programs",
+                    description: "Public research university formed by merger in 2018, with historic roots dating back centuries.",
+                    highlights: [
+                        "QS #59; THE ~#75",
+                        "Celebrated for arts, humanities, sciences",
+                        "Consistently among world's top institutions",
+                        "Beautiful historic campuses"
+                    ]
+                },
+                {
+                    name: "Sciences Po Paris",
+                    logo: "photos/paris.png",
+                    location: "Paris, France",
+                    ranking: "Ranked #9 in France",
+                    programs: "50+ programs",
+                    description: "Prestigious public Grande École for social sciences, politics, and law.",
+                    highlights: [
+                        "QS #319; top in political science (#2 globally)",
+                        "Highly selective admissions",
+                        "Strong international focus",
+                        "Excellent career prospects in government"
+                    ]
+                }
+            ]
+        };
+
+        countryCards.forEach(card => {
+            card.addEventListener('click', function() {
+                console.log('Country card clicked:', this.getAttribute('data-country'));
+                const country = this.getAttribute('data-country');
+                showUniversities(country);
+            });
+        });
+
+        function showUniversities(country) {
+            console.log('Showing universities for:', country);
+            const countryGrid = document.getElementById('countryGrid');
+            const universitiesContainer = document.getElementById('universitiesContainer');
+            
+            if (!countryGrid || !universitiesContainer) {
+                console.error('Required elements not found');
+                return;
+            }
+            
+            countryGrid.style.display = 'none';
+            
+            const universities = universitiesData[country] || [];
+            console.log('Universities found:', universities.length);
+            
+            let html = `<div class="university-section active">
+                <div class="back-to-countries" id="backToCountries">
+                    <i class="fas fa-arrow-left"></i> Back to Countries
+                </div>
+                <h2 style="text-align: center; margin-bottom: 30px;">Top Universities in ${getCountryName(country)}</h2>`;
+            
+            // Group universities by region/state/city if applicable
+            if (['canada', 'uk', 'germany', 'newzealand', 'australia'].includes(country)) {
+                const groupingField = country === 'canada' ? 'state' : 
+                                    country === 'uk' ? 'region' : 
+                                    country === 'australia' ? 'state' :
+                                    country === 'newzealand' ? 'city' : 'region';
+                
+                const groupedUniversities = {};
+                universities.forEach(uni => {
+                    const groupName = uni[groupingField] || 'Other';
+                    if (!groupedUniversities[groupName]) {
+                        groupedUniversities[groupName] = [];
+                    }
+                    groupedUniversities[groupName].push(uni);
+                });
+                
+                // Create sections for each group
+                for (const group in groupedUniversities) {
+                    html += `<h3 style="margin: 40px 0 20px; color: var(--primary-color); border-bottom: 2px solid var(--primary-color); padding-bottom: 10px;">
+                        <i class="fas fa-map-marker-alt"></i> ${group}
+                    </h3>`;
+                    
+                    groupedUniversities[group].forEach((university, index) => {
+                        html += createUniversityCardHtml(university, index);
+                    });
+                }
+            } else {
+                // Default display for other countries
+                if (universities.length > 0) {
+                    universities.forEach((university, index) => {
+                        html += createUniversityCardHtml(university, index);
+                    });
+                } else {
+                    html += `<p style="text-align: center;">No university data available for this country at the moment.</p>`;
+                }
+            }
+            
+            html += `</div>`;
+            universitiesContainer.innerHTML = html;
+            
+            // Add event listener for back button
+            const backButton = document.getElementById('backToCountries');
+            if (backButton) {
+                backButton.addEventListener('click', function() {
+                    console.log('Back button clicked');
+                    countryGrid.style.display = 'grid';
+                    universitiesContainer.innerHTML = '';
+                });
+            }
+            
+            // Setup modal functionality for the newly created university cards
+            setTimeout(() => {
+                setupViewProgramButtons();
+            }, 100);
+        }
+
+        function getCountryName(code) {
+            const names = {
+                australia: "Australia",
+                canada: "Canada",
+                finland: "Finland",
+                uk: "United Kingdom",
+                newzealand: "New Zealand",
+                usa: "United States",
+                germany: "Germany",
+                ireland: "Ireland",
+                scotland: "Scotland",
+                dubai: "Dubai (UAE)",
+                singapore: "Singapore",
+                malaysia: "Malaysia",
+                france: "France"
+            };
+            return names[code] || code;
+        }
+
+        function createUniversityCardHtml(university, index) {
+            return `
+            <div class="university-card" style="animation-delay: ${index * 0.1}s;">
+                <div class="university-header">
+                    <img src="${university.logo}" alt="${university.name} Logo" class="university-logo">
+                    <div class="university-info">
+                        <h3>${university.name}</h3>
+                        <div class="university-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> ${university.location}</span>
+                            <span><i class="fas fa-trophy"></i> ${university.ranking}</span>
+                            <span><i class="fas fa-graduation-cap"></i> ${university.programs}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="university-description">
+                    <p>${university.description}</p>
+                </div>
+                <div class="university-highlights">
+                    <h4>Key Highlights:</h4>
+                    ${university.highlights.map(highlight => `
+                        <div class="highlight-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>${highlight}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn btn-primary">View Programs</button>
+                </div>
+            </div>`;
+        }
+
+        // Program Modal Functions
+        function setupViewProgramButtons() {
+            const viewProgramBtns = document.querySelectorAll('.university-card .btn-primary');
+            console.log('Setting up', viewProgramBtns.length, 'program buttons');
+            
+            viewProgramBtns.forEach(btn => {
+                // Remove any existing event listeners to prevent duplicates
+                btn.removeEventListener('click', handleViewProgramClick);
+                btn.addEventListener('click', handleViewProgramClick);
+            });
+
+            // Set up modal's "Start Your Application" button
+            const startApplicationBtn = document.querySelector('#programModal .modal-footer .btn-primary');
+            if (startApplicationBtn) {
+                startApplicationBtn.addEventListener('click', function() {
+                    const formSection = document.querySelector('.contact-form-section');
+                    if (formSection) {
+                        closeModal();
+                        setTimeout(() => {
+                            formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            // Add focus to first form input for better UX
+                            const firstInput = formSection.querySelector('input');
+                            if (firstInput) firstInput.focus();
+                        }, 300); // Small delay to ensure modal is closed
+                    }
+                });
+            }
+        }
+
+        function handleViewProgramClick(e) {
+            e.preventDefault();
+            console.log('View Programs button clicked');
+            
+            const card = this.closest('.university-card');
+            if (!card) {
+                console.error('University card not found');
+                return;
+            }
+            
+            const uniName = card.querySelector('.university-info h3')?.textContent || 'University Name';
+            const uniLocationElement = card.querySelector('.university-meta span');
+            const uniLocation = uniLocationElement ? uniLocationElement.textContent.replace(/.*\s/, '') : 'Location';
+            
+            // Update modal content
+            document.getElementById('modalUniversityName').textContent = uniName;
+            document.getElementById('modalUniversityLocation').textContent = uniLocation;
+            
+            openModal();
+        }
+
+        function openModal() {
+            const modal = document.getElementById('programModal');
+            if (modal) {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                console.log('Modal opened');
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('programModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                console.log('Modal closed');
+            }
+        }
+
+        function setupProgramModals() {
+            const modal = document.getElementById('programModal');
+            const closeBtn = document.querySelector('.close-modal');
+            
+            if (!modal || !closeBtn) {
+                console.error('Modal elements not found');
+                return;
+            }
+            
+            // Close modal when clicking X or outside
+            closeBtn.addEventListener('click', closeModal);
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Close with ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.style.display === 'block') {
+                    closeModal();
+                }
+            });
+        }
+
+        // Initialize modal functionality when DOM is loaded
+        setupProgramModals();
+
+        // Note: Form submission is now handled by student-email-handler.js
+        
+        // Function to show blue-themed success message (used by student-email-handler.js)
+        window.showSuccessMessage = function() {
+            // Remove any existing success messages first
+            const existingOverlay = document.getElementById('successMessageOverlay');
+            if (existingOverlay) {
+                existingOverlay.remove();
+            }
+            
+            // Create modal overlay
+            const overlay = document.createElement('div');
+            overlay.id = 'successMessageOverlay';
+            overlay.innerHTML = `
+                <div class="success-overlay">
+                    <div class="success-message-box">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 class="success-title">Application Submitted Successfully!</h3>
+                        <p class="success-text">
+                            Thank you! Your student migration inquiry has been submitted successfully. 
+                            Our expert team will review your application and contact you within 24 hours.
+                        </p>
+                        <button class="success-button" onclick="closeSuccessMessage()">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Add inline styles to ensure it works
+            const style = document.createElement('style');
+            style.innerHTML = `
+                .success-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.6);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 99999;
+                    animation: successFadeIn 0.3s ease;
+                }
+                
+                .success-message-box {
+                    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+                    color: white;
+                    padding: 40px;
+                    border-radius: 15px;
+                    text-align: center;
+                    max-width: 500px;
+                    width: 90%;
+                    box-shadow: 0 20px 40px rgba(33, 150, 243, 0.3);
+                    animation: successSlideIn 0.4s ease;
+                    position: relative;
+                }
+                
+                .success-icon {
+                    font-size: 60px;
+                    margin-bottom: 20px;
+                    color: #4CAF50;
+                }
+                
+                .success-title {
+                    margin: 0 0 15px 0;
+                    font-size: 24px;
+                    font-weight: 700;
+                    color: white;
+                }
+                
+                .success-text {
+                    margin: 0 0 25px 0;
+                    font-size: 16px;
+                    line-height: 1.5;
+                    opacity: 0.9;
+                    color: white;
+                }
+                
+                .success-button {
+                    background: rgba(255, 255, 255, 0.2);
+                    border: 2px solid rgba(255, 255, 255, 0.3);
+                    color: white;
+                    padding: 12px 30px;
+                    border-radius: 25px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.3s ease;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }
+                
+                .success-button:hover {
+                    background: rgba(255, 255, 255, 0.3);
+                    transform: translateY(-2px);
+                }
+                
+                @keyframes successFadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                
+                @keyframes successSlideIn {
+                    from { transform: translateY(-50px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+            `;
+            
+            document.head.appendChild(style);
+            document.body.appendChild(overlay);
+            
+            // Auto close after 5 seconds
+            setTimeout(() => {
+                closeSuccessMessage();
+            }, 5000);
+            
+            // Close on overlay click
+            overlay.addEventListener('click', function(e) {
+                if (e.target.classList.contains('success-overlay')) {
+                    closeSuccessMessage();
+                }
+            });
+        };
+        
+        // Function to close success message
+        window.closeSuccessMessage = function() {
+            const overlay = document.getElementById('successMessageOverlay');
+            if (overlay) {
+                overlay.style.animation = 'successFadeIn 0.3s ease reverse';
+                setTimeout(() => {
+                    if (overlay.parentNode) {
+                        overlay.remove();
+                    }
+                }, 300);
+            }
+        };
+
+    }); // Close DOMContentLoaded
+
+    // Back to Top Button
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href && href.length > 1) {
+                const target = document.querySelector(href);  
+                if (target) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+
+    // Enhanced Form field validation and animations
+    document.querySelectorAll('input, select, textarea').forEach(field => {
+        field.addEventListener('input', function() {
+            if (this.value.trim() !== '') {
+                this.style.borderColor = '#e0e0e0';
+            }
+        });
+
+        // Add focus animations
+        field.addEventListener('focus', function() {
+            this.parentElement.classList.add('focused');
+        });
+
+        field.addEventListener('blur', function() {
+            this.parentElement.classList.remove('focused');
+        });
+    });
+
+    // Enhanced File Upload functionality with animations
+    const fileInput = document.getElementById('cvUpload');
+    const filePreview = document.getElementById('filePreview');
+    const fileName = filePreview?.querySelector('.file-name');
+    const removeFileBtn = document.getElementById('removeFileBtn');
+
+    if (fileInput && filePreview && fileName && removeFileBtn) {
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                fileName.textContent = file.name;
+                filePreview.style.display = 'flex';
+                
+                // Add success animation
+                filePreview.style.animation = 'none';
+                filePreview.offsetHeight; // Trigger reflow
+                filePreview.style.animation = 'previewFadeIn 0.3s ease-out';
+            }
+        });
+
+        removeFileBtn.addEventListener('click', function() {
+            fileInput.value = '';
+            filePreview.style.display = 'none';
+        });
+    }
+
+    // Form submission animation (if not handled by email handler)
+    const form = document.getElementById('studentForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const submitBtn = form.querySelector('.btn[type="submit"]');
+            if (submitBtn) {
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+                submitBtn.disabled = true;
+                
+                // Reset after 3 seconds if no other handler takes over
+                setTimeout(() => {
+                    if (submitBtn.disabled) {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    }
+                }, 3000);
+            }
+        });
+    }
+
+    // Progressive form reveal animation
+    function animateFormGroups() {
+        const formGroups = document.querySelectorAll('.form-group');
+        formGroups.forEach((group, index) => {
+            group.style.opacity = '0';
+            group.style.transform = 'translateY(20px)';
+            group.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            
+            setTimeout(() => {
+                group.style.opacity = '1';
+                group.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    }
+
+    // Initialize form animations when form comes into view
+    const formSection = document.querySelector('.contact-form-section');
+    if (formSection) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateFormGroups();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        observer.observe(formSection);
+    }
+
+    // Enhanced input interactions
+    document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(input => {
+        // Add floating label effect
+        input.addEventListener('focus', function() {
+            this.parentElement.classList.add('field-focused');
+        });
+        
+        input.addEventListener('blur', function() {
+            this.parentElement.classList.remove('field-focused');
+            if (this.value.trim() === '') {
+                this.parentElement.classList.remove('field-filled');
+            } else {
+                this.parentElement.classList.add('field-filled');
+            }
+        });
+        
+        // Check if field is pre-filled on page load
+        if (input.value.trim() !== '') {
+            input.parentElement.classList.add('field-filled');
+        }
+    });
+
+    // Success message with enhanced styling (called by email handler)
+    window.showSuccessMessage = function() {
+        // Create enhanced success overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'success-overlay';
+        overlay.innerHTML = `
+            <div class="success-message-box">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 class="success-title">Message Sent Successfully!</h3>
+                <p class="success-text">Thank you for your inquiry. Our team will contact you within 24 hours.</p>
+                <button class="success-button" onclick="closeSuccessMessage()">Continue</button>
+            </div>
+        `;
+        
+        document.body.appendChild(overlay);
+        
+        // Trigger animations
+        setTimeout(() => {
+            overlay.classList.add('show');
+        }, 100);
+        
+        // Auto-close after 5 seconds
+        setTimeout(() => {
+            closeSuccessMessage();
+        }, 5000);
+    };
+
+    // Enhanced success message styles
+    const successStyles = document.createElement('style');
+    successStyles.innerHTML = `
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .success-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .success-message-box {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            transform: scale(0.7) translateY(50px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .success-overlay.show .success-message-box {
+            transform: scale(1) translateY(0);
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: #4caf50;
+            margin-bottom: 20px;
+            animation: successPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes successPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .success-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .success-text {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .success-button {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .success-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+        }
+    `;
+    document.head.appendChild(successStyles);
+
+    window.closeSuccessMessage = function() {
+        const overlay = document.querySelector('.success-overlay');
+        if (overlay) {
+            overlay.classList.remove('show');
+            setTimeout(() => {
+                overlay.remove();
+            }, 300);
+        }
+    };
+    </script>
+</body>
+</html>

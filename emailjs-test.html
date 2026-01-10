@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmailJS Test - Student Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .status.success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .status.error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .status.info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .config-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        code {
+            background: #e9ecef;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>EmailJS Configuration Test</h1>
+        <p>This page tests the EmailJS configuration for the student form.</p>
+        
+        <div class="config-section">
+            <h3>Current Configuration:</h3>
+            <ul>
+                <li><strong>Public Key:</strong> <code>6MgztWwU_P9WcNjJi</code></li>
+                <li><strong>Service ID:</strong> <code>service_qpahzur</code></li>
+                <li><strong>Template ID:</strong> <code>template_1akr40j</code></li>
+            </ul>
+        </div>
+        
+        <div id="status"></div>
+        
+        <button onclick="testEmailJS()">Test EmailJS Connection</button>
+        <button onclick="testStudentForm()">Test Student Form Submission</button>
+        
+        <div class="config-section">
+            <h3>Implementation Status:</h3>
+            <ul>
+                <li>✅ Created separate <code>student-email-handler.js</code> file</li>
+                <li>✅ Updated <code>student.html</code> to use new handler</li>
+                <li>✅ Removed conflicting form submission code</li>
+                <li>✅ Maintained existing success message styling</li>
+                <li>✅ Added comprehensive form validation</li>
+                <li>✅ Added file upload validation</li>
+            </ul>
+        </div>
+        
+        <div class="config-section">
+            <h3>Form Fields Mapped:</h3>
+            <ul>
+                <li><code>firstName</code> → First Name</li>
+                <li><code>lastName</code> → Last Name</li>
+                <li><code>email</code> → Email Address</li>
+                <li><code>phone</code> → Phone Number</li>
+                <li><code>currentCountry</code> → Current Country</li>
+                <li><code>educationLevel</code> → Education Level</li>
+                <li><code>desiredCountry</code> → Desired Study Destination</li>
+                <li><code>studyField</code> → Field of Study</li>
+                <li><code>academicGoals</code> → Academic Goals</li>
+                <li><code>additionalInfo</code> → Additional Information</li>
+                <li><code>cvUpload</code> → CV File (name and size only)</li>
+                <li><code>newsletter</code> → Newsletter Subscription</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- EmailJS library -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <script>
+        function showStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+        
+        function testEmailJS() {
+            showStatus('Testing EmailJS connection...', 'info');
+            
+            // Initialize EmailJS
+            emailjs.init("6MgztWwU_P9WcNjJi");
+            
+            // Test with minimal data
+            const testParams = {
+                formType: 'Test Email',
+                name: 'Test User',
+                email: 'test@example.com',
+                message: 'This is a test email from the EmailJS configuration test.',
+                to_name: 'Ocyana Global Migration',
+                date: new Date().toLocaleDateString(),
+                time: new Date().toLocaleTimeString()
+            };
+            
+            emailjs.send("service_qpahzur", "template_1akr40j", testParams)
+                .then(function(response) {
+                    showStatus('✅ EmailJS connection successful! Test email sent.', 'success');
+                    console.log('EmailJS test successful:', response);
+                }, function(error) {
+                    showStatus(`❌ EmailJS connection failed: ${error.text || error.message || 'Unknown error'}`, 'error');
+                    console.error('EmailJS test failed:', error);
+                });
+        }
+        
+        function testStudentForm() {
+            showStatus('Testing student form data structure...', 'info');
+            
+            // Initialize EmailJS
+            emailjs.init("6MgztWwU_P9WcNjJi");
+            
+            // Test with student form data structure
+            const studentTestParams = {
+                formType: 'Student Migration Form - Test',
+                firstName: 'John',
+                lastName: 'Doe',
+                name: 'John Doe',
+                email: 'john.doe@example.com',
+                phone: '+1234567890',
+                currentCountry: 'sri-lanka',
+                educationLevel: 'bachelors',
+                desiredCountry: 'australia',
+                destinationCountry: 'australia',
+                studyField: 'engineering',
+                academicGoals: 'To pursue advanced studies in engineering',
+                additionalInfo: 'Looking for scholarship opportunities',
+                newsletter: 'Yes',
+                hasFileUpload: 'Yes - CV uploaded (file handling required separately)',
+                fileName: 'john_doe_cv.pdf',
+                fileSize: '2.5 MB',
+                date: new Date().toLocaleDateString(),
+                time: new Date().toLocaleTimeString(),
+                to_name: 'Ocyana Global Migration'
+            };
+            
+            emailjs.send("service_qpahzur", "template_1akr40j", studentTestParams)
+                .then(function(response) {
+                    showStatus('✅ Student form test successful! All form fields mapped correctly.', 'success');
+                    console.log('Student form test successful:', response);
+                    console.log('Student form data sent:', studentTestParams);
+                }, function(error) {
+                    showStatus(`❌ Student form test failed: ${error.text || error.message || 'Unknown error'}`, 'error');
+                    console.error('Student form test failed:', error);
+                });
+        }
+    </script>
+</body>
+</html>

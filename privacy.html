@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Ocyana Global Migration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Header Styles - Same as other pages */
+        .top-bar {
+            background: #0d47a1;
+            color: white;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+        }
+
+        .top-bar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info, .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .contact-info a, .social-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .contact-info a:hover, .social-links a:hover {
+            color: #42a5f5;
+        }
+
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 30px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0d47a1;
+            margin: 0;
+        }
+
+        .logo span {
+            color: #42a5f5;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #1e88e5;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: #1e88e5;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+            left: 0;
+        }
+
+           .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: linear-gradient(135deg, #0010c2 0%, #0d47a1 100%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .coming-soon-dropdown {
+            background: linear-gradient(135deg, #001ea4 0%, #0000a2 100%);
+            color: rgb(255, 255, 255);
+            padding: 1rem;
+            text-align: center;
+            border-radius: 10px;
+           
+        }
+
+        .coming-soon-dropdown::before {
+            content: '🚀';
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            height: 60vh;
+            min-height: 400px;
+            background: url('photos/pr2.png') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            margin-top: 100px;
+        }
+
+        /* Add subtle overlay for better contrast */
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .page-hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-hero::after {
+            content: '�';
+            position: absolute;
+            bottom: 20%;
+            right: 15%;
+            font-size: 2.5rem;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .page-hero h1 {
+            font-size: 4.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #e8f4fd 50%, #3498db 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    letter-spacing: -2px;
+    line-height: 1.2;
+    position: relative;
+    display: inline-block;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7));
+    padding-bottom: 10px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+
+
+        .page-hero p {
+            font-size: 1.3rem;
+            font-weight: 400;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .breadcrumb {
+            background: #f5f5f5;
+            padding: 1rem 0;
+        }
+
+        .breadcrumb-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+        }
+
+        .breadcrumb-nav a {
+            color: #1e88e5;
+            text-decoration: none;
+        }
+
+        .breadcrumb-nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Privacy Overview */
+        .privacy-overview {
+            background: white;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .overview-card {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .overview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #1e88e5, #42a5f5);
+        }
+
+        .overview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .overview-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1e88e5, #42a5f5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .overview-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .overview-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Privacy Content */
+        .privacy-content {
+            background: #f5f5f5;
+        }
+
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .content-nav {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+
+        .content-nav h3 {
+            margin-bottom: 1rem;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .nav-links a {
+            color: #1e88e5;
+            text-decoration: none;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            background: #1e88e5;
+            color: white;
+        }
+
+        .policy-section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 100px;
+        }
+
+        .policy-section h2 {
+            font-size: 2rem;
+            color: #1e88e5;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .policy-section h3 {
+            font-size: 1.4rem;
+            color: #333;
+            margin: 2rem 0 1rem 0;
+        }
+
+        .policy-section h4 {
+            font-size: 1.2rem;
+            color: #555;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .policy-section p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: #666;
+        }
+
+        .policy-section ul, .policy-section ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+
+        .policy-section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+            color: #666;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #e3f2fd, #f0f8ff);
+            border-left: 4px solid #1e88e5;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .highlight-box h4 {
+            color: #1e88e5;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+            color: #333;
+        }
+
+        .important-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .important-notice h4 {
+            color: #856404;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .important-notice p {
+            color: #856404;
+            margin-bottom: 0;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: white;
+        }
+
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1e88e5, #42a5f5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .contact-card h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .contact-card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card a {
+            color: #1e88e5;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact-card a:hover {
+            color: #0d47a1;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #1e88e5;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0d47a1;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: #222;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #42a5f5;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #42a5f5;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            width: 35px;
+            height: 35px;
+            background: #42a5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: #1e88e5;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 1rem;
+            text-align: center;
+            color: #888;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: #0d47a1;
+            transform: translateY(-3px);
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: flex;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+                z-index: 1000;
+            }
+
+            .nav-menu.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .nav-menu li {
+                margin: 0;
+                text-align: center;
+            }
+
+            .nav-menu a {
+                display: block;
+                padding: 1rem;
+                border-bottom: none !important;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .dropdown-content {
+                position: static;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                box-shadow: none;
+                background: linear-gradient(135deg, #0010c2 0%, #0d47a1 100%) !important;
+                margin: 0;
+                border-radius: 0;
+                display: block;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .dropdown.mobile-open .dropdown-content {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                max-height: 500px;
+                transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .dropdown-content a {
+                opacity: 0;
+                transform: translateY(10px);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                border-bottom: none !important;
+            }
+
+            .dropdown.mobile-open .dropdown-content a {
+                opacity: 1;
+                transform: translateY(0);
+                transition-delay: 0.1s;
+            }
+
+            .dropdown.mobile-open .dropdown-content {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .content-container {
+                padding: 1.5rem;
+            }
+
+            .top-bar .container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            /* --- Top Bar Contact Info Mobile Layout Fix for 480px --- */
+            .contact-info {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.5rem;
+                width: 100%;
+                justify-content: space-between;
+            }
+            .contact-info a:first-child {
+                order: 1;
+                margin-right: auto;
+            }
+            .contact-info a:last-child {
+                order: 2;
+                margin-left: auto;
+            }
+
+            .social-links {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <a href="tel:+94777638715"><i class="fas fa-phone"></i> +94 77 763 8715</a>
+                    <a href="https://mail.google.com/mail/u/0/?fs=1&to=ocyanamigration@gmail.com&su=&body=&tf=cm" target="_blank"><i class="fas fa-envelope"></i> ocyanamigration@gmail.com</a>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <h1>Ocyana<span>Global</span></h1>
+                </div>
+                <nav>
+                    <ul class="nav-menu" id="navMenu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li class="dropdown">
+                            <a href="#services">Services </i></a>
+                            <div class="dropdown-content">
+                                <a href="student.html">Student Migration</a>
+                                <a href="parent.html">Parent Migration</a>
+                                <a href="skilled.html">Skilled Migration</a>
+                                <a href="unskilled.html">Unskilled Migration</a>
+                                <a href="support.html">Language and Support Migration</a>
+                                <a href="doc.html">Visa and Documentation</a>
+                            </div>
+                        </li>
+                        <li><a href="media.html">Media</a></li>
+                        <li class="dropdown">
+                            <a href="#inside-ogm">Inside the OGM </a>
+                            <div class="dropdown-content">
+                                <div class="coming-soon-dropdown">
+                                    <strong>Stay Tuned!</strong><br>
+                                    <small>Coming Soon</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href=contact.html>Contact</a></li>
+                        <li><a href="privacy.html" class="active">Privacy</a></li>
+                    </ul>
+                    <div class="mobile-menu-toggle" id="mobileToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Privacy Policy</h1>
+            <p>Learn how we protect your personal information and respect your privacy throughout your migration journey</p>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Privacy Policy</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Privacy Overview -->
+    <section class="section privacy-overview">
+        <div class="container">
+            <h2 class="section-title">Our Commitment to Your Privacy</h2>
+            <p class="section-subtitle">At Ocyana Global Migration, we are committed to protecting your personal information and being transparent about how we use it</p>
+            
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <div class="overview-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Data Protection</h3>
+                    <p>We implement robust security measures to protect your personal information from unauthorized access, disclosure, or misuse.</p>
+                </div>
+                
+                <div class="overview-card">
+                    <div class="overview-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Transparency</h3>
+                    <p>We are clear about what information we collect, how we use it, and with whom we share it for your migration process.</p>
+                </div>
+                
+                <div class="overview-card">
+                    <div class="overview-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3>Your Rights</h3>
+                    <p>You have the right to access, correct, or delete your personal information. We respect and facilitate these rights.</p>
+                </div>
+                
+                <div class="overview-card">
+                    <div class="overview-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Confidentiality</h3>
+                    <p>Your migration details and personal information are kept strictly confidential and used only for legitimate purposes.</p>
+                </div>
+                
+                <div class="overview-card">
+                    <div class="overview-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <h3>Legal Compliance</h3>
+                    <p>We strictly adhere to all applicable privacy laws and regulations to ensure your data is handled according to the highest legal standards.</p>
+                </div>
+                
+                <div class="overview-card">
+                    <div class="overview-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Data Retention</h3>
+                    <p>We only keep your personal information for as long as necessary to provide our services and comply with legal requirements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Policy Content -->
+    <section class="section privacy-content">
+        <div class="container">
+            <div class="content-container">
+                <!-- Quick Navigation -->
+                <div class="content-nav">
+                    <h3><i class="fas fa-list"></i> Quick Navigation</h3>
+                    <div class="nav-links">
+                        <a href="#information-collection">Information We Collect</a>
+                        <a href="#information-use">How We Use Information</a>
+                        <a href="#information-sharing">Information Sharing</a>
+                        <a href="#data-security">Data Security</a>
+                        <a href="#your-rights">Your Privacy Rights</a>
+                        <a href="#cookies">Cookies & Tracking</a>
+                        <a href="#data-retention">Data Retention</a>
+                        <a href="#updates">Policy Updates</a>
+                    </div>
+                </div>
+
+                <!-- Last Updated -->
+                <div class="important-notice">
+                    <h4><i class="fas fa-calendar-alt"></i> Last Updated</h4>
+                    <p>This Privacy Policy was last updated on January 15, 2025. We may update this policy from time to time to reflect changes in our practices or applicable laws.</p>
+                </div>
+
+                <!-- Introduction -->
+                <div class="policy-section">
+                    <h2>Introduction</h2>
+                    <p>Welcome to Ocyana Global Migration. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or interact with us in any way.</p>
+                    <p>By using our services or providing us with your personal information, you consent to the collection and use of information in accordance with this Privacy Policy.</p>
+                    
+                    <div class="highlight-box">
+                        <h4>Important Note</h4>
+                        <p>Migration processes often require sharing personal information with government agencies, educational institutions, and other authorized third parties. We only share information when necessary for your migration application and with your explicit consent.</p>
+                    </div>
+                </div>
+
+                <!-- Information We Collect -->
+                <div class="policy-section" id="information-collection">
+                    <h2>Information We Collect</h2>
+                    
+                    <h3>Personal Information</h3>
+                    <p>We collect personal information that you voluntarily provide to us when you:</p>
+                    <ul>
+                        <li>Contact us for consultations or services</li>
+                        <li>Fill out application forms or assessment questionnaires</li>
+                        <li>Subscribe to our newsletters or communications</li>
+                        <li>Attend our events or webinars</li>
+                        <li>Use our website or online services</li>
+                    </ul>
+                    
+                    <h4>Types of Personal Information:</h4>
+                    <ul>
+                        <li><strong>Contact Information:</strong> Name, address, phone number, email address</li>
+                        <li><strong>Identity Information:</strong> Passport details, national ID, date of birth, nationality</li>
+                        <li><strong>Educational Information:</strong> Academic qualifications, transcripts, certificates</li>
+                        <li><strong>Employment Information:</strong> Work history, job offers, employer details</li>
+                        <li><strong>Financial Information:</strong> Bank statements, income proof, funding sources</li>
+                        <li><strong>Family Information:</strong> Spouse and children details for family applications</li>
+                        <li><strong>Health Information:</strong> Medical examination results (when required)</li>
+                        <li><strong>Immigration History:</strong> Previous visas, travel history, immigration status</li>
+                    </ul>
+                    
+                    <h3>Automatically Collected Information</h3>
+                    <p>When you visit our website, we may automatically collect certain information:</p>
+                    <ul>
+                        <li>IP address and location data</li>
+                        <li>Browser type and version</li>
+                        <li>Pages visited and time spent on our website</li>
+                        <li>Referring website information</li>
+                        <li>Device information and operating system</li>
+                    </ul>
+                </div>
+
+                <!-- How We Use Information -->
+                <div class="policy-section" id="information-use">
+                    <h2>How We Use Your Information</h2>
+                    
+                    <p>We use the information we collect for the following purposes:</p>
+                    
+                    <h3>Migration Services</h3>
+                    <ul>
+                        <li>Assess your eligibility for various migration programs</li>
+                        <li>Prepare and submit visa applications on your behalf</li>
+                        <li>Communicate with government agencies and institutions</li>
+                        <li>Provide ongoing case management and updates</li>
+                        <li>Arrange medical examinations and document verification</li>
+                    </ul>
+                    
+                    <h3>Communication and Support</h3>
+                    <ul>
+                        <li>Respond to your inquiries and provide customer support</li>
+                        <li>Send appointment reminders and important updates</li>
+                        <li>Provide information about changes in immigration laws</li>
+                        <li>Notify you about relevant services and opportunities</li>
+                        <li>Conduct satisfaction surveys and gather feedback</li>
+                    </ul>
+                    
+                    <h3>Business Operations</h3>
+                    <ul>
+                        <li>Maintain accurate records for regulatory compliance</li>
+                        <li>Process payments and manage billing</li>
+                        <li>Improve our services and website functionality</li>
+                        <li>Conduct internal research and analytics</li>
+                        <li>Comply with legal and regulatory requirements</li>
+                    </ul>
+                    
+                    <h3>Marketing and Communications</h3>
+                    <ul>
+                        <li>Send newsletters with migration updates and tips</li>
+                        <li>Invite you to events, webinars, and seminars</li>
+                        <li>Share success stories and testimonials (with permission)</li>
+                        <li>Provide information about new services or programs</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <h4>Legal Basis for Processing</h4>
+                        <p>We process your personal information based on your consent, contractual necessity for providing our services, legal compliance requirements, and legitimate business interests in delivering quality migration services.</p>
+                    </div>
+                </div>
+
+                <!-- Information Sharing -->
+                <div class="policy-section" id="information-sharing">
+                    <h2>Information Sharing and Disclosure</h2>
+                    
+                    <p>We may share your personal information in the following circumstances:</p>
+                    
+                    <h3>Authorized Third Parties</h3>
+                    <ul>
+                        <li><strong>Government Agencies:</strong> Immigration departments, embassies, and consulates for visa processing</li>
+                        <li><strong>Educational Institutions:</strong> Universities and colleges for admission applications</li>
+                        <li><strong>Medical Practitioners:</strong> For required health examinations</li>
+                        <li><strong>Document Verification Services:</strong> For authenticating educational and professional credentials</li>
+                        <li><strong>Legal Advisors:</strong> When legal consultation is required for complex cases</li>
+                    </ul>
+                    
+                    <h3>Service Providers</h3>
+                    <p>We may share information with trusted service providers who assist us in:</p>
+                    <ul>
+                        <li>Document translation and certification services</li>
+                        <li>Courier and mailing services for document delivery</li>
+                        <li>IT services and website maintenance</li>
+                        <li>Payment processing and financial services</li>
+                        <li>Marketing and communication platforms</li>
+                    </ul>
+                    
+                    <h3>Legal Requirements</h3>
+                    <p>We may disclose your information when required by law or in response to:</p>
+                    <ul>
+                        <li>Court orders or legal proceedings</li>
+                        <li>Government agency requests or investigations</li>
+                        <li>Regulatory compliance requirements</li>
+                        <li>Protection of our rights, property, or safety</li>
+                        <li>Protection of our clients' rights and safety</li>
+                    </ul>
+                    
+                    <div class="important-notice">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Important</h4>
+                        <p>We will never sell, rent, or trade your personal information to third parties for their marketing purposes. All information sharing is done strictly for the purpose of facilitating your migration process or as required by law.</p>
+                    </div>
+                </div>
+
+                <!-- Data Security -->
+                <div class="policy-section" id="data-security">
+                    <h2>Data Security</h2>
+                    
+                    <p>We implement comprehensive security measures to protect your personal information:</p>
+                    
+                    <h3>Technical Safeguards</h3>
+                    <ul>
+                        <li>SSL encryption for all data transmission</li>
+                        <li>Secure servers with firewall protection</li>
+                        <li>Regular security updates and patches</li>
+                        <li>Access controls and authentication systems</li>
+                        <li>Data backup and recovery procedures</li>
+                    </ul>
+                    
+                    <h3>Physical Safeguards</h3>
+                    <ul>
+                        <li>Secure office premises with restricted access</li>
+                        <li>Locked filing cabinets for physical documents</li>
+                        <li>Secure document disposal procedures</li>
+                        <li>CCTV monitoring and alarm systems</li>
+                    </ul>
+                    
+                    <h3>Administrative Safeguards</h3>
+                    <ul>
+                        <li>Staff training on privacy and security protocols</li>
+                        <li>Confidentiality agreements with all employees</li>
+                        <li>Regular security audits and assessments</li>
+                        <li>Incident response and breach notification procedures</li>
+                        <li>Access controls based on job responsibilities</li>
+                    </ul>
+                    
+                    <h3>Data Breach Response</h3>
+                    <p>In the unlikely event of a data breach, we will:</p>
+                    <ol>
+                        <li>Immediately investigate and contain the breach</li>
+                        <li>Assess the scope and impact of the incident</li>
+                        <li>Notify affected individuals within 72 hours</li>
+                        <li>Report to relevant authorities as required by law</li>
+                        <li>Take corrective measures to prevent future breaches</li>
+                    </ol>
+                </div>
+
+                <!-- Your Privacy Rights -->
+                <div class="policy-section" id="your-rights">
+                    <h2>Your Privacy Rights</h2>
+                    
+                    <p>You have the following rights regarding your personal information:</p>
+                    
+                    <h3>Access and Portability</h3>
+                    <ul>
+                        <li>Request access to your personal information we hold</li>
+                        <li>Obtain a copy of your data in a structured, readable format</li>
+                        <li>Request transfer of your data to another service provider</li>
+                    </ul>
+                    
+                    <h3>Correction and Updates</h3>
+                    <ul>
+                        <li>Correct inaccurate or incomplete personal information</li>
+                        <li>Update your contact details and preferences</li>
+                        <li>Modify consent preferences for marketing communications</li>
+                    </ul>
+                    
+                    <h3>Deletion and Restriction</h3>
+                    <ul>
+                        <li>Request deletion of your personal information (subject to legal requirements)</li>
+                        <li>Restrict processing of your data in certain circumstances</li>
+                        <li>Object to processing based on legitimate interests</li>
+                    </ul>
+                    
+                    <h3>Communication Preferences</h3>
+                    <ul>
+                        <li>Opt-out of marketing emails and newsletters</li>
+                        <li>Choose your preferred communication methods</li>
+                        <li>Set frequency preferences for updates</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <h4>How to Exercise Your Rights</h4>
+                        <p>To exercise any of these rights, please contact us using the information provided in the "Contact Us" section below. We will respond to your request within 30 days and may require verification of your identity.</p>
+                    </div>
+                </div>
+
+                <!-- Cookies and Tracking -->
+                <div class="policy-section" id="cookies">
+                    <h2>Cookies and Tracking Technologies</h2>
+                    
+                    <h3>What Are Cookies</h3>
+                    <p>Cookies are small text files stored on your device when you visit our website. They help us provide a better user experience and analyze website usage.</p>
+                    
+                    <h3>Types of Cookies We Use</h3>
+                    <ul>
+                        <li><strong>Essential Cookies:</strong> Required for basic website functionality</li>
+                        <li><strong>Performance Cookies:</strong> Help us understand how visitors use our website</li>
+                        <li><strong>Functional Cookies:</strong> Remember your preferences and settings</li>
+                        <li><strong>Marketing Cookies:</strong> Used to show relevant advertisements (with consent)</li>
+                    </ul>
+                    
+                    <h3>Managing Cookies</h3>
+                    <p>You can control cookies through your browser settings:</p>
+                    <ul>
+                        <li>Block all cookies or only third-party cookies</li>
+                        <li>Delete existing cookies from your device</li>
+                        <li>Set notifications when cookies are being sent</li>
+                        <li>Choose which websites can set cookies</li>
+                    </ul>
+                    
+                    <p><strong>Note:</strong> Disabling cookies may affect website functionality and your user experience.</p>
+                </div>
+
+                <!-- Data Retention -->
+                <div class="policy-section" id="data-retention">
+                    <h2>Data Retention</h2>
+                    
+                    <p>We retain your personal information for different periods depending on the purpose:</p>
+                    
+                    <h3>Active Cases</h3>
+                    <ul>
+                        <li>Personal and case information retained throughout the migration process</li>
+                        <li>Regular updates and communications maintained in active files</li>
+                        <li>Documents and correspondence preserved for case continuity</li>
+                    </ul>
+                    
+                    <h3>Completed Cases</h3>
+                    <ul>
+                        <li>Case files retained for 7 years after completion (legal requirement)</li>
+                        <li>Financial records kept for 7 years for tax and audit purposes</li>
+                        <li>Communications and correspondence archived securely</li>
+                    </ul>
+                    
+                    <h3>Marketing and Communications</h3>
+                    <ul>
+                        <li>Newsletter subscriptions until you unsubscribe</li>
+                        <li>Event registrations for 2 years after the event</li>
+                        <li>Website analytics data for 26 months</li>
+                    </ul>
+                    
+                    <h3>Disposal of Information</h3>
+                    <p>When retention periods expire, we securely dispose of information through:</p>
+                    <ul>
+                        <li>Secure deletion of digital files</li>
+                        <li>Professional shredding of physical documents</li>
+                        <li>Certificate of destruction for sensitive materials</li>
+                        <li>Secure wiping of storage devices</li>
+                    </ul>
+                </div>
+
+                <!-- International Transfers -->
+                <div class="policy-section" id="international-transfers">
+                    <h2>International Data Transfers</h2>
+                    
+                    <p>As part of the migration process, your information may be transferred to other countries:</p>
+                    
+                    <h3>Necessary Transfers</h3>
+                    <ul>
+                        <li>Visa applications submitted to destination country governments</li>
+                        <li>University applications sent to international institutions</li>
+                        <li>Medical examinations conducted by approved panel physicians</li>
+                        <li>Document verification through international agencies</li>
+                    </ul>
+                    
+                    <h3>Safeguards for International Transfers</h3>
+                    <ul>
+                        <li>Transfers only to countries with adequate data protection laws</li>
+                        <li>Contractual safeguards with international service providers</li>
+                        <li>Compliance with destination country privacy requirements</li>
+                        <li>Secure transmission methods for all international communications</li>
+                    </ul>
+                </div>
+
+                <!-- Policy Updates -->
+                <div class="policy-section" id="updates">
+                    <h2>Changes to This Privacy Policy</h2>
+                    
+                    <p>We may update this Privacy Policy from time to time to reflect:</p>
+                    <ul>
+                        <li>Changes in our business practices</li>
+                        <li>Updates to applicable laws and regulations</li>
+                        <li>Improvements to our services and technology</li>
+                        <li>Feedback from clients and regulatory authorities</li>
+                    </ul>
+                    
+                    <h3>Notification of Changes</h3>
+                    <p>When we make significant changes to this policy, we will:</p>
+                    <ul>
+                        <li>Post the updated policy on our website</li>
+                        <li>Send email notifications to registered clients</li>
+                        <li>Display prominent notices on our website</li>
+                        <li>Provide reasonable notice before changes take effect</li>
+                    </ul>
+                    
+                    <p>We encourage you to review this Privacy Policy periodically to stay informed about how we protect your information.</p>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="policy-section" id="contact-privacy">
+                    <h2>Contact Us About Privacy</h2>
+                    
+                    <p>If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please don't hesitate to contact us:</p>
+                    
+                    <div class="highlight-box">
+                        <h4>Privacy Officer</h4>
+                        <p><strong>Ocyana Global Migration</strong><br>
+                        Address: C/G/04, Sir James Peiris Mawatha, Colombo 02, Sri Lanka<br>
+                        Email: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ocyanamigration@gmail.com" target="_blank">ocyanamigration@gmail.com</a><br>
+                        Phone: <a href="tel:+94777108380">+94 77 710 8380</a></p>
+                    </div>
+                    
+                    <p>We are committed to addressing your privacy concerns promptly and will respond to all inquiries within 30 days.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Ocyana Global</h3>
+                    <p>Your trusted partner for all migration needs. We specialize in helping individuals and families achieve their dreams of living, working, or studying abroad.</p>
+                    <div class="footer-social">
+                       <a href="https://www.facebook.com/share/1ArEouALDr/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/OcyanaMigration" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/ocyana-migration-b9a66636b/ " target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/ocyana_migration?igsh=MXFqbXB6NzR4ODJvZQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="media.html">Media</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="student.html">Student Migration</a></li>
+                        <li><a href="parent.html">Parent Migration</a></li>
+                        <li><a href="skilled.html">Skilled Migration</a></li>
+                        <li><a href="unskilled.html">Unskilled Migration</a></li>
+                        <li><a href="support.html">Language & Interview Support</a></li>
+                        <li><a href="doc.html">Visa & Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> C/G/04,Sir James peiris mawatha, Colombo 02. Postal code 00200</p>
+                    <p><a href="tel:+94777638715"><i class="fas fa-phone"></i> +94 77 763 8715</a></p>
+                    <p><a href="tel:+94777108380"><i class="fas fa-phone"></i> +94 77 710 8380</a></p>
+                    <p><a href="tel:+94777698214"><i class="fas fa-phone"></i> +94 77 769 8214</a></p>
+                    <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=ocyanamigration@gmail.com" target="_blank"><i class="fas fa-envelope"></i> ocyanamigration@gmail.com</a></p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ocyana Global Migration. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        if (mobileToggle && navMenu) {
+            mobileToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Close mobile menu when clicking on a link (but not dropdown toggles)
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Don't close menu if this is a dropdown toggle
+                if (link.closest('.dropdown') && link.nextElementSibling && 
+                    link.nextElementSibling.classList.contains('dropdown-content')) {
+                    return; // Let the dropdown handler manage this
+                }
+                
+                if (mobileToggle && navMenu) {
+                    mobileToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Handle Mobile Dropdowns
+        const isMobile = () => window.innerWidth <= 768;
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('a');
+            
+            link.addEventListener('click', function(e) {
+                if (isMobile()) {
+                    e.preventDefault();
+                    const dropdownContent = this.nextElementSibling;
+                    
+                    // Close all other dropdowns first
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('mobile-open');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    if (dropdownContent && dropdownContent.classList.contains('dropdown-content')) {
+                        dropdown.classList.toggle('mobile-open');
+                    }
+                }
+            });
+        });
+
+        // Close mobile menu when clicking on dropdown items
+        document.querySelectorAll('.dropdown-content a').forEach(dropdownLink => {
+            dropdownLink.addEventListener('click', () => {
+                if (isMobile() && mobileToggle && navMenu) {
+                    mobileToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    // Also close any open dropdowns
+                    dropdowns.forEach(dropdown => {
+                        dropdown.classList.remove('mobile-open');
+                    });
+                }
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (isMobile() && !e.target.closest('.dropdown') && !e.target.closest('.mobile-menu-toggle')) {
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('mobile-open');
+                });
+                
+                if (!e.target.closest('.nav-menu') && navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    if (mobileToggle) mobileToggle.classList.remove('active');
+                }
+            }
+        });
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.overview-card, .policy-section, .contact-card').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Reading progress indicator
+        function updateReadingProgress() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            // Create progress bar if it doesn't exist
+            let progressBar = document.getElementById('reading-progress');
+            if (!progressBar) {
+                progressBar = document.createElement('div');
+                progressBar.id = 'reading-progress';
+                progressBar.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: ${scrollPercent}%;
+                    height: 3px;
+                    background: linear-gradient(90deg, #1e88e5, #42a5f5);
+                    z-index: 9999;
+                    transition: width 0.1s ease;
+                `;
+                document.body.appendChild(progressBar);
+            } else {
+                progressBar.style.width = scrollPercent + '%';
+            }
+        }
+
+        window.addEventListener('scroll', updateReadingProgress);
+
+        // Highlight current section in navigation
+        function highlightCurrentSection() {
+            const sections = document.querySelectorAll('.policy-section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.style.background = '';
+                link.style.color = '';
+                
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.style.background = '#1e88e5';
+                    link.style.color = 'white';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', highlightCurrentSection);
+
+        // Print page functionality
+        function addPrintButton() {
+            const printButton = document.createElement('button');
+            printButton.innerHTML = '<i class="fas fa-print"></i> Print Refund Policy';
+            printButton.style.cssText = `
+                position: fixed;
+                bottom: 100px;
+                right: 30px;
+                background: #28a745;
+                color: white;
+                border: none;
+                padding: 12px 20px;
+                border-radius: 25px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                font-weight: 600;
+                box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+                transition: all 0.3s ease;
+                z-index: 1000;
+            `;
+            
+            printButton.addEventListener('click', function() {
+                // Open the PDF file in a new window and trigger print
+                const pdfWindow = window.open('pdf/refund.pdf', '_blank');
+                pdfWindow.onload = function() {
+                    pdfWindow.print();
+                };
+            });
+            
+            printButton.addEventListener('mouseenter', function() {
+                this.style.background = '#218838';
+                this.style.transform = 'translateY(-2px)';
+            });
+            
+            printButton.addEventListener('mouseleave', function() {
+                this.style.background = '#28a745';
+                this.style.transform = 'translateY(0)';
+            });
+            
+            document.body.appendChild(printButton);
+        }
+
+        // Initialize print button
+        addPrintButton();
+
+        // Initialize reading progress
+        updateReadingProgress();
+        highlightCurrentSection();
+    </script>
+</body>
+</html>

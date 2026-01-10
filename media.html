@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Publications - Ocyana Global Migration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1e88e5;
+            --secondary-color: #0d47a1;
+            --accent-color: #42a5f5;
+            --text-color: #333333;
+            --light-text: #ffffff;
+            --dark-text: #222222;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #757575;
+            --hover-color: #1565c0;
+            --section-padding: 80px 0;
+            --transition: all 0.3s ease;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --card-radius: 8px;
+            --breaking-red: #dc143c;
+            --breaking-orange: #ff6347;
+            --breaking-yellow: #ffd700;
+            --urgent-red: #b71c1c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Header Styles - Same as other pages */
+        .top-bar {
+            background: #0d47a1;
+            color: white;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+        }
+
+        .top-bar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info, .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .contact-info a, .social-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .contact-info a:hover, .social-links a:hover {
+            color: #42a5f5;
+        }
+
+        .main-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 30px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .main-header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0d47a1;
+            margin: 0;
+        }
+
+        .logo span {
+            color: #42a5f5;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #1e88e5;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background: #1e88e5;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+            left: 0;
+        }
+   .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: linear-gradient(135deg, #0010c2 0%, #0d47a1 100%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            min-width: 200px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .coming-soon-dropdown {
+            background: linear-gradient(135deg, #001ea4 0%, #0000a2 100%);
+            color: rgb(255, 255, 255);
+            padding: 1rem;
+            text-align: center;
+            border-radius: 10px;
+           
+        }
+
+        .coming-soon-dropdown::before {
+            content: '🚀';
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Page Hero */
+        #about-hero {
+            height: 50vh;
+            min-height: 300px;
+            background: url('photos/m1.jpg') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            margin-top: 100px;
+        }
+
+        /* Add subtle overlay for better contrast */
+        #about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 2;
+            padding: 0;
+            background: none;
+            border: none;
+            box-shadow: none;
+        }
+
+        .hero-text h1 {
+           font-size: 4.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ffffff 0%, #e8f4fd 50%, #3498db 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    letter-spacing: -2px;
+    line-height: 1.2;
+    position: relative;
+    display: inline-block;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7));
+    padding-bottom: 10px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-text h1::after {
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #3498db, transparent);
+            border-radius: 2px;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            font-weight: 400;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Media Filter */
+        .media-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 40px 0;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+        }
+
+        /* Publications Grid */
+        .publications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .publication-card {
+            background: var(--light-text);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .publication-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .publication-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .publication-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .publication-card:hover .publication-image img {
+            transform: scale(1.05);
+        }
+
+        .publication-content {
+            padding: 25px;
+        }
+
+        .publication-category {
+            display: inline-block;
+            padding: 5px 12px;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .publication-date {
+            color: var(--dark-gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .publication-date i {
+            margin-right: 5px;
+        }
+
+        .publication-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--dark-text);
+        }
+
+        .publication-excerpt {
+            color: var(--dark-gray);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .read-more i {
+            margin-left: 5px;
+            transition: var(--transition);
+        }
+
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+
+        /* BREAKING NEWS ALERT BAR */
+        .breaking-news-container {
+            background: #dc143c;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.3);
+        }
+
+        .breaking-news-bar {
+            display: flex;
+            align-items: center;
+            height: 60px;
+        }
+
+        .breaking-label {
+            background: #fff;
+            color: #dc143c;
+            padding: 0 25px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .breaking-label::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-top: 30px solid transparent;
+            border-bottom: 30px solid transparent;
+            border-left: 10px solid #fff;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #dc143c;
+            border-radius: 50%;
+            margin-left: 8px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .ticker-container {
+            flex: 1;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: scroll 60s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll {
+            0% { transform: translate3d(100%, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        .ticker-item {
+            font-size: 16px;
+            font-weight: 500;
+            margin-right: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .ticker-item i {
+            margin-right: 8px;
+            color: #ffd700;
+        }
+
+        /* Content below breaking news */
+        .content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .news-card h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .news-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .urgent-tag {
+            background: #dc143c;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: #222;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #42a5f5;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #42a5f5;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            width: 35px;
+            height: 35px;
+            background: #42a5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: #1e88e5;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 1rem;
+            text-align: center;
+            color: #888;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background: #0d47a1;
+            transform: translateY(-3px);
+        }
+
+        .back-to-top.visible {
+            display: flex;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: flex;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
+                z-index: 1000;
+            }
+
+            .nav-menu.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .nav-menu li {
+                margin: 0;
+                text-align: center;
+            }
+
+            .nav-menu a {
+                display: block;
+                padding: 1rem;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .dropdown-content {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: #0d55ff;
+                margin: 0;
+                border-radius: 0;
+                display: none;
+            }
+
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .media-filters {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stories-grid,
+            .gallery-grid,
+            .video-grid,
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info,
+            .social-links {
+                flex-direction: row;
+                gap: 0.5rem;
+            }
+
+            .top-bar .container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .contact-info {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.5rem;
+                order: 1;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .contact-info a:first-child {
+                /* Phone on left */
+                order: 1;
+                margin-right: auto;
+            }
+
+            .contact-info a:last-child {
+                /* Email on right */
+                order: 2;
+                margin-left: auto;
+            }
+
+            .social-links {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.5rem;
+                order: 2;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+
+            /* Remove borders from nav links */
+    .nav-menu a {
+        border-bottom: none !important;
+    }
+
+    /* Remove borders from dropdown items */
+    .dropdown-content a {
+        border-bottom: none !important;
+    }
+
+    /* Update dropdown background */
+    .dropdown-content {
+        background: linear-gradient(135deg, #0010c2 0%, #0d47a1 100%) !important;
+    }
+
+    /* Smooth slide-down animation */
+    .dropdown-content {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .dropdown:hover .dropdown-content {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+            /* Faster ticker animation for mobile */
+            .ticker-content {
+                animation: scroll 25s linear infinite;
+            }
+            
+            /* Adjust ticker text size for mobile */
+            .ticker-item {
+                font-size: 14px;
+                margin-right: 40px;
+            }
+            
+            /* Slightly smaller breaking news bar for mobile */
+            .breaking-news-bar {
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .filter-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .dropdown.mobile-open .dropdown-content {
+                display: block;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .mobile-menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .mobile-menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .top-bar .container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0 0.5rem;
+            }
+
+            .contact-info {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.5rem;
+                order: 1;
+            }
+
+            .social-links {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.5rem;
+                order: 2;
+            }
+            
+            /* Even faster for smaller screens */
+            .ticker-content {
+                animation: scroll 20s linear infinite;
+            }
+            
+            .ticker-item {
+                font-size: 13px;
+                margin-right: 35px;
+            }
+            
+            .breaking-news-bar {
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="contact-info">
+                    <a href="tel:+94777638715"><i class="fas fa-phone"></i> +94 77 763 8715</a>
+                    <a href="https://mail.google.com/mail/u/0/?fs=1&to=ocyanamigration@gmail.com&su=&body=&tf=cm" target="_blank"><i class="fas fa-envelope"></i> ocyanamigration@gmail.com</a>
+                </div>
+               
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <div class="main-header">
+            <div class="container">
+                <div class="logo">
+                    <h1>Ocyana<span>Global</span></h1>
+                </div>
+                <nav>
+                    <ul class="nav-menu" id="navMenu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li class="dropdown">
+                            <a href="#services">Services </i></a>
+                            <div class="dropdown-content">
+                                <a href="student.html">Student Migration</a>
+                                <a href="parent.html">Parent Migration</a>
+                                <a href="skilled.html">Skilled Migration</a>
+                                <a href="unskilled.html">Unskilled Migration</a>
+                                <a href="support.html">Language and Support Migration</a>
+                                <a href="doc.html">Visa and Documentation</a>
+                            </div>
+                        </li>
+                        <li><a href="media.html" class="active">Media</a></li>
+                        <li class="dropdown">
+                            <a href="#inside-ogm">Inside the OGM </a>
+                            <div class="dropdown-content">
+                                <div class="coming-soon-dropdown">
+                                    <strong>Stay Tuned!</strong><br>
+                                    <small>Coming Soon</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy</a></li>
+                    </ul>
+                    <div class="mobile-menu-toggle" id="mobileToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner Section -->
+    <div id="about-hero">
+      <div class="hero-text">
+        <h1>Migration News & Updates</h1>
+      </div>
+    </div>
+
+    <!-- Media Filter -->
+    <div class="container">
+        <div class="media-filter">
+            <button class="filter-btn active" data-filter="all">All Updates</button>
+            <button class="filter-btn" data-filter="policy">Policy Changes</button>
+            <button class="filter-btn" data-filter="visa">Visa Updates</button>
+            <button class="filter-btn" data-filter="tips">Migration Tips</button>
+        </div>
+    </div>
+
+    <!-- Breaking News -->
+    <div class="container">
+        <div class="breaking-news-container">
+            <div class="breaking-news-bar">
+                <div class="breaking-label">
+                    <i class="fas fa-bolt"></i>
+                    Breaking News
+                    <div class="live-dot"></div>
+                </div>
+                <div class="ticker-container">
+                    <div class="ticker-content">
+                        <div class="ticker-item">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            UK net migration expected to drop to 200,000 by 2026, sparking labour shortage concerns
+                        </div>
+                        <div class="ticker-item">
+                            <i class="fas fa-chart-line"></i>
+                            Australia introduces new Skills in Demand visa replacing TSS visa from December 2024
+                        </div>
+                        <div class="ticker-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            Student visa fees increase to $1,600 in Australia - major policy shift
+                        </div>
+                        <div class="ticker-item">
+                            <i class="fas fa-briefcase"></i>
+                            Labour shortages in hospitality, retail and care sectors expected to worsen
+                        </div>
+                        <div class="ticker-item">
+                            <i class="fas fa-phone"></i>
+                            Migration Advisory Committee warns of economic impact
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Urgent News -->
+    <div class="container">
+        <div class="content">
+            <div class="news-card">
+                <div class="urgent-tag">Urgent Update</div>
+                <h2>UK Net Migration Set to Plummet: Labour Shortage Crisis Looms</h2>
+                <p>The UK's net migration is projected to fall dramatically to 200,000 by 2026, according to the government's independent Migration Advisory Committee, raising serious concerns about potential labour shortages across critical sectors including hospitality, retail, and care services.</p>
+                <p>This significant decline comes after net migration reached record highs of 906,000 in the year to June 2023, before falling to 728,000 in subsequent months following strict visa rule changes implemented by the government.</p>
+                <p><strong>Key implications include:</strong></p>
+                <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                    <li>Critical staff shortages in healthcare and social care sectors</li>
+                    <li>Potential economic slowdown due to reduced workforce</li>
+                    <li>Increased pressure on domestic training programs</li>
+                    <li>Wage inflation in affected industries</li>
+                    <li>Impact on UK's post-Brexit economic recovery plans</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Publications Grid -->
+    <div class="container">
+        <div class="publications-grid">
+            <!-- Publication 1 - Policy Changes -->
+            <div class="publication-card fade-in" data-category="policy">
+                <div class="publication-image">
+                    <img src="https://images.unsplash.com/photo-1586880244406-556ebe35f282?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="UK Immigration Policy">
+                </div>
+                <div class="publication-content">
+                    <span class="publication-category">Policy Changes</span>
+                    <div class="publication-date"><i class="far fa-calendar-alt"></i> June 13, 2025</div>
+                    <h3 class="publication-title">UK Immigration White Paper: Radical Reforms Announced</h3>
+                    <p class="publication-excerpt">The Labour government has unveiled sweeping immigration reforms aimed at reducing net migration while maintaining economic competitiveness. The white paper introduces stricter controls and managed migration pathways.</p>
+                    <a href="https://www.theguardian.com/politics/live/2025/may/12/immigration-keir-starmer-labour-reform-visa-foreign-workers-uk-politics-latest-live-news" target="_blank" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Publication 2 - Australia Visa Updates -->
+            <div class="publication-card fade-in" data-category="visa">
+                <div class="publication-image">
+                    <img src="https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Australia Skills Visa">
+                </div>
+                <div class="publication-content">
+                    <span class="publication-category">Visa Updates</span>
+                    <div class="publication-date"><i class="far fa-calendar-alt"></i> June 10, 2025</div>
+                    <h3 class="publication-title">Australia's New Skills in Demand Visa Now Available</h3>
+                    <p class="publication-excerpt">The revolutionary Skills in Demand (SID) visa has replaced the Temporary Skill Shortage visa, offering clearer pathways to permanent residency and higher income thresholds for skilled workers.</p>
+                    <a href="https://www.immigrationhotspot.com.au/australias-labour-market-update-january-2025-almm-report-2/" target="_blank" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Publication 3 - Student Visa Changes -->
+            <div class="publication-card fade-in" data-category="visa">
+                <div class="publication-image">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Student Visa Changes">
+                </div>
+                <div class="publication-content">
+                    <span class="publication-category">Visa Updates</span>
+                    <div class="publication-date"><i class="far fa-calendar-alt"></i> June 8, 2025</div>
+                    <h3 class="publication-title">Australia Hikes Student Visa Fees to $1,600</h3>
+                    <p class="publication-excerpt">Student visa application fees have more than doubled from $710 to $1,600, alongside stricter English proficiency requirements and new financial capacity benchmarks tied to national minimum wage.</p>
+                    <a href="https://imminews.com.au/student-to-skilled-migrant-benefits-of-australias-visa-programs-australia-immigration-news" target="_blank" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Publication 4 - Migration Tips -->
+            <div class="publication-card fade-in" data-category="tips">
+                <div class="publication-image">
+                    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Migration Tips 2025">
+                </div>
+                <div class="publication-content">
+                    <span class="publication-category">Migration Tips</span>
+                    <div class="publication-date"><i class="far fa-calendar-alt"></i> June 5, 2025</div>
+                    <h3 class="publication-title">5 Countries Offering Accessible Work Visas in 2025</h3>
+                    <p class="publication-excerpt">Despite global restrictions, these five countries continue offering streamlined work visa pathways for skilled professionals, including Germany, Canada, Singapore, UAE, and Portugal.</p>
+                    <a href="https://timesofindia.indiatimes.com/education/news/5-countries-offering-accessible-work-visas-to-indians-in-2025/articleshow/121727914.cms" target="_blank" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Publication 5 - Policy Changes -->
+            <div class="publication-card fade-in" data-category="policy">
+                <div class="publication-image">
+                    <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="New Zealand Immigration">
+                </div>
+                <div class="publication-content">
+                    <span class="publication-category">Policy Changes</span>
+                    <div class="publication-date"><i class="far fa-calendar-alt"></i> June 3, 2025</div>
+                    <h3 class="publication-title">New Zealand's Immigration Landscape: 2025 Overview</h3>
+                    <p class="publication-excerpt">Comprehensive analysis of New Zealand's evolving immigration policies, including updates to the Green List, residence pathways, and the impact of housing pressures on migration planning.</p>
+                    <a href="https://en.wikipedia.org/wiki/Immigration_to_New_Zealand" target="_blank" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Publication 6 - Success Story -->
+            <div class="publication-card fade-in" data-category="success">
+                <div class="publication-image">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Success Story">
+                </div>
+                <div class="publication-content">
+                    <span class="publication-category">Success Stories</span>
+                    <div class="publication-date"><i class="far fa-calendar-alt"></i> June 1, 2025</div>
+                    <h3 class="publication-title">From Student to Skilled Migrant: Australia Success Story</h3>
+                    <p class="publication-excerpt">How international students are successfully transitioning to skilled migration in Australia despite policy changes, featuring real case studies and expert strategies for 2025.</p>
+                    <a href="https://imminews.com.au/student-to-skilled-migrant-benefits-of-australias-visa-programs-australia-immigration-news" target="_blank" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Publication 7 - Policy Changes -->
+            <div class="publication-card fade-in" data-category="policy">
+                <div class="publication-image">
+                    <img src="https://images.unsplash.com/photo-1527525443983-6e60c75fff46?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Canada Immigration Targets">
+                </div>
+                <div class="publication-content">
+                    <span class="publication-category">Policy Changes</span>
+                    <div class="publication-date"><i class="far fa-calendar-alt"></i> May 28, 2025</div>
+                    <h3 class="publication-title">Canada Maintains Strong Immigration Targets Despite Global Trends</h3>
+                    <p class="publication-excerpt">While other countries tighten borders, Canada continues welcoming 1.5 million new permanent residents through 2027, focusing on skilled workers and family reunification programs.</p>
+                    <a href="https://milestonemigration.com/blog/category/latest-news/" target="_blank" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Publication 8 - Tips -->
+            <div class="publication-card fade-in" data-category="tips">
+                <div class="publication-image">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="Study Abroad Reality">
+                </div>
+                <div class="publication-content">
+                    <span class="publication-category">Migration Tips</span>
+                    <div class="publication-date"><i class="far fa-calendar-alt"></i> May 25, 2025</div>
+                    <h3 class="publication-title">The Stark Reality of Studying Abroad in 2025</h3>
+                    <p class="publication-excerpt">Understanding the new landscape of international education as countries use study visas as immigration control tools, and strategies to navigate these challenges successfully.</p>
+                    <a href="https://timesofindia.indiatimes.com/education/study-abroad/the-stark-reality-of-studying-abroad-in-2025-its-all-about-immigration-power-plays/articleshow/121573475.cms" target="_blank" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Publication 9 - Visa Updates -->
+            <div class="publication-card fade-in" data-category="visa">
+                <div class="publication-image">
+                    <img src="photos/au1.jpeg" alt="Australia Migration Strategy">
+                </div>
+                <div class="publication-content">
+                    <span class="publication-category">Visa Updates</span>
+                    <div class="publication-date"><i class="far fa-calendar-alt"></i> May 22, 2025</div>
+                    <h3 class="publication-title">Australia's New Migration Strategies Tighten Pathways</h3>
+                    <p class="publication-excerpt">Analysis of how Australia's latest migration strategies are affecting international students and skilled visa workers, including changes to Core Skills Occupation Lists and processing priorities.</p>
+                    <a href="https://economictimes.indiatimes.com/nri/migrate/australias-new-migration-strategies-may-tighten-pathways-for-international-students-and-skilled-visa-workers/articleshow/120920010.cms" target="_blank" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Ocyana Global</h3>
+                    <p>Your trusted partner for all migration needs. We specialize in helping individuals and families achieve their dreams of living, working, or studying abroad.</p>
+                    <div class="footer-social">
+                       <a href="https://www.facebook.com/share/1ArEouALDr/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/OcyanaMigration" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/in/ocyana-migration-b9a66636b/ " target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/ocyana_migration?igsh=MXFqbXB6NzR4ODJvZQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="media.html">Media</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="student.html">Student Migration</a></li>
+                        <li><a href="parent.html">Parent Migration</a></li>
+                        <li><a href="skilled.html">Skilled Migration</a></li>
+                        <li><a href="unskilled.html">Unskilled Migration</a></li>
+                        <li><a href="support.html">Language & Interview Support</a></li>
+                        <li><a href="doc.html">Visa & Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> C/G/04,Sir James peiris mawatha, Colombo 02. Postal code 00200</p>
+                    <p><a href="tel:+94777638715"><i class="fas fa-phone"></i> +94 77 763 8715</a></p>
+                    <p><a href="tel:+94777108380"><i class="fas fa-phone"></i> +94 77 710 8380</a></p>
+                    <p><a href="tel:+94777698214"><i class="fas fa-phone"></i> +94 77 769 8214</a></p>
+                    <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=ocyanamigration@gmail.com" target="_blank"><i class="fas fa-envelope"></i> ocyanamigration@gmail.com</a></p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Ocyana Global Migration. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        if (mobileToggle && navMenu) {
+            mobileToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Close mobile menu when clicking on a link (but not dropdown toggles)
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Don't close menu if this is a dropdown toggle
+                if (link.closest('.dropdown') && link.nextElementSibling && 
+                    link.nextElementSibling.classList.contains('dropdown-content')) {
+                    return; // Let the dropdown handler manage this
+                }
+                
+                if (mobileToggle && navMenu) {
+                    mobileToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Handle Mobile Dropdowns
+        const isMobile = () => window.innerWidth <= 768;
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('a');
+            
+            link.addEventListener('click', function(e) {
+                if (isMobile()) {
+                    e.preventDefault();
+                    const dropdownContent = this.nextElementSibling;
+                    
+                    // Close all other dropdowns first
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove('mobile-open');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    if (dropdownContent && dropdownContent.classList.contains('dropdown-content')) {
+                        dropdown.classList.toggle('mobile-open');
+                    }
+                }
+            });
+        });
+
+        // Close mobile menu when clicking on dropdown items
+        document.querySelectorAll('.dropdown-content a').forEach(dropdownLink => {
+            dropdownLink.addEventListener('click', () => {
+                if (isMobile() && mobileToggle && navMenu) {
+                    mobileToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    // Also close any open dropdowns
+                    dropdowns.forEach(dropdown => {
+                        dropdown.classList.remove('mobile-open');
+                    });
+                }
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (isMobile() && !e.target.closest('.dropdown') && !e.target.closest('.mobile-menu-toggle')) {
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('mobile-open');
+                });
+                
+                if (!e.target.closest('.nav-menu') && navMenu && navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    if (mobileToggle) mobileToggle.classList.remove('active');
+                }
+            }
+        });
+
+        // Filter publications
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const publicationCards = document.querySelectorAll('.publication-card');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                const filterValue = this.getAttribute('data-filter');
+                
+                publicationCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Add animation to publication cards on scroll
+        const animateOnScroll = () => {
+            const cards = document.querySelectorAll('.publication-card');
+            cards.forEach(card => {
+                const cardPosition = card.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (cardPosition < screenPosition) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Set initial state for animation
+        document.querySelectorAll('.publication-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Run once on load
+
+        // Smooth Scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (isMobile() && this.closest('.dropdown') && this.nextElementSibling && 
+                    (this.nextElementSibling.classList.contains('dropdown-content') || 
+                     this.nextElementSibling.classList.contains('dropdown-menu'))) {
+                    return; // Let the dropdown handler take care of it
+                }
+                
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    // Close mobile menu if open
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                    }
+                    
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

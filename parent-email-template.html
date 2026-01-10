@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Migration Form Submission - Ocyana Global Migration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .email-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .email-header {
+            background: linear-gradient(135deg, #4A90E2, #5BA3F5);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .email-header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .email-header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .email-content {
+            padding: 40px;
+        }
+
+        .form-details {
+            border-left: 4px solid #4A90E2;
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .detail-row {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-row strong {
+            color: #333;
+            font-weight: 600;
+            width: 160px;
+            flex-shrink: 0;
+            padding-right: 15px;
+        }
+
+        .detail-value {
+            color: #555;
+            flex: 1;
+            word-break: break-word;
+        }
+
+        .detail-value a {
+            color: #4A90E2;
+            text-decoration: none;
+        }
+
+        .detail-value a:hover {
+            text-decoration: underline;
+        }
+
+        .section-divider {
+            border-top: 1px solid #e0e0e0;
+            margin: 20px 0;
+            padding-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .email-content {
+                padding: 20px;
+            }
+            
+            .form-details {
+                padding: 20px;
+            }
+            
+            .detail-row {
+                flex-direction: column;
+                margin-bottom: 15px;
+            }
+            
+            .detail-row strong {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>Parent Migration Form Submission</h1>
+            <p>A new parent migration inquiry has been received. Please review the details below.</p>
+        </div>
+        
+        <div class="email-content">
+            <div class="form-details">
+                <!-- CONTACT INFORMATION -->
+                <div class="detail-row">
+                    <strong style="color: #4A90E2; font-size: 18px;">CONTACT INFORMATION</strong>
+                    <span class="detail-value"></span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>First Name:</strong>
+                    <span class="detail-value">{{firstName}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Middle Name:</strong>
+                    <span class="detail-value">{{parentMiddleName}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Last Name:</strong>
+                    <span class="detail-value">{{lastName}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Full Name:</strong>
+                    <span class="detail-value">{{name}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Email:</strong>
+                    <span class="detail-value"><a href="mailto:{{email}}">{{email}}</a></span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Phone:</strong>
+                    <span class="detail-value">{{phone}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Sex:</strong>
+                    <span class="detail-value">{{parentSex}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Date of Birth:</strong>
+                    <span class="detail-value">{{parentDob}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Marital Status:</strong>
+                    <span class="detail-value">{{parentMaritalStatus}}</span>
+                </div>
+
+                <!-- PARENT MIGRATION DETAILS -->
+                <div class="detail-row section-divider">
+                    <strong style="color: #4A90E2; font-size: 18px;">PARENT MIGRATION DETAILS</strong>
+                    <span class="detail-value"></span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Current Country:</strong>
+                    <span class="detail-value">{{currentCountry}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Residency Status:</strong>
+                    <span class="detail-value">{{residencyStatus}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Parents' Location:</strong>
+                    <span class="detail-value">{{parentsLocation}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Urgency Level:</strong>
+                    <span class="detail-value">{{urgency}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Family Details:</strong>
+                    <span class="detail-value">{{familyDetails}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Additional Info:</strong>
+                    <span class="detail-value">{{additionalInfo}}</span>
+                </div>
+
+                <!-- PREFERENCES -->
+                <div class="detail-row section-divider">
+                    <strong style="color: #4A90E2; font-size: 18px;">PREFERENCES</strong>
+                    <span class="detail-value"></span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Newsletter:</strong>
+                    <span class="detail-value">{{newsletter}}</span>
+                </div>
+
+                <!-- SUBMISSION DETAILS -->
+                <div class="detail-row section-divider">
+                    <strong style="color: #4A90E2; font-size: 18px;">SUBMISSION DETAILS</strong>
+                    <span class="detail-value"></span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Date Submitted:</strong>
+                    <span class="detail-value">{{date}} at {{time}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Service Type:</strong>
+                    <span class="detail-value">{{service}}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>To:</strong>
+                    <span class="detail-value">{{to_name}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
